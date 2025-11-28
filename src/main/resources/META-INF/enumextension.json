@@ -1,0 +1,13 @@
+{
+  "entries": [
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "overpoweredmastery_wub_arm_pose",
+      "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "net/rk/overpoweredmastery/OverpoweredMasteryClient$WubExtension",
+        "field": "WUB"
+      }
+    }
+  ]
+}

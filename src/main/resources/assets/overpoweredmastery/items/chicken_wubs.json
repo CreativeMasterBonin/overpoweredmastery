@@ -1,0 +1,27 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "property": "minecraft:using_item",
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "overpoweredmastery:item/red_wubs_on",
+      "tints": [
+        {
+          "type": "minecraft:constant",
+          "value": 16727359
+        }
+      ]
+    },
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "overpoweredmastery:item/red_wubs",
+      "tints": [
+        {
+          "type": "minecraft:constant",
+          "value": 8721685
+        }
+      ]
+    }
+  },
+  "hand_animation_on_swap": false
+}
