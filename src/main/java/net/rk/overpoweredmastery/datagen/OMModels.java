@@ -5,6 +5,7 @@ import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.renderer.item.BlockModelWrapper;
 import net.minecraft.client.renderer.item.ClientItem;
@@ -35,6 +36,9 @@ public class OMModels extends ModelProvider {
         genItem = itemModels;
         itemModels.generateCrossbow(OMItems.ENDARKENED_CROSSBOW.asItem());
         blockModels.createTrivialCube(OMBlocks.MOVING_PROBABLE_BLOCK.get());
+        itemModels.generateFlatItem(OMItems.BONE_SWORD.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(OMItems.PENULTIMATE_SWORD_DARK.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
     }
 
     @Override

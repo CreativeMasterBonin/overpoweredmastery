@@ -113,7 +113,9 @@ public class OverpoweredMastery {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == ALL_TAB.getKey()){
             customItems(event);
+            event.accept(OMItems.BONE_SWORD);
             event.accept(OMItems.ENDARKENED_CROSSBOW);
+            event.accept(OMItems.PENULTIMATE_SWORD_DARK);
             event.accept(OMItems.RED_WUBS);
             event.accept(OMItems.CHICKEN_WUBS);
             event.accept(OMItems.GREEN_WUBS);

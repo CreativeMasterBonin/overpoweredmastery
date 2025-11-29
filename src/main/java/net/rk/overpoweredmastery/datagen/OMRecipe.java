@@ -84,6 +84,24 @@ public class OMRecipe extends RecipeProvider {
                 .pattern("ijt")
                 .unlockedBy("has_thingy",has(Items.MUSIC_DISC_LAVA_CHICKEN))
                 .save(this.output,"chicken_wubs");
+
+        shapeless(RecipeCategory.MISC,OMItems.MOVING_PROBABLE_BLOCK_ITEM,1)
+                .requires(Ingredient.of(Items.LAPIS_BLOCK))
+                .requires(ItemTags.TRIM_MATERIALS)
+                .requires(ItemTags.TRIM_MATERIALS)
+                .requires(ItemTags.LOGS)
+                .requires(ItemTags.STONE_CRAFTING_MATERIALS)
+                .unlockedBy("has_thingy",has(Items.LAPIS_BLOCK))
+                .save(this.output,"moving_probable_block");
+
+        shaped(RecipeCategory.COMBAT,OMItems.BONE_SWORD)
+                .define('s', Items.STICK)
+                .define('b', Items.BONE)
+                .pattern("b")
+                .pattern("b")
+                .pattern("s")
+                .unlockedBy("has_thingy",has(Items.STICK))
+                .save(this.output,"bone_sword");
     }
 
     public static class RecipeRunner extends RecipeProvider.Runner{

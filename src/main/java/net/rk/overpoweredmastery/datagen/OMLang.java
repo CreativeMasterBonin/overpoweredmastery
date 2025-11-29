@@ -26,18 +26,21 @@ public class OMLang extends LanguageProvider {
         add(OMItems.RED_WUBS.asItem(),"Music Disc Wub Blaster (Red Stage)");
         add(OMItems.GREEN_WUBS.asItem(),"Music Disc Wub Shooter (Green Stage)");
         add(OMItems.PURPLE_WUBS.asItem(),"Music Disc Wub Darkener (Purple Stage)");
-        add(OMItems.CHICKEN_WUBS.asItem(),"Music Disc Wub Layer (Chicken Stage)");
+        add(OMItems.CHICKEN_WUBS.asItem(),"Music Disc Wub Plucker (Chicken Stage)");
         add(OMItems.MOVING_PROBABLE_BLOCK_ITEM.asItem(),"Moving Probable Block");
+        add(OMItems.BONE_SWORD.asItem(),"Bone Sword");
+        add(OMItems.PENULTIMATE_SWORD_DARK.asItem(),"Penultimate Sword (Dark Phase)");
+        add(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),"Penultimate Sword (Light Phase)");
 
         addItemDesc(OMItems.ENDARKENED_CROSSBOW.asItem(),"The more health you have, the less rate of fire you have!");
-        add("item.wub.generic_desc","Hold right click to fire the musical weapon. Shift to stop playing the weapon.");
+        add("item.wub.generic_desc","Hold right click to continuously fire the musical weapon. Shifting or not holding right click stops playing the weapon.");
         addItemDesc(OMItems.RED_WUBS.asItem(),"Raiders get mad and take extra damage! Blows up small areas too!");
         addItemDesc(OMItems.GREEN_WUBS.asItem(),"Phase monsters of all types, make them dumb!");
         addItemDesc(OMItems.PURPLE_WUBS.asItem(),"Deadly to most types of objects, make em' dance!");
         addItemDesc(OMItems.CHICKEN_WUBS.asItem(),"Defeat those chicken jockeys with the power of music!");
 
         // entity names
-        add("entity.overpoweredmastery.multipurpose_vehicle","Multipurpose Vehicle");
+        //add("entity.overpoweredmastery.multipurpose_vehicle","Multipurpose Vehicle");
         // subtitles accurately called: "captions"
         add("overpoweredmastery.subtitle.red_wubs","Red Wubs Burn");
         add("overpoweredmastery.subtitle.green_wubs","Green Wubs Phase");

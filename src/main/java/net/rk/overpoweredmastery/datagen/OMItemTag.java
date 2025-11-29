@@ -2,6 +2,7 @@ package net.rk.overpoweredmastery.datagen;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.tags.ItemTags;
 import net.neoforged.neoforge.common.data.ItemTagsProvider;
 import net.rk.overpoweredmastery.OverpoweredMastery;
 import net.rk.overpoweredmastery.item.OMItems;
@@ -20,6 +21,11 @@ public class OMItemTag extends ItemTagsProvider {
                 .add(OMItems.GREEN_WUBS.asItem())
                 .add(OMItems.PURPLE_WUBS.asItem())
                 .add(OMItems.CHICKEN_WUBS.asItem())
+        ;
+        tag(ItemTags.SWORDS)
+                .add(OMItems.BONE_SWORD.asItem())
+                .add(OMItems.PENULTIMATE_SWORD_DARK.asItem())
+                .add(OMItems.PENULTIMATE_SWORD_LIGHT.asItem())
         ;
     }
 }
