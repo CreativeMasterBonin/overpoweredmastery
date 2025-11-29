@@ -170,14 +170,6 @@ public class OMItems{
                     ))
     );
 
-    //float blockDelaySeconds,
-    //    float disableCooldownScale,
-    //    List<BlocksAttacks.DamageReduction> damageReductions,
-    //    BlocksAttacks.ItemDamageFunction itemDamage,
-    //    Optional<TagKey<DamageType>> bypassedBy,
-    //    Optional<Holder<SoundEvent>> blockSound,
-    //    Optional<Holder<SoundEvent>> disableSound
-
 
     public static ResourceKey<Item> makeResourceKey(String name){
         return ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,name));

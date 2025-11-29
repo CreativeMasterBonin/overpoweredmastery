@@ -116,6 +116,7 @@ public class OverpoweredMastery {
             event.accept(OMItems.BONE_SWORD);
             event.accept(OMItems.ENDARKENED_CROSSBOW);
             event.accept(OMItems.PENULTIMATE_SWORD_DARK);
+            event.accept(OMItems.PENULTIMATE_SWORD_LIGHT);
             event.accept(OMItems.RED_WUBS);
             event.accept(OMItems.CHICKEN_WUBS);
             event.accept(OMItems.GREEN_WUBS);
