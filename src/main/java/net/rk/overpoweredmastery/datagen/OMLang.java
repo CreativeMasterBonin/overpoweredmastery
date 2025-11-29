@@ -38,6 +38,8 @@ public class OMLang extends LanguageProvider {
         addItemDesc(OMItems.GREEN_WUBS.asItem(),"Phase monsters of all types, make them dumb!");
         addItemDesc(OMItems.PURPLE_WUBS.asItem(),"Deadly to most types of objects, make em' dance!");
         addItemDesc(OMItems.CHICKEN_WUBS.asItem(),"Defeat those chicken jockeys with the power of music!");
+        addItemDesc(OMItems.PENULTIMATE_SWORD_DARK.asItem(),"The Penultimate Sword has taken a void-like appearance. It takes away the darkest of effects... yet introduces a hint of trouble");
+        addItemDesc(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),"The Penultimate Sword has taken a light-like appearance. It is strong, and provides amazing abilities");
 
         // entity names
         //add("entity.overpoweredmastery.multipurpose_vehicle","Multipurpose Vehicle");
@@ -46,5 +48,6 @@ public class OMLang extends LanguageProvider {
         add("overpoweredmastery.subtitle.green_wubs","Green Wubs Phase");
         add("overpoweredmastery.subtitle.purple_wubs","Purple Wubs Darkens");
         add("block.thingamajigsgoodies.moving_probable_block.desc","A reward is granted based on the number of moves it does.");
+        add("overpoweredmastery.configuration.title","Overpowered Mastery Config");
     }
 }

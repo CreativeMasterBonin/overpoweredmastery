@@ -3,11 +3,12 @@
   "package": "net.rk.overpoweredmastery.mix",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+
   ],
   "client": [
     "OMMix"
   ],
   "injectors": {
-    "defaultRequire": 1
+    "defaultRequire": 2
   }
 }

@@ -27,7 +27,7 @@ public class RedWubs extends AbstractWubs {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
-        //tooltipAdder.accept(Component.translatable("item.wub.generic_desc").withStyle(ChatFormatting.GRAY));
+        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
         tooltipAdder.accept(Component.translatable("item.overpoweredmastery.red_wubs.desc").withStyle(ChatFormatting.RED));
     }
 

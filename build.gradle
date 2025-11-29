@@ -23,6 +23,19 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
+    exclusiveContent {
+        forRepository {
+            maven {
+                url "https://cursemaven.com"
+                content {
+                    includeGroup "curse.maven"
+                }
+            }
+        }
+        filter {
+            includeGroup("curse.maven")
+        }
+    }
 }
 
 base {
@@ -76,6 +89,11 @@ configurations {
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
     runtimeOnly("maven.modrinth:u6dRKJwZ:IzRpN4ri")
+
+    runtimeOnly("curse.maven:friends-and-foes-forge-602059:7130779")
+    runtimeOnly("curse.maven:resourceful-lib-570073:6662876")
+    runtimeOnly("curse.maven:yacl-667299:6662856")
+    runtimeOnly("curse.maven:atomicstrykers-infernal-mobs-227875:6937473")
 }
 
 tasks.withType(ProcessResources).configureEach {
