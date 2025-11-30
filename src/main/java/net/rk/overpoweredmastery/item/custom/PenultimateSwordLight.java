@@ -20,6 +20,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.rk.overpoweredmastery.datagen.OMTags;
 
 import java.util.function.Consumer;
@@ -42,7 +43,7 @@ public class PenultimateSwordLight extends Item {
             if(!state.is(OMTags.BANNED_PROBABLE_REWARD_BLOCKS)){
                 context.getLevel().setBlock(context.getClickedPos(), Blocks.AIR.defaultBlockState(),3);
                 context.getLevel().setBlocksDirty(context.getClickedPos(),state,Blocks.AIR.defaultBlockState());
-                FallingBlockEntity.fall(context.getLevel(),context.getClickedPos(),state);
+
                 makeFallingState(context.getLevel(),context.getClickedPos(),state);
                 return InteractionResult.SUCCESS_SERVER;
             }
@@ -52,7 +53,11 @@ public class PenultimateSwordLight extends Item {
     }
 
     public void makeFallingState(Level level, BlockPos pos, BlockState state){
-        FallingBlockEntity fbe = new FallingBlockEntity(level,pos.getX(),pos.getY() + 2,pos.getZ(),state);
+        FallingBlockEntity fbe = new FallingBlockEntity(level,pos.getX(),pos.getY(),pos.getZ(),state);
+        fbe.addDeltaMovement(new Vec3(0D,1.21D,0D));
+        fbe.setGlowingTag(true);
+        fbe.setPos(pos.getX() + 0.5D,pos.getY(),pos.getZ() + 0.5D);
+        level.addFreshEntity(fbe);
     }
 
     @Override

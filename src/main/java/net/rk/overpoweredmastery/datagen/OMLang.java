@@ -48,6 +48,16 @@ public class OMLang extends LanguageProvider {
         add("overpoweredmastery.subtitle.green_wubs","Green Wubs Phase");
         add("overpoweredmastery.subtitle.purple_wubs","Purple Wubs Darkens");
         add("block.thingamajigsgoodies.moving_probable_block.desc","A reward is granted based on the number of moves it does.");
+        // config options
         add("overpoweredmastery.configuration.title","Overpowered Mastery Config");
+        add("overpoweredmastery.configuration.chicken_wub_damage_chickens","Chicken Wub - Chicken Damage");
+        add("overpoweredmastery.configuration.chicken_wub_damage_chicken_jockeys","Chicken Wub - Baby Zombie Damage");
+        add("overpoweredmastery.configuration.chicken_wub_damage_baby_zombies","Chicken Wub - 'Chicken Jockey' Damage");
+        add("overpoweredmastery.configuration.chicken_wub_damage_chickens.tooltip", "The base damage the Chicken Wub does to Chickens (effects projectile)");
+        add("overpoweredmastery.configuration.chicken_wub_damage_chicken_jockeys.tooltip", "The base damage the Chicken Wub does to 'Chicken Jockeys' (effects projectile)");
+        add("overpoweredmastery.configuration.chicken_wub_damage_baby_zombies.tooltip", "The base damage the Chicken Wub does to Baby Zombies (effects projectile)");
+        add("overpoweredmastery.configuration.section.overpoweredmastery.common.toml", "Server & Client");
+        add("overpoweredmastery.configuration.section.overpoweredmastery.common.toml.title", "Common Config");
+        add("item.overpoweredmastery.spear.desc","Hold right click to attack enemies while running");
     }
 }

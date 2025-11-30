@@ -2,11 +2,15 @@ package net.rk.overpoweredmastery;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Weapon;
 import net.minecraft.world.item.enchantment.*;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.rk.overpoweredmastery.block.OMBlocks;
@@ -34,6 +38,12 @@ public class OverpoweredMastery {
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
     private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MODID);
+    private static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE,MODID);
+
+    public static final DeferredHolder<DataComponentType<?>,DataComponentType<Integer>> TICKS_ALLOWED_TILL_USELESS =
+            DATA_COMPONENT_TYPES.register("ticks_allowed_till_useless",
+                    () -> DataComponentType.<Integer>builder()
+                            .persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
 
     public static final Supplier<AttachmentType<Boolean>> USING_WUB_ITEM = ATTACHMENT_TYPES.register(
             "using_wub_item", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL.fieldOf("using_wub_item")).build()
@@ -47,6 +57,7 @@ public class OverpoweredMastery {
 
     public OverpoweredMastery(IEventBus modEventBus, ModContainer modContainer) {
         ATTACHMENT_TYPES.register(modEventBus);
+        DATA_COMPONENT_TYPES.register(modEventBus);
         OMSoundEvents.SOUND_EVENTS.register(modEventBus);
         OMBlocks.BLOCKS.register(modEventBus);
         OMItems.ITEMS.register(modEventBus);
@@ -54,7 +65,7 @@ public class OverpoweredMastery {
         CREATIVE_MODE_TABS.register(modEventBus);
         modEventBus.addListener(this::addCreative);
 
-        //modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     protected void customItems(BuildCreativeModeTabContentsEvent event){

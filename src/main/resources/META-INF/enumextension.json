@@ -8,6 +8,15 @@
         "class": "net/rk/overpoweredmastery/OverpoweredMasteryClient$WubExtension",
         "field": "WUB"
       }
+    },
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "overpoweredmastery_spear_arm_pose",
+      "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "net/rk/overpoweredmastery/OverpoweredMasteryClient$SpearExtension",
+        "field": "SPEAR"
+      }
     }
   ]
 }

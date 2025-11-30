@@ -3,9 +3,7 @@ package net.rk.overpoweredmastery.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -16,7 +14,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -41,13 +38,9 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.ticks.TickPriority;
-import net.neoforged.neoforge.registries.DeferredRegister;
 import net.rk.overpoweredmastery.datagen.OMTags;
-import net.rk.overpoweredmastery.item.OMItems;
 import net.rk.overpoweredmastery.util.OPUtil;
-import org.w3c.dom.Attr;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -145,38 +138,6 @@ public class MovingProbableBlock extends Block{
     // quite simple yet large and complex in terms of run time but shouldn't ruin computers or servers
     public void generateReward(Level lvl, BlockState bs, BlockPos bp){
         /*if(testingDebug){
-            Player player = lvl.getNearestPlayer(bp.getX() + 0.5,bp.getY(),bp.getZ() + 0.5,15.0,false);
-            Stream<BlockState> checkBlocksForCage = lvl.getBlockStates(new AABB(-1,0,-1,1,21,1));
-
-            if(player != null && checkBlocksForCage.toList().stream().allMatch(BlockStateBase::isAir)){
-                player.playSound(SoundEvents.PILLAGER_CELEBRATE,1.0f,1.0f);
-                // first layer
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX() - 1,player.getBlockY() + 1,player.getBlockZ() - 1),Blocks.IRON_BARS.defaultBlockState());
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX(),player.getBlockY() + 1,player.getBlockZ() - 1),Blocks.IRON_BARS.defaultBlockState());
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX() - 1,player.getBlockY() + 1,player.getBlockZ()),Blocks.IRON_BARS.defaultBlockState());
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX() + 1,player.getBlockY() + 1,player.getBlockZ() + 1),Blocks.IRON_BARS.defaultBlockState());
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX() + 1,player.getBlockY() + 1,player.getBlockZ()),Blocks.IRON_BARS.defaultBlockState());
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX(),player.getBlockY() + 1,player.getBlockZ() + 1),Blocks.IRON_BARS.defaultBlockState());
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX() - 1,player.getBlockY() + 1,player.getBlockZ() + 1),Blocks.IRON_BARS.defaultBlockState());
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX() + 1,player.getBlockY() + 1,player.getBlockZ() - 1),Blocks.IRON_BARS.defaultBlockState());
-                // second layer
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX() - 1,player.getBlockY() + 2,player.getBlockZ() - 1),Blocks.IRON_BARS.defaultBlockState());
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX(),player.getBlockY() + 2,player.getBlockZ() - 1),Blocks.IRON_BARS.defaultBlockState());
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX() - 1,player.getBlockY() + 2,player.getBlockZ()),Blocks.IRON_BARS.defaultBlockState());
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX() + 1,player.getBlockY() + 2,player.getBlockZ() + 1),Blocks.IRON_BARS.defaultBlockState());
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX() + 1,player.getBlockY() + 2,player.getBlockZ()),Blocks.IRON_BARS.defaultBlockState());
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX(),player.getBlockY() + 2,player.getBlockZ() + 1),Blocks.IRON_BARS.defaultBlockState());
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX() - 1,player.getBlockY() + 2,player.getBlockZ() + 1),Blocks.IRON_BARS.defaultBlockState());
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX() + 1,player.getBlockY() + 2,player.getBlockZ() - 1),Blocks.IRON_BARS.defaultBlockState());
-
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX(),player.getBlockY() + 20,player.getBlockZ()),Blocks.DAMAGED_ANVIL.defaultBlockState());
-                FallingBlockEntity.fall(lvl,new BlockPos(player.getBlockX(),player.getBlockY(),player.getBlockZ()),Blocks.LAVA_CAULDRON.defaultBlockState());
-                player.addEffect(new MobEffectInstance(MobEffects.SLOWNESS,10,10,true,false));
-                player.setTicksFrozen(100);
-            }
-            else{
-                failureMessage(lvl,bp);
-            }
             return;
         }*/
 

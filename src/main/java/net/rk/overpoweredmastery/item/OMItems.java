@@ -68,6 +68,10 @@ public class OMItems{
                             .component(DataComponents.TOOLTIP_STYLE,
                                     makeTooltipReference("om_epic_blue")));
 
+    public static final DeferredItem<Item> TEST_SPEAR = ITEMS.registerItem("test_spear",
+            SpearItem::new,
+            new Item.Properties().setId(makeResourceKey("test_spear")));
+
     public static final DeferredItem<Item> BONE_SWORD = ITEMS.registerItem("bone_sword",
             Item::new,
             new Item.Properties().setId(makeResourceKey("bone_sword"))

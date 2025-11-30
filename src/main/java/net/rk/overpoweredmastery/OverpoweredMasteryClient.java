@@ -28,6 +28,7 @@ import net.rk.overpoweredmastery.datagen.OMTags;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import net.rk.overpoweredmastery.entity.renderer.*;
 import net.rk.overpoweredmastery.item.OMItems;
+import net.rk.overpoweredmastery.item.custom.AbstractSpear;
 import net.rk.overpoweredmastery.item.custom.AbstractWubs;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,6 +56,29 @@ public class OverpoweredMasteryClient {
             }
             else if(humanoidRenderState.isUsingItem && humanoidRenderState.useItemHand == InteractionHand.OFF_HAND){
                 humanoidModel.leftArm.xRot = 5;
+            }
+        }
+    }
+
+    public final class SpearExtension{
+        public static final EnumProxy<HumanoidModel.ArmPose> SPEAR = new EnumProxy<>(
+                HumanoidModel.ArmPose.class,true,(IArmPoseTransformer) SpearExtension::transformer
+        );
+
+        public static void transformer(HumanoidModel<?> humanoidModel, HumanoidRenderState humanoidRenderState, HumanoidArm humanoidArm) {
+            if(humanoidRenderState.isUsingItem && humanoidRenderState.useItemHand == InteractionHand.MAIN_HAND){
+                humanoidModel.rightArm.xRot = 82;
+                humanoidModel.rightArm.zRot = 0.5f + Mth.sin(humanoidRenderState.ticksUsingItem) * 0.15f;
+            }
+            else if(humanoidRenderState.isUsingItem && humanoidRenderState.useItemHand == InteractionHand.OFF_HAND){
+                humanoidModel.leftArm.xRot = 82;
+                humanoidModel.leftArm.zRot = -0.5f + Mth.sin(humanoidRenderState.ticksUsingItem) * 0.15f;
+            }
+            else if(!humanoidRenderState.isUsingItem && humanoidRenderState.useItemHand == InteractionHand.MAIN_HAND){
+                humanoidModel.rightArm.xRot = 75;
+            }
+            else if(!humanoidRenderState.isUsingItem && humanoidRenderState.useItemHand == InteractionHand.OFF_HAND){
+                humanoidModel.leftArm.xRot = 75;
             }
         }
     }
@@ -97,6 +121,44 @@ public class OverpoweredMasteryClient {
                 return IClientItemExtensions.super.applyForgeHandTransform(poseStack,player,arm,itemInHand,partialTick,equipProcess,swingProcess);
             }
         },OMItems.CHICKEN_WUBS,OMItems.GREEN_WUBS,OMItems.RED_WUBS,OMItems.PURPLE_WUBS);
+
+        event.registerItem(new IClientItemExtensions() {
+            @Nullable
+            @Override
+            public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
+                return SpearExtension.SPEAR.getValue();
+            }
+
+            @Override
+            public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
+                if(player.getMainHandItem().getItem() instanceof AbstractSpear | player.getOffhandItem().getItem() instanceof AbstractSpear){
+                    if(arm == HumanoidArm.RIGHT){
+                        if(player.isUsingItem()){
+                            float f6 = itemInHand.getUseDuration(player) - (player.getUseItemRemainingTicks() - partialTick + 2.0F);
+                            poseStack.mulPose(Axis.XN.rotationDegrees((-1.2f / (1 + itemInHand.getUseDuration(player) - player.getUseItemRemainingTicks())) + Mth.sin(f6) * 0.5f));
+                            poseStack.translate(0.5,-0.5,-1);
+                        }
+                        else{
+                            poseStack.mulPose(Axis.XN.rotationDegrees(2.74f));
+                            poseStack.translate(0.5,-0.5,-1);
+                        }
+                    }
+                    else if(arm == HumanoidArm.LEFT){
+                        if(player.isUsingItem()){
+                            float f6 = itemInHand.getUseDuration(player) - (player.getUseItemRemainingTicks() - partialTick + 2.0F);
+                            poseStack.mulPose(Axis.XN.rotationDegrees((-1.2f / (1 + itemInHand.getUseDuration(player) - player.getUseItemRemainingTicks())) + Mth.sin(f6) * 0.5f));
+                            poseStack.translate(-0.5,-0.5,-1);
+                        }
+                        else{
+                            poseStack.mulPose(Axis.XN.rotationDegrees(2.74f));
+                            poseStack.translate(-0.5,-0.5,-1);
+                        }
+                    }
+                    return true;
+                }
+                return IClientItemExtensions.super.applyForgeHandTransform(poseStack,player,arm,itemInHand,partialTick,equipProcess,swingProcess);
+            }
+        },OMItems.TEST_SPEAR);
     }
 
     @SubscribeEvent

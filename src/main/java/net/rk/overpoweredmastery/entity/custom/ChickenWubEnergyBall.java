@@ -19,6 +19,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.rk.overpoweredmastery.Config;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import org.jetbrains.annotations.Nullable;
 
@@ -104,7 +105,7 @@ public class ChickenWubEnergyBall extends AbstractHurtingProjectile{
         if(result.getEntity() instanceof Chicken chicken){
             if(this.level() instanceof ServerLevel serverLevel){
                 chicken.setRemainingFireTicks(120);
-                chicken.hurtServer(serverLevel,this.damageSources().magic(),20);
+                chicken.hurtServer(serverLevel,this.damageSources().magic(),Config.CHICKEN_WUBS_DAMAGE_BASE_CHICKEN.get());
             }
         }
         else if(result.getEntity() instanceof Zombie zombie){
@@ -112,7 +113,7 @@ public class ChickenWubEnergyBall extends AbstractHurtingProjectile{
                 if(this.level() instanceof ServerLevel serverLevel){
                     zombie.setAggressive(true);
                     zombie.setRemainingFireTicks(120);
-                    zombie.hurtServer(serverLevel,this.damageSources().magic(),10);
+                    zombie.hurtServer(serverLevel,this.damageSources().magic(),Config.CHICKEN_WUBS_DAMAGE_BASE_BABY_ZOMBIE.get());
                 }
             }
         }
@@ -122,7 +123,7 @@ public class ChickenWubEnergyBall extends AbstractHurtingProjectile{
                     boolean hasChicken = livingEntity.getName().getString().toLowerCase().contains("chicken");
                     boolean hasJockey = livingEntity.getName().getString().toLowerCase().contains("jockey");
                     if(hasChicken || hasJockey){
-                        livingEntity.hurtServer(serverLevel,this.damageSources().magic(),30);
+                        livingEntity.hurtServer(serverLevel,this.damageSources().magic(),Config.CHICKEN_WUBS_DAMAGE_BASE_IS_CHICKEN_JOCKEY.get());
                         serverLevel.addFreshEntity(new ItemEntity(serverLevel,this.getX(),this.getY(),this.getZ(),
                                 new ItemStack(Items.EGG)));
                     }

@@ -60,13 +60,19 @@ public class PurpleWubs extends AbstractWubs{
             }
             if(level instanceof ServerLevel serverLevel){
                 if(remainingUseDuration % 40 == 0 && remainingUseDuration < 998 && !((Player) livingEntity).isSecondaryUseActive()){
-                    PurpleWubEnergyBall fireball = new PurpleWubEnergyBall(livingEntity,livingEntity.getViewVector(remainingUseDuration),level);
-                    fireball.setPos(fireball.getX(),livingEntity.getEyeY() - 0.5D,fireball.getZ());
-                    serverLevel.addFreshEntity(fireball);
-
                     if(!livingEntity.hasEffect(MobEffects.SPEED)){
                         livingEntity.addEffect(new MobEffectInstance(MobEffects.SPEED,39,12,true,false));
                     }
+                    if(!livingEntity.hasEffect(MobEffects.RESISTANCE)){
+                        livingEntity.addEffect(new MobEffectInstance(MobEffects.RESISTANCE,100,100,true,false,true));
+                    }
+                    if(!livingEntity.hasEffect(MobEffects.ABSORPTION)){
+                        livingEntity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION,200,10,true,false,true));
+                    }
+
+                    PurpleWubEnergyBall fireball = new PurpleWubEnergyBall(livingEntity,livingEntity.getViewVector(remainingUseDuration),level);
+                    fireball.setPos(fireball.getX(),livingEntity.getEyeY() - 0.5D,fireball.getZ());
+                    serverLevel.addFreshEntity(fireball);
                 }
             }
         }
@@ -94,8 +100,6 @@ public class PurpleWubs extends AbstractWubs{
 
     @Override
     protected void shootProjectile(LivingEntity shooter, Projectile projectile, int index, float velocity, float inaccuracy, float angle, @Nullable LivingEntity target) {
-        if(shooter instanceof Player){
 
-        }
     }
 }

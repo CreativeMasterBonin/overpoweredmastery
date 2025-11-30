@@ -9,6 +9,6 @@
     "OMMix"
   ],
   "injectors": {
-    "defaultRequire": 2
+    "defaultRequire": 1
   }
 }

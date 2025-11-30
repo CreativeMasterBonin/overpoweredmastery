@@ -67,6 +67,12 @@ public class RedWubs extends AbstractWubs {
                     if(!livingEntity.hasEffect(MobEffects.SPEED)){
                         livingEntity.addEffect(new MobEffectInstance(MobEffects.SPEED,19,12,true,false));
                     }
+                    if(!livingEntity.hasEffect(MobEffects.FIRE_RESISTANCE)){
+                        livingEntity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE,19,20,true,false,true));
+                    }
+                    if(!livingEntity.hasEffect(MobEffects.HASTE)){
+                        livingEntity.addEffect(new MobEffectInstance(MobEffects.HASTE,19,5,true,false,true));
+                    }
                 }
             }
         }

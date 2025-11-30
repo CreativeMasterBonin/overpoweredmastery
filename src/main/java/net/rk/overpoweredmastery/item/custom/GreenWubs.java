@@ -72,6 +72,9 @@ public class GreenWubs extends AbstractWubs {
                     if(!livingEntity.hasEffect(MobEffects.SPEED)){
                         livingEntity.addEffect(new MobEffectInstance(MobEffects.SPEED,14,12,true,false));
                     }
+                    if(!livingEntity.hasEffect(MobEffects.LUCK)){
+                        livingEntity.addEffect(new MobEffectInstance(MobEffects.LUCK,14,4,true,false,true));
+                    }
                 }
             }
         }
@@ -99,8 +102,6 @@ public class GreenWubs extends AbstractWubs {
 
     @Override
     protected void shootProjectile(LivingEntity shooter, Projectile projectile, int index, float velocity, float inaccuracy, float angle, @Nullable LivingEntity target) {
-        if(shooter instanceof Player){
 
-        }
     }
 }
