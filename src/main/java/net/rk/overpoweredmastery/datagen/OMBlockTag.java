@@ -266,5 +266,19 @@ public class OMBlockTag extends BlockTagsProvider {
                 .addTag(Tags.Blocks.VILLAGER_JOB_SITES)
                 .addTag(Tags.Blocks.BARRELS)
         ;
+        tag(OMTags.CORRECT_FOR_SPEAR)
+                .addTag(BlockTags.SWORD_EFFICIENT)
+                .addTag(BlockTags.SWORD_INSTANTLY_MINES)
+                .addTag(BlockTags.FLOWERS)
+                .addTag(BlockTags.CROPS)
+                .add(Blocks.TALL_GRASS)
+                .add(Blocks.SHORT_GRASS)
+                .add(Blocks.BUSH)
+                .add(Blocks.DEAD_BUSH)
+                .add(Blocks.SWEET_BERRY_BUSH)
+                .add(Blocks.FIREFLY_BUSH)
+                .add(Blocks.TALL_DRY_GRASS)
+                .add(Blocks.SHORT_DRY_GRASS)
+        ;
     }
 }

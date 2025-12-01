@@ -20,6 +20,7 @@ public class DataGen{
         DataGenerator gen = event.getGenerator();
         PackOutput packOutput = gen.getPackOutput();
 
+        gen.addProvider(true,new OMEnchantmentTags(packOutput,event.getLookupProvider()));
         gen.addProvider(true,new OMSound(packOutput));
         gen.addProvider(true,new OMLang(packOutput));
         gen.addProvider(true,new OMModels(packOutput));

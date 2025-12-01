@@ -48,6 +48,7 @@ public class OMModels extends ModelProvider {
                         && !x.is(OMItems.GREEN_WUBS)
                         && !x.is(OMItems.PURPLE_WUBS)
                         && !x.is(OMItems.CHICKEN_WUBS)
+                && !x.is(OMItems.TEST_SPEAR)
         );
     }
 

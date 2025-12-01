@@ -76,9 +76,11 @@ public class OverpoweredMasteryClient {
             }
             else if(!humanoidRenderState.isUsingItem && humanoidRenderState.useItemHand == InteractionHand.MAIN_HAND){
                 humanoidModel.rightArm.xRot = 75;
+                humanoidModel.rightArm.zRot = 0.23f;
             }
             else if(!humanoidRenderState.isUsingItem && humanoidRenderState.useItemHand == InteractionHand.OFF_HAND){
                 humanoidModel.leftArm.xRot = 75;
+                humanoidModel.leftArm.zRot = -0.23f;
             }
         }
     }

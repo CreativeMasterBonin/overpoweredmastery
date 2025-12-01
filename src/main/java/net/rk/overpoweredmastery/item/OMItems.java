@@ -1,20 +1,16 @@
 package net.rk.overpoweredmastery.item;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -23,16 +19,14 @@ import net.minecraft.world.item.component.*;
 import net.minecraft.world.item.enchantment.Enchantable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.rk.overpoweredmastery.OverpoweredMastery;
-import net.rk.overpoweredmastery.block.OMBlocks;
+import net.rk.overpoweredmastery.datagen.OMTags;
 import net.rk.overpoweredmastery.item.custom.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 public class OMItems{
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(OverpoweredMastery.MODID);
@@ -69,8 +63,13 @@ public class OMItems{
                                     makeTooltipReference("om_epic_blue")));
 
     public static final DeferredItem<Item> TEST_SPEAR = ITEMS.registerItem("test_spear",
-            SpearItem::new,
-            new Item.Properties().setId(makeResourceKey("test_spear")));
+            properties -> new SpearItem(new Item.Properties(),makeResourceKey("test_spear"),3,2.5f,
+                    new Weapon(1,4),Holder.direct(SoundEvents.STONE_BREAK),
+                    new Enchantable(12),
+                    spearTool(BlockTags.INCORRECT_FOR_STONE_TOOL,OMTags.CORRECT_FOR_SPEAR,
+                            55.0f,1.75f,
+                            1,false),
+                    750,Items.COBBLESTONE));
 
     public static final DeferredItem<Item> BONE_SWORD = ITEMS.registerItem("bone_sword",
             Item::new,
@@ -173,6 +172,20 @@ public class OMItems{
                             false
                     ))
     );
+
+    public static Tool spearTool(TagKey<Block> incorrectDrops, TagKey<Block> mineBlocks, float mineSpeed, float defaultMineSpeed, int usesUsedPerBlock, boolean destroyBlocksInCreative){
+        HolderGetter<Block> holdergetter = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);
+        return new Tool(
+                List.of(
+                        Tool.Rule.minesAndDrops(holdergetter.getOrThrow(mineBlocks),mineSpeed),
+                        Tool.Rule.overrideSpeed(holdergetter.getOrThrow(BlockTags.SWORD_INSTANTLY_MINES),Float.MAX_VALUE),
+                        Tool.Rule.overrideSpeed(holdergetter.getOrThrow(BlockTags.SWORD_EFFICIENT),1.15f)
+                ),
+                defaultMineSpeed,
+                usesUsedPerBlock,
+                destroyBlocksInCreative
+        );
+    }
 
 
     public static ResourceKey<Item> makeResourceKey(String name){

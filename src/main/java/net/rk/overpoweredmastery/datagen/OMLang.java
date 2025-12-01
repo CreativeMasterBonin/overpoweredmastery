@@ -40,6 +40,7 @@ public class OMLang extends LanguageProvider {
         addItemDesc(OMItems.CHICKEN_WUBS.asItem(),"Defeat those chicken jockeys with the power of music!");
         addItemDesc(OMItems.PENULTIMATE_SWORD_DARK.asItem(),"The Penultimate Sword has taken a void-like appearance. It takes away the darkest of effects... yet introduces a hint of trouble");
         addItemDesc(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),"The Penultimate Sword has taken a light-like appearance. It is strong, and provides amazing abilities");
+        add(OMItems.TEST_SPEAR.asItem(),"Test Spear");
 
         // entity names
         //add("entity.overpoweredmastery.multipurpose_vehicle","Multipurpose Vehicle");
