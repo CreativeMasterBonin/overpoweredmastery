@@ -8,9 +8,11 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.neoforged.neoforge.common.Tags;
 import net.rk.overpoweredmastery.item.OMItems;
 
 import java.util.concurrent.CompletableFuture;
@@ -102,6 +104,84 @@ public class OMRecipe extends RecipeProvider {
                 .pattern("s")
                 .unlockedBy("has_thingy",has(Items.STICK))
                 .save(this.output,"bone_sword");
+
+        shaped(RecipeCategory.MISC,OMItems.WOODEN_TOOL_BINDING)
+                .define('m', ItemTags.PLANKS)
+                .define('s', Items.STICK)
+                .pattern("s s")
+                .pattern(" m ")
+                .pattern("s s")
+                .unlockedBy("has_thingy",has(ItemTags.PLANKS))
+                .save(this.output,"wooden_tool_binding");
+
+        shaped(RecipeCategory.MISC,OMItems.METAL_TOOL_BINDING)
+                .define('b', OMItems.WOODEN_TOOL_BINDING)
+                .define('m', Tags.Items.INGOTS_IRON)
+                .pattern("m m")
+                .pattern(" b ")
+                .pattern("m m")
+                .unlockedBy("has_thingy",has(Tags.Items.INGOTS_IRON))
+                .save(this.output,"metal_tool_binding");
+
+        shaped(RecipeCategory.MISC,OMItems.DIAMOND_TOOL_BINDING)
+                .define('b', OMItems.METAL_TOOL_BINDING)
+                .define('m', Tags.Items.GEMS_DIAMOND)
+                .pattern("m m")
+                .pattern(" b ")
+                .pattern("m m")
+                .unlockedBy("has_thingy",has(Tags.Items.GEMS_DIAMOND))
+                .save(this.output,"diamond_tool_binding");
+
+
+        createSpearRecipePair("wooden_spear",
+                OMItems.WOODEN_SPEAR.asItem(),
+                ItemTags.PLANKS,
+                OMItems.WOODEN_TOOL_BINDING.asItem(),
+                Items.COPPER_INGOT);
+        createSpearRecipePair("stone_spear",
+                OMItems.STONE_SPEAR.asItem(),
+                ItemTags.STONE_CRAFTING_MATERIALS,
+                OMItems.WOODEN_TOOL_BINDING.asItem(),
+                Items.COPPER_INGOT);
+        createSpearRecipePair("gold_spear",
+                OMItems.GOLD_SPEAR.asItem(),
+                ItemTags.GOLD_TOOL_MATERIALS,
+                OMItems.WOODEN_TOOL_BINDING.asItem(),
+                Items.COPPER_INGOT);
+        createSpearRecipePair("iron_spear",
+                OMItems.IRON_SPEAR.asItem(),
+                ItemTags.IRON_TOOL_MATERIALS,
+                OMItems.METAL_TOOL_BINDING.asItem(),
+                Items.COPPER_INGOT);
+        createSpearRecipePair("diamond_spear",
+                OMItems.DIAMOND_SPEAR.asItem(),
+                ItemTags.DIAMOND_TOOL_MATERIALS,
+                OMItems.DIAMOND_TOOL_BINDING.asItem(),
+                Items.COPPER_INGOT);
+
+        netheriteSmithing(OMItems.DIAMOND_TOOL_BINDING.asItem(),RecipeCategory.COMBAT,OMItems.NETHERITE_TOOL_BINDING.asItem());
+        netheriteSmithing(OMItems.DIAMOND_SPEAR.asItem(),RecipeCategory.COMBAT,OMItems.NETHERITE_SPEAR.asItem());
+    }
+
+    public void createSpearRecipePair(String recipeId, Item spearToMake, TagKey<Item> spearHeadMaterials, Item toolBinding, Item heldEndItem){
+        shaped(RecipeCategory.COMBAT,spearToMake)
+                .define('m',spearHeadMaterials)
+                .define('s',toolBinding)
+                .define('i',heldEndItem)
+                .pattern("m  ")
+                .pattern(" s ")
+                .pattern("  i")
+                .unlockedBy("has_thingy",has(spearHeadMaterials))
+                .save(this.output,recipeId);
+        shaped(RecipeCategory.COMBAT,spearToMake)
+                .define('m',spearHeadMaterials)
+                .define('s',toolBinding)
+                .define('i',heldEndItem)
+                .pattern("  m")
+                .pattern(" s ")
+                .pattern("i  ")
+                .unlockedBy("has_thingy",has(spearHeadMaterials))
+                .save(this.output,(recipeId + "_alt"));
     }
 
     public static class RecipeRunner extends RecipeProvider.Runner{

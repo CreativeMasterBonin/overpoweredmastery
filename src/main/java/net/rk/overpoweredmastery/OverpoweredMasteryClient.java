@@ -41,7 +41,7 @@ public class OverpoweredMasteryClient {
     }
 
     @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event) {
+    public static void onClientSetup(FMLClientSetupEvent event){
 
     }
 
@@ -135,6 +135,12 @@ public class OverpoweredMasteryClient {
             public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
                 if(player.getMainHandItem().getItem() instanceof AbstractSpear | player.getOffhandItem().getItem() instanceof AbstractSpear){
                     if(arm == HumanoidArm.RIGHT){
+                        if(player.swinging || player.swingTime > 0){
+                            poseStack.mulPose(Axis.XN.rotationDegrees(-1.35f));
+                            poseStack.translate(0.5,-0.5,-1);
+                            return true;
+                        }
+
                         if(player.isUsingItem()){
                             float f6 = itemInHand.getUseDuration(player) - (player.getUseItemRemainingTicks() - partialTick + 2.0F);
                             poseStack.mulPose(Axis.XN.rotationDegrees((-1.2f / (1 + itemInHand.getUseDuration(player) - player.getUseItemRemainingTicks())) + Mth.sin(f6) * 0.5f));
@@ -146,6 +152,12 @@ public class OverpoweredMasteryClient {
                         }
                     }
                     else if(arm == HumanoidArm.LEFT){
+                        if(player.swinging || player.swingTime > 0){
+                            poseStack.mulPose(Axis.XN.rotationDegrees(-1.35f));
+                            poseStack.translate(0.5,-0.5,-1);
+                            return true;
+                        }
+
                         if(player.isUsingItem()){
                             float f6 = itemInHand.getUseDuration(player) - (player.getUseItemRemainingTicks() - partialTick + 2.0F);
                             poseStack.mulPose(Axis.XN.rotationDegrees((-1.2f / (1 + itemInHand.getUseDuration(player) - player.getUseItemRemainingTicks())) + Mth.sin(f6) * 0.5f));
@@ -160,7 +172,7 @@ public class OverpoweredMasteryClient {
                 }
                 return IClientItemExtensions.super.applyForgeHandTransform(poseStack,player,arm,itemInHand,partialTick,equipProcess,swingProcess);
             }
-        },OMItems.TEST_SPEAR);
+        },OMItems.WOODEN_SPEAR,OMItems.STONE_SPEAR,OMItems.GOLD_SPEAR,OMItems.IRON_SPEAR,OMItems.DIAMOND_SPEAR,OMItems.NETHERITE_SPEAR);
     }
 
     @SubscribeEvent

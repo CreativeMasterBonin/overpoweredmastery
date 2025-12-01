@@ -93,6 +93,8 @@ dependencies {
     runtimeOnly("curse.maven:resourceful-lib-570073:6662876")
     runtimeOnly("curse.maven:yacl-667299:6662856")
     runtimeOnly("curse.maven:atomicstrykers-infernal-mobs-227875:6937473")
+    runtimeOnly("curse.maven:enchantment-descriptions-250419:7037177")
+    runtimeOnly("maven.modrinth:aaRl8GiW:5iVG8y0w")
 }
 
 tasks.withType(ProcessResources).configureEach {

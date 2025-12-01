@@ -40,7 +40,21 @@ public class OMLang extends LanguageProvider {
         addItemDesc(OMItems.CHICKEN_WUBS.asItem(),"Defeat those chicken jockeys with the power of music!");
         addItemDesc(OMItems.PENULTIMATE_SWORD_DARK.asItem(),"The Penultimate Sword has taken a void-like appearance. It takes away the darkest of effects... yet introduces a hint of trouble");
         addItemDesc(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),"The Penultimate Sword has taken a light-like appearance. It is strong, and provides amazing abilities");
-        add(OMItems.TEST_SPEAR.asItem(),"Test Spear");
+        add(OMItems.TEST_SPEAR.asItem(),"Test Long Spear");
+        add(OMItems.WOODEN_SPEAR.asItem(),"Wooden Long Spear");
+        add(OMItems.STONE_SPEAR.asItem(),"Stone Long Spear");
+        add(OMItems.GOLD_SPEAR.asItem(),"Gold Long Spear");
+        add(OMItems.IRON_SPEAR.asItem(),"Iron Long Spear");
+        add(OMItems.DIAMOND_SPEAR.asItem(),"Diamond Long Spear");
+        add(OMItems.NETHERITE_SPEAR.asItem(),"Netherite Long Spear");
+        add(OMItems.WOODEN_TOOL_BINDING.asItem(),"Wooden Tool Binding");
+        add(OMItems.METAL_TOOL_BINDING.asItem(),"Metal Tool Binding");
+        add(OMItems.DIAMOND_TOOL_BINDING.asItem(),"Diamond Tool Binding");
+        add(OMItems.NETHERITE_TOOL_BINDING.asItem(),"Netherite Tool Binding");
+
+        // enchantments
+        add("enchantment.overpoweredmastery.instarepair","Instarepair");
+        add("enchantment.overpoweredmastery.instarepair.desc","Repairs tools for free randomly... however is quite slow");
 
         // entity names
         //add("entity.overpoweredmastery.multipurpose_vehicle","Multipurpose Vehicle");
@@ -60,5 +74,11 @@ public class OMLang extends LanguageProvider {
         add("overpoweredmastery.configuration.section.overpoweredmastery.common.toml", "Server & Client");
         add("overpoweredmastery.configuration.section.overpoweredmastery.common.toml.title", "Common Config");
         add("item.overpoweredmastery.spear.desc","Hold right click to attack enemies while running");
+        add("overpoweredmastery.configuration.section.overpoweredmastery.server.toml","Server");
+        add("overpoweredmastery.configuration.section.overpoweredmastery.server.toml.title","Server Config");
+        add("overpoweredmastery.configuration.section.overpoweredmastery.client.toml","Client");
+        add("overpoweredmastery.configuration.section.overpoweredmastery.client.toml.title","Client Config");
+        add("overpoweredmastery.configuration.client.mouse_ears_hax","Mouse Ears Hax");
+        add("overpoweredmastery.configuration.client.mouse_ears_hax.tooltip", "Enable mouse ears for your skin like a certain player has (very janky and experimental)");
     }
 }

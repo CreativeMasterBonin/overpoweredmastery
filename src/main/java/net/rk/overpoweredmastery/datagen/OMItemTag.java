@@ -26,6 +26,12 @@ public class OMItemTag extends ItemTagsProvider {
         ;
         tag(OMTags.SPEARS)
                 .add(OMItems.TEST_SPEAR.asItem())
+                .add(OMItems.WOODEN_SPEAR.asItem())
+                .add(OMItems.STONE_SPEAR.asItem())
+                .add(OMItems.GOLD_SPEAR.asItem())
+                .add(OMItems.IRON_SPEAR.asItem())
+                .add(OMItems.DIAMOND_SPEAR.asItem())
+                .add(OMItems.NETHERITE_SPEAR.asItem())
         ;
         tag(ItemTags.CROSSBOW_ENCHANTABLE)
                 .add(OMItems.ENDARKENED_CROSSBOW.asItem())
@@ -47,6 +53,14 @@ public class OMItemTag extends ItemTagsProvider {
         ;
         tag(ItemTags.DURABILITY_ENCHANTABLE)
                 .addTag(OMTags.SPEARS)
+        ;
+        tag(OMTags.CAN_HAVE_INSTAREPAIR_ENCHANTMENT)
+                .addTag(OMTags.SPEARS)
+                .addTag(Tags.Items.TOOLS)
+                .addTag(ItemTags.HEAD_ARMOR)
+                .addTag(ItemTags.CHEST_ARMOR)
+                .addTag(ItemTags.LEG_ARMOR)
+                .addTag(ItemTags.FOOT_ARMOR)
         ;
     }
 }

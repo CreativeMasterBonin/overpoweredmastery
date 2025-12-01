@@ -1,6 +1,7 @@
 package net.rk.overpoweredmastery;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.SharedConstants;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
@@ -12,8 +13,10 @@ import net.minecraft.world.item.component.Weapon;
 import net.minecraft.world.item.enchantment.*;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.rk.overpoweredmastery.block.OMBlocks;
+import net.rk.overpoweredmastery.datagen.OMEnchantments;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import net.rk.overpoweredmastery.item.OMItems;
 import net.rk.overpoweredmastery.resource.OMSoundEvents;
@@ -56,6 +59,7 @@ public class OverpoweredMastery {
             .build());
 
     public OverpoweredMastery(IEventBus modEventBus, ModContainer modContainer) {
+        modEventBus.addListener(this::onGatherData);
         ATTACHMENT_TYPES.register(modEventBus);
         DATA_COMPONENT_TYPES.register(modEventBus);
         OMSoundEvents.SOUND_EVENTS.register(modEventBus);
@@ -65,7 +69,8 @@ public class OverpoweredMastery {
         CREATIVE_MODE_TABS.register(modEventBus);
         modEventBus.addListener(this::addCreative);
 
-        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        modContainer.registerConfig(ModConfig.Type.SERVER, Config.SPEC);
+        modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
     }
 
     protected void customItems(BuildCreativeModeTabContentsEvent event){
@@ -118,12 +123,41 @@ public class OverpoweredMastery {
                 event.accept(signLol);
             }
         });
+
+        ItemStack testSpear = new ItemStack(OMItems.TEST_SPEAR.asItem());
+        params.holders().lookup(Registries.ENCHANTMENT).ifPresent(en -> {
+            DataComponentPatch testSpearLol = DataComponentPatch.builder()
+                    .set(DataComponents.ITEM_NAME,Component.literal("OP Testing Spear"))
+                    .set(DataComponents.TOOLTIP_STYLE,ResourceLocation.parse("overpoweredmastery:om_epic"))
+                    .build();
+            if(en.get(Enchantments.WIND_BURST).isPresent()
+                    && en.get(Enchantments.RIPTIDE).isPresent() && en.get(Enchantments.UNBREAKING).isPresent()){
+                testSpear.enchant(en.get(Enchantments.WIND_BURST).get(),255);
+                testSpear.enchant(en.get(Enchantments.RIPTIDE).get(),255);
+                testSpear.enchant(en.get(Enchantments.UNBREAKING).get(),10);
+                testSpear.applyComponents(testSpearLol);
+                event.accept(testSpear);
+            }
+        });
     }
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == ALL_TAB.getKey()){
             customItems(event);
+            // tool bindings
+            event.accept(OMItems.WOODEN_TOOL_BINDING);
+            event.accept(OMItems.METAL_TOOL_BINDING);
+            event.accept(OMItems.DIAMOND_TOOL_BINDING);
+            event.accept(OMItems.NETHERITE_TOOL_BINDING);
+            // spears
+            event.accept(OMItems.WOODEN_SPEAR);
+            event.accept(OMItems.STONE_SPEAR);
+            event.accept(OMItems.GOLD_SPEAR);
+            event.accept(OMItems.IRON_SPEAR);
+            event.accept(OMItems.DIAMOND_SPEAR);
+            event.accept(OMItems.NETHERITE_SPEAR);
+            //
             event.accept(OMItems.BONE_SWORD);
             event.accept(OMItems.ENDARKENED_CROSSBOW);
             event.accept(OMItems.PENULTIMATE_SWORD_DARK);
@@ -134,5 +168,9 @@ public class OverpoweredMastery {
             event.accept(OMItems.PURPLE_WUBS);
             event.accept(OMItems.MOVING_PROBABLE_BLOCK_ITEM);
         }
+    }
+
+    private void onGatherData(GatherDataEvent.Client event){
+        event.createDatapackRegistryObjects(OMEnchantments.enchantmentBuilder.add(Registries.ENCHANTMENT,OMEnchantments::bootstrap));
     }
 }

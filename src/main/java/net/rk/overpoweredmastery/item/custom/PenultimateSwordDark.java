@@ -2,9 +2,12 @@ package net.rk.overpoweredmastery.item.custom;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,6 +19,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class PenultimateSwordDark extends Item{
@@ -30,41 +34,36 @@ public class PenultimateSwordDark extends Item{
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand){
         if(level instanceof ServerLevel){
-            if(player.hasEffect(MobEffects.DARKNESS)){
-                player.removeEffect(MobEffects.DARKNESS);
-                player.playSound(SoundEvents.INK_SAC_USE,0.75f,1.0f);
-                player.hurtServer((ServerLevel)level,player.damageSources().magic(),2.0f);
-            }
-            if(player.hasEffect(MobEffects.WITHER)){
-                player.removeEffect(MobEffects.WITHER);
-                player.playSound(SoundEvents.WITHER_SKELETON_HURT,0.75f,1.0f);
-                player.hurtServer((ServerLevel)level,player.damageSources().magic(),2.0f);
-            }
-            if(player.hasEffect(MobEffects.SLOWNESS)){
-                player.removeEffect(MobEffects.SLOWNESS);
-                player.playSound(SoundEvents.PLAYER_SPLASH_HIGH_SPEED,0.75f,1.0f);
-                player.hurtServer((ServerLevel)level,player.damageSources().magic(),2.0f);
-            }
-            if(player.hasEffect(MobEffects.BLINDNESS)){
-                player.removeEffect(MobEffects.BLINDNESS);
-                player.playSound(SoundEvents.ENDER_EYE_LAUNCH,0.75f,1.0f);
-                player.hurtServer((ServerLevel)level,player.damageSources().magic(),2.0f);
-            }
-            if(player.hasEffect(MobEffects.HUNGER)){
-                player.removeEffect(MobEffects.HUNGER);
-                player.playSound(SoundEvents.GENERIC_EAT.value(),0.75f,1.0f);
-                player.hurtServer((ServerLevel)level,player.damageSources().magic(),2.0f);
-            }
-            if(player.hasEffect(MobEffects.MINING_FATIGUE)){
-                player.removeEffect(MobEffects.MINING_FATIGUE);
-                player.playSound(SoundEvents.GILDED_BLACKSTONE_BREAK,0.75f,1.0f);
-                player.hurtServer((ServerLevel)level,player.damageSources().magic(),2.0f);
+            List<MobEffectInstance> effects = player.getActiveEffects().stream().toList();
+            List<SoundEvent> randomSoundsToPlay = List.of(
+                    SoundEvents.WANDERING_TRADER_DRINK_POTION,
+                    SoundEvents.INK_SAC_USE,
+                    SoundEvents.WITHER_SKELETON_HURT,
+                    SoundEvents.PLAYER_SPLASH_HIGH_SPEED,
+                    SoundEvents.ENDER_EYE_LAUNCH,
+                    SoundEvents.GILDED_BLACKSTONE_BREAK
+            );
+
+            for(MobEffectInstance instance : effects){
+                if(!instance.getEffect().value().isBeneficial()){
+                    player.removeEffect(instance.getEffect());
+                    try{
+                        float randomPitch = level.getRandom().triangle(0.95f,1.0f);
+                        player.playSound(randomSoundsToPlay.get(Mth.randomBetweenInclusive(
+                                level.getRandom(),
+                                0,randomSoundsToPlay.size() - 1)),0.75f,randomPitch);
+                    }
+                    catch (Exception e){
+
+                    }
+                    player.hurtServer((ServerLevel)level,player.damageSources().magic(),0.95f);
+                }
             }
             return InteractionResult.SUCCESS_SERVER;
         }
-        return super.use(level, player, hand);
+        return InteractionResult.SUCCESS;
     }
 
     @Override

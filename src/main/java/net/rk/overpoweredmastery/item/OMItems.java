@@ -1,15 +1,18 @@
 package net.rk.overpoweredmastery.item;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -27,6 +30,7 @@ import net.rk.overpoweredmastery.item.custom.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public class OMItems{
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(OverpoweredMastery.MODID);
@@ -62,6 +66,7 @@ public class OMItems{
                             .component(DataComponents.TOOLTIP_STYLE,
                                     makeTooltipReference("om_epic_blue")));
 
+    // spears
     public static final DeferredItem<Item> TEST_SPEAR = ITEMS.registerItem("test_spear",
             properties -> new SpearItem(new Item.Properties(),makeResourceKey("test_spear"),3,2.5f,
                     new Weapon(1,4),Holder.direct(SoundEvents.STONE_BREAK),
@@ -69,7 +74,79 @@ public class OMItems{
                     spearTool(BlockTags.INCORRECT_FOR_STONE_TOOL,OMTags.CORRECT_FOR_SPEAR,
                             55.0f,1.75f,
                             1,false),
-                    750,Items.COBBLESTONE));
+                    750,Items.COBBLESTONE){
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
+                    super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
+                    tooltipAdder.accept(Component.literal("TESTING ONLY").withStyle(ChatFormatting.RED));
+                }
+            });
+
+
+    public static final DeferredItem<Item> WOODEN_SPEAR = ITEMS.registerItem("wooden_spear",
+            properties -> new SpearItem(new Item.Properties(),makeResourceKey("wooden_spear"),1,1.1f,
+                    new Weapon(2,0),Holder.direct(SoundEvents.WOOD_BREAK),
+                    new Enchantable(15),
+                    spearTool(BlockTags.INCORRECT_FOR_WOODEN_TOOL,OMTags.CORRECT_FOR_SPEAR,
+                            10.0f,1.25f,
+                            2,false),
+                    59, ItemTags.WOODEN_TOOL_MATERIALS));
+
+    public static final DeferredItem<Item> STONE_SPEAR = ITEMS.registerItem("stone_spear",
+            properties -> new SpearItem(new Item.Properties(),makeResourceKey("stone_spear"),2,1.25f,
+                    new Weapon(1,0),Holder.direct(SoundEvents.STONE_BREAK),
+                    new Enchantable(5),
+                    spearTool(BlockTags.INCORRECT_FOR_STONE_TOOL,OMTags.CORRECT_FOR_SPEAR,
+                            12.0f,1.35f,
+                            2,false),
+                    131, ItemTags.STONE_TOOL_MATERIALS));
+
+    public static final DeferredItem<Item> GOLD_SPEAR = ITEMS.registerItem("gold_spear",
+            properties -> new SpearItem(new Item.Properties(),makeResourceKey("gold_spear"),1,2.25f,
+                    new Weapon(1,0),Holder.direct(SoundEvents.STONE_BREAK),
+                    new Enchantable(22),
+                    spearTool(BlockTags.INCORRECT_FOR_GOLD_TOOL,OMTags.CORRECT_FOR_SPEAR,
+                            20.0f,2.0f,
+                            4,false),
+                    32, ItemTags.GOLD_TOOL_MATERIALS));
+
+    public static final DeferredItem<Item> IRON_SPEAR = ITEMS.registerItem("iron_spear",
+            properties -> new SpearItem(new Item.Properties(),makeResourceKey("iron_spear"),2,1.1f,
+                    new Weapon(1,0),Holder.direct(SoundEvents.IRON_BREAK),
+                    new Enchantable(14),
+                    spearTool(BlockTags.INCORRECT_FOR_IRON_TOOL,OMTags.CORRECT_FOR_SPEAR,
+                            14.0f,1.4f,
+                            1,false),
+                    250, ItemTags.IRON_TOOL_MATERIALS));
+
+    public static final DeferredItem<Item> DIAMOND_SPEAR = ITEMS.registerItem("diamond_spear",
+            properties -> new SpearItem(new Item.Properties(),makeResourceKey("diamond_spear"),3,1.1f,
+                    new Weapon(3,2),Holder.direct(SoundEvents.METAL_BREAK),
+                    new Enchantable(10),
+                    spearTool(BlockTags.INCORRECT_FOR_DIAMOND_TOOL,OMTags.CORRECT_FOR_SPEAR,
+                            20.0f,1.7f,
+                            1,false),
+                    1561, ItemTags.DIAMOND_TOOL_MATERIALS));
+
+    public static final DeferredItem<Item> NETHERITE_SPEAR = ITEMS.registerItem("netherite_spear",
+            properties -> new SpearItem(new Item.Properties(),makeResourceKey("netherite_spear"),4,1.35f,
+                    new Weapon(4,5),Holder.direct(SoundEvents.NETHERITE_BLOCK_BREAK),
+                    new Enchantable(15),
+                    spearTool(BlockTags.INCORRECT_FOR_NETHERITE_TOOL,OMTags.CORRECT_FOR_SPEAR,
+                            30.0f,2.0f,
+                            1,false),
+                    2031,ItemTags.NETHERITE_TOOL_MATERIALS));
+
+    public static final DeferredItem<Item> WOODEN_TOOL_BINDING = ITEMS.registerItem("wooden_tool_binding",
+            Item::new, new Item.Properties().setId(makeResourceKey("wooden_tool_binding")));
+    public static final DeferredItem<Item> METAL_TOOL_BINDING = ITEMS.registerItem("metal_tool_binding",
+            Item::new, new Item.Properties().setId(makeResourceKey("metal_tool_binding")));
+    public static final DeferredItem<Item> DIAMOND_TOOL_BINDING = ITEMS.registerItem("diamond_tool_binding",
+            Item::new, new Item.Properties().setId(makeResourceKey("diamond_tool_binding")));
+    public static final DeferredItem<Item> NETHERITE_TOOL_BINDING = ITEMS.registerItem("netherite_tool_binding",
+            Item::new, new Item.Properties().setId(makeResourceKey("netherite_tool_binding")));
+
+
 
     public static final DeferredItem<Item> BONE_SWORD = ITEMS.registerItem("bone_sword",
             Item::new,

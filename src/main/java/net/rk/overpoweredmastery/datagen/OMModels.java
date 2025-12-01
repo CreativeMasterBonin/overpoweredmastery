@@ -39,6 +39,11 @@ public class OMModels extends ModelProvider {
         itemModels.generateFlatItem(OMItems.BONE_SWORD.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModels.generateFlatItem(OMItems.PENULTIMATE_SWORD_DARK.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModels.generateFlatItem(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
+
+        itemModels.generateFlatItem(OMItems.WOODEN_TOOL_BINDING.asItem(),ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(OMItems.METAL_TOOL_BINDING.asItem(),ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(OMItems.DIAMOND_TOOL_BINDING.asItem(),ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(OMItems.NETHERITE_TOOL_BINDING.asItem(),ModelTemplates.FLAT_ITEM);
     }
 
     @Override
@@ -49,6 +54,12 @@ public class OMModels extends ModelProvider {
                         && !x.is(OMItems.PURPLE_WUBS)
                         && !x.is(OMItems.CHICKEN_WUBS)
                 && !x.is(OMItems.TEST_SPEAR)
+                && !x.is(OMItems.WOODEN_SPEAR)
+                        && !x.is(OMItems.STONE_SPEAR)
+                        && !x.is(OMItems.GOLD_SPEAR)
+                        && !x.is(OMItems.IRON_SPEAR)
+                        && !x.is(OMItems.DIAMOND_SPEAR)
+                        && !x.is(OMItems.NETHERITE_SPEAR)
         );
     }
 

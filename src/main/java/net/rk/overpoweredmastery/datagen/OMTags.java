@@ -14,6 +14,7 @@ import net.rk.overpoweredmastery.OverpoweredMastery;
 public class OMTags{
     public static final TagKey<Item> MUSIC_DISC_WUBS = omItemTag("music_disc_wubs");
     public static final TagKey<Item> SPEARS = omItemTag("spears");
+    public static final TagKey<Item> CAN_HAVE_INSTAREPAIR_ENCHANTMENT = omItemTag("can_have_instarepair_enchantment");
     public static final TagKey<Block> BANNED_PROBABLE_REWARD_BLOCKS = omBlockTag("banned_probable_reward_blocks");
     public static final TagKey<Block> PROBABLE_CANNOT_REPLACE = omBlockTag("probable_cannot_replace");
     public static final TagKey<Block> CORRECT_FOR_SPEAR = omBlockTag("correct_for_spear");

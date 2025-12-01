@@ -6,7 +6,8 @@
 
   ],
   "client": [
-    "OMMix"
+    "OMMix",
+    "OMEarsMix"
   ],
   "injectors": {
     "defaultRequire": 1
