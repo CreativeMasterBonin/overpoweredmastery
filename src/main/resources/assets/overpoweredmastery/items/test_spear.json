@@ -1,0 +1,15 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "property": "minecraft:using_item",
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "overpoweredmastery:item/base_spear"
+    },
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "overpoweredmastery:item/base_spear_holding"
+    }
+  },
+  "hand_animation_on_swap": false
+}
