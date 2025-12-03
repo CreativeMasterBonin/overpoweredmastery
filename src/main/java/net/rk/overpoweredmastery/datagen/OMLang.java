@@ -27,6 +27,8 @@ public class OMLang extends LanguageProvider {
         add(OMItems.GREEN_WUBS.asItem(),"Music Disc Wub Shooter (Green Stage)");
         add(OMItems.PURPLE_WUBS.asItem(),"Music Disc Wub Darkener (Purple Stage)");
         add(OMItems.CHICKEN_WUBS.asItem(),"Music Disc Wub Plucker (Chicken Stage)");
+        add(OMItems.NETHER_WUBS.asItem(),"Music Disc Wub Melter (Nether Stage)");
+        add(OMItems.TRIAL_WUBS.asItem(),"Music Disc Wub Tester (Trial Stage)");
         add(OMItems.MOVING_PROBABLE_BLOCK_ITEM.asItem(),"Moving Probable Block");
         add(OMItems.BONE_SWORD.asItem(),"Bone Sword");
         add(OMItems.PENULTIMATE_SWORD_DARK.asItem(),"Penultimate Sword (Dark Phase)");
@@ -38,6 +40,8 @@ public class OMLang extends LanguageProvider {
         addItemDesc(OMItems.GREEN_WUBS.asItem(),"Phase monsters of all types, make them dumb!");
         addItemDesc(OMItems.PURPLE_WUBS.asItem(),"Deadly to most types of objects, make em' dance!");
         addItemDesc(OMItems.CHICKEN_WUBS.asItem(),"Defeat those chicken jockeys with the power of music!");
+        addItemDesc(OMItems.NETHER_WUBS.asItem(),"Bring the heat and drop the beat on the pigs!");
+        addItemDesc(OMItems.TRIAL_WUBS.asItem(),"Test your enemies with the power of music!");
         addItemDesc(OMItems.PENULTIMATE_SWORD_DARK.asItem(),"The Penultimate Sword has taken a void-like appearance. It takes away the darkest of effects... yet introduces a hint of trouble");
         addItemDesc(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),"The Penultimate Sword has taken a light-like appearance. It is strong, and provides amazing abilities");
         add(OMItems.TEST_SPEAR.asItem(),"Test Long Spear");

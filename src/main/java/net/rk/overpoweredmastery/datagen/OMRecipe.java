@@ -87,6 +87,32 @@ public class OMRecipe extends RecipeProvider {
                 .unlockedBy("has_thingy",has(Items.MUSIC_DISC_LAVA_CHICKEN))
                 .save(this.output,"chicken_wubs");
 
+        shaped(RecipeCategory.COMBAT, OMItems.NETHER_WUBS,1)
+                .define('r', Items.NETHERRACK)
+                .define('g', Items.CROSSBOW)
+                .define('d', Items.MUSIC_DISC_PIGSTEP)
+                .define('n', Items.NETHERITE_BLOCK)
+                .define('b', Items.LAVA_BUCKET)
+                .define('t', ItemTags.TRAPDOORS)
+                .define('j', Items.JUKEBOX)
+                .pattern("grr")
+                .pattern("bdn")
+                .pattern("rjt")
+                .unlockedBy("has_thingy",has(Items.MUSIC_DISC_PIGSTEP))
+                .save(this.output,"nether_wubs");
+
+        shaped(RecipeCategory.COMBAT, OMItems.TRIAL_WUBS,1)
+                .define('c', Items.COPPER_BLOCK)
+                .define('g', Items.CROSSBOW)
+                .define('d', Items.MUSIC_DISC_PRECIPICE)
+                .define('n', Items.CHISELED_TUFF_BRICKS)
+                .define('j', Items.JUKEBOX)
+                .pattern("gcc")
+                .pattern("ndn")
+                .pattern("cjn")
+                .unlockedBy("has_thingy",has(Items.MUSIC_DISC_PRECIPICE))
+                .save(this.output,"trial_wubs");
+
         shapeless(RecipeCategory.MISC,OMItems.MOVING_PROBABLE_BLOCK_ITEM,1)
                 .requires(Ingredient.of(Items.LAPIS_BLOCK))
                 .requires(ItemTags.TRIM_MATERIALS)

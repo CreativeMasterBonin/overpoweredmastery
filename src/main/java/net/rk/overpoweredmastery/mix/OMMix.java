@@ -6,10 +6,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.world.item.Item;
 import net.rk.overpoweredmastery.item.custom.*;
-import net.rk.overpoweredmastery.resource.ChickenWubGunTickableSound;
-import net.rk.overpoweredmastery.resource.GreenWubGunTickableSound;
-import net.rk.overpoweredmastery.resource.PurpleWubGunTickableSound;
-import net.rk.overpoweredmastery.resource.RedWubGunTickableSound;
+import net.rk.overpoweredmastery.resource.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,10 +22,14 @@ public class OMMix {
     public boolean alreadyPlayingRedWubs = false;
     public boolean alreadyPlayingGreenWubs = false;
     public boolean alreadyPlayingPurpleWubs = false;
+    public boolean alreadyPlayingNetherWubs = false;
+    public boolean alreadyPlayingTrialWubs = false;
     public ChickenWubGunTickableSound chickenWubs;
     public GreenWubGunTickableSound greenWubs;
     public PurpleWubGunTickableSound purpleWubs;
     public RedWubGunTickableSound redWubs;
+    public NetherWubGunTickableSound netherWubs;
+    public TrialWubGunTickableSound trialWubs;
 
     public boolean caughtExceptionOnce = false; // log mixin errors only once as any should be counted as severe
 
@@ -59,6 +60,16 @@ public class OMMix {
                             purpleWubs.stopSound();
                             purpleWubs = null;
                             alreadyPlayingPurpleWubs = false;
+                        }
+                        if(alreadyPlayingNetherWubs){
+                            netherWubs.stopSound();
+                            netherWubs = null;
+                            alreadyPlayingNetherWubs = false;
+                        }
+                        if(alreadyPlayingTrialWubs){
+                            trialWubs.stopSound();
+                            trialWubs = null;
+                            alreadyPlayingTrialWubs = false;
                         }
                     }
                 }
@@ -118,6 +129,24 @@ public class OMMix {
                                 alreadyPlayingPurpleWubs = true;
                             }
                         }
+                        // nether wubs
+                        if (item instanceof NetherWubs) {
+                            if (!alreadyPlayingNetherWubs) {
+                                netherWubs = null;
+                                netherWubs = new NetherWubGunTickableSound(localPlayer, localPlayer.getRandom());
+                                Minecraft.getInstance().getSoundManager().playDelayed(netherWubs, 20);
+                                alreadyPlayingNetherWubs = true;
+                            }
+                        }
+                        // trial wubs
+                        if (item instanceof TrialWubs) {
+                            if (!alreadyPlayingTrialWubs) {
+                                trialWubs = null;
+                                trialWubs = new TrialWubGunTickableSound(localPlayer, localPlayer.getRandom());
+                                Minecraft.getInstance().getSoundManager().playDelayed(trialWubs, 20);
+                                alreadyPlayingTrialWubs = true;
+                            }
+                        }
                     } else {
                         if (alreadyPlayingChickenWubs) {
                             chickenWubs.stopSound();
@@ -134,6 +163,14 @@ public class OMMix {
                         if (alreadyPlayingGreenWubs) {
                             greenWubs.stopSound();
                             alreadyPlayingGreenWubs = false;
+                        }
+                        if (alreadyPlayingNetherWubs) {
+                            netherWubs.stopSound();
+                            alreadyPlayingNetherWubs = false;
+                        }
+                        if (alreadyPlayingTrialWubs) {
+                            trialWubs.stopSound();
+                            alreadyPlayingTrialWubs = false;
                         }
                     }
                 }

@@ -17,6 +17,8 @@ import net.minecraft.world.level.block.Block;
 import net.rk.overpoweredmastery.OverpoweredMastery;
 import net.rk.overpoweredmastery.block.OMBlocks;
 import net.rk.overpoweredmastery.item.OMItems;
+import net.rk.overpoweredmastery.item.custom.AbstractSpear;
+import net.rk.overpoweredmastery.item.custom.AbstractWubs;
 
 import java.util.Collections;
 import java.util.List;
@@ -49,17 +51,8 @@ public class OMModels extends ModelProvider {
     @Override
     protected Stream<? extends Holder<Item>> getKnownItems() {
         return OMItems.ITEMS.getEntries().stream().filter((x)->
-                !x.is(OMItems.RED_WUBS)
-                        && !x.is(OMItems.GREEN_WUBS)
-                        && !x.is(OMItems.PURPLE_WUBS)
-                        && !x.is(OMItems.CHICKEN_WUBS)
-                && !x.is(OMItems.TEST_SPEAR)
-                && !x.is(OMItems.WOODEN_SPEAR)
-                        && !x.is(OMItems.STONE_SPEAR)
-                        && !x.is(OMItems.GOLD_SPEAR)
-                        && !x.is(OMItems.IRON_SPEAR)
-                        && !x.is(OMItems.DIAMOND_SPEAR)
-                        && !x.is(OMItems.NETHERITE_SPEAR)
+                !(x.value() instanceof AbstractWubs)
+                && !(x.value() instanceof AbstractSpear)
         );
     }
 

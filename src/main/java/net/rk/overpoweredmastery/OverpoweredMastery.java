@@ -162,10 +162,14 @@ public class OverpoweredMastery {
             event.accept(OMItems.ENDARKENED_CROSSBOW);
             event.accept(OMItems.PENULTIMATE_SWORD_DARK);
             event.accept(OMItems.PENULTIMATE_SWORD_LIGHT);
+            // wubs
             event.accept(OMItems.RED_WUBS);
+            event.accept(OMItems.NETHER_WUBS);
             event.accept(OMItems.CHICKEN_WUBS);
             event.accept(OMItems.GREEN_WUBS);
             event.accept(OMItems.PURPLE_WUBS);
+            event.accept(OMItems.TRIAL_WUBS);
+            // misc
             event.accept(OMItems.MOVING_PROBABLE_BLOCK_ITEM);
         }
     }

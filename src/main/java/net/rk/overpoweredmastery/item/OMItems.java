@@ -60,6 +60,16 @@ public class OMItems{
                     .component(DataComponents.TOOLTIP_STYLE,
                             makeTooltipReference("red_wub")));
 
+    public static final DeferredItem<Item> NETHER_WUBS = ITEMS.registerItem("nether_wubs",
+            NetherWubs::new,new Item.Properties().setId(makeResourceKey("nether_wubs"))
+                    .component(DataComponents.TOOLTIP_STYLE,
+                            makeTooltipReference("orange_wub")));
+
+    public static final DeferredItem<Item> TRIAL_WUBS = ITEMS.registerItem("trial_wubs",
+            TrialWubs::new,new Item.Properties().setId(makeResourceKey("trial_wubs"))
+                    .component(DataComponents.TOOLTIP_STYLE,
+                            makeTooltipReference("orange_wub")));
+
     public static final DeferredItem<Item> MOVING_PROBABLE_BLOCK_ITEM = ITEMS.registerItem("moving_probable_block",
             MovingProbableBlockItem::new,
                     new Item.Properties().setId(makeResourceKey("moving_probable_block"))

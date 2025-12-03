@@ -122,7 +122,7 @@ public class OverpoweredMasteryClient {
                 }
                 return IClientItemExtensions.super.applyForgeHandTransform(poseStack,player,arm,itemInHand,partialTick,equipProcess,swingProcess);
             }
-        },OMItems.CHICKEN_WUBS,OMItems.GREEN_WUBS,OMItems.RED_WUBS,OMItems.PURPLE_WUBS);
+        },OMItems.CHICKEN_WUBS,OMItems.GREEN_WUBS,OMItems.RED_WUBS,OMItems.PURPLE_WUBS,OMItems.NETHER_WUBS,OMItems.TRIAL_WUBS);
 
         event.registerItem(new IClientItemExtensions() {
             @Nullable
@@ -186,5 +186,7 @@ public class OverpoweredMasteryClient {
         event.registerEntityRenderer(OMEntityTypes.GREEN_WUB_ENERGY_BALL.get(),GreenWubEnergyBallRenderer::new);
         event.registerEntityRenderer(OMEntityTypes.PURPLE_WUB_ENERGY_BALL.get(),PurpleWubEnergyBallRenderer::new);
         event.registerEntityRenderer(OMEntityTypes.CHICKEN_WUB_ENERGY_BALL.get(),ChickenWubEnergyBallRenderer::new);
+        event.registerEntityRenderer(OMEntityTypes.NETHER_WUB_ENERGY_BALL.get(),NetherWubEnergyBallRenderer::new);
+        event.registerEntityRenderer(OMEntityTypes.TRIAL_WUB_ENERGY_BALL.get(),TrialWubEnergyBallRenderer::new);
     }
 }

@@ -45,6 +45,19 @@ public class OMEntityTypes{
                     .noLootTable()
                     .fireImmune());
 
+    public static final DeferredHolder<EntityType<?>,EntityType<NetherWubEnergyBall>> NETHER_WUB_ENERGY_BALL = register("nether_wub_energy_ball",
+            () -> EntityType.Builder.<NetherWubEnergyBall>of(NetherWubEnergyBall::new,MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(16)
+                    .noLootTable()
+                    .fireImmune());
+
+    public static final DeferredHolder<EntityType<?>,EntityType<TrialWubEnergyBall>> TRIAL_WUB_ENERGY_BALL = register("trial_wub_energy_ball",
+            () -> EntityType.Builder.<TrialWubEnergyBall>of(TrialWubEnergyBall::new,MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(16)
+                    .noLootTable()
+                    .fireImmune());
 
     public static <T extends Entity> DeferredHolder<EntityType<?>, EntityType<T>> register(String name, Supplier<EntityType.Builder<T>> builder) {
         return ENTITY_TYPES.register(name, () -> builder.get().build(

@@ -23,6 +23,7 @@ public class OMItemTag extends ItemTagsProvider {
                 .add(OMItems.GREEN_WUBS.asItem())
                 .add(OMItems.PURPLE_WUBS.asItem())
                 .add(OMItems.CHICKEN_WUBS.asItem())
+                .add(OMItems.NETHER_WUBS.asItem())
         ;
         tag(OMTags.SPEARS)
                 .add(OMItems.TEST_SPEAR.asItem())
