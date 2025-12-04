@@ -70,6 +70,12 @@ public class OMItems{
                     .component(DataComponents.TOOLTIP_STYLE,
                             makeTooltipReference("orange_wub")));
 
+    public static final DeferredItem<Item> OXIDIZED_TRIAl_WUBS = ITEMS.registerItem("oxidized_trial_wubs",
+            OxidizedTrialWubs::new,new Item.Properties().setId(makeResourceKey("oxidized_trial_wubs"))
+                    .component(DataComponents.TOOLTIP_STYLE,
+                            makeTooltipReference("orange_wub")));
+
+
     public static final DeferredItem<Item> MOVING_PROBABLE_BLOCK_ITEM = ITEMS.registerItem("moving_probable_block",
             MovingProbableBlockItem::new,
                     new Item.Properties().setId(makeResourceKey("moving_probable_block"))

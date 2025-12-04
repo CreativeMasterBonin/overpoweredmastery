@@ -169,6 +169,7 @@ public class OverpoweredMastery {
             event.accept(OMItems.GREEN_WUBS);
             event.accept(OMItems.PURPLE_WUBS);
             event.accept(OMItems.TRIAL_WUBS);
+            event.accept(OMItems.OXIDIZED_TRIAl_WUBS);
             // misc
             event.accept(OMItems.MOVING_PROBABLE_BLOCK_ITEM);
         }

@@ -15,7 +15,7 @@ public class OMEarsMix {
     @Inject(method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/renderer/entity/state/PlayerRenderState;FF)V", at=@At("HEAD"))
     public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, PlayerRenderState renderState, float f1, float f2, CallbackInfo ci){
         try{
-            if(ClientConfig.MOUSE_EARS_HAX.get()){
+            if(ClientConfig.MOUSE_EARS_HAX.get()) {
                 renderState.name = "deadmau5"; // this is extremely dumb, but it does work
             }
         }

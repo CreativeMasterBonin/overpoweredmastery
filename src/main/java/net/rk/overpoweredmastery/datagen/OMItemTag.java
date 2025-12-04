@@ -24,6 +24,8 @@ public class OMItemTag extends ItemTagsProvider {
                 .add(OMItems.PURPLE_WUBS.asItem())
                 .add(OMItems.CHICKEN_WUBS.asItem())
                 .add(OMItems.NETHER_WUBS.asItem())
+                .add(OMItems.TRIAL_WUBS.asItem())
+                .add(OMItems.OXIDIZED_TRIAl_WUBS.asItem())
         ;
         tag(OMTags.SPEARS)
                 .add(OMItems.TEST_SPEAR.asItem())
@@ -56,6 +58,7 @@ public class OMItemTag extends ItemTagsProvider {
                 .addTag(OMTags.SPEARS)
         ;
         tag(OMTags.CAN_HAVE_INSTAREPAIR_ENCHANTMENT)
+                .addTag(OMTags.MUSIC_DISC_WUBS)
                 .addTag(OMTags.SPEARS)
                 .addTag(Tags.Items.TOOLS)
                 .addTag(ItemTags.HEAD_ARMOR)

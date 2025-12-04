@@ -16,6 +16,7 @@ public class OMEnchantmentTags extends EnchantmentTagsProvider {
     @Override
     public void addTags(HolderLookup.Provider provider) {
         tag(OMTags.SPEAR_SUPPORTED)
+                .add(OMEnchantments.INSTAREPAIR)
                 .add(Enchantments.RIPTIDE)
                 .add(Enchantments.EFFICIENCY)
                 .add(Enchantments.SHARPNESS)

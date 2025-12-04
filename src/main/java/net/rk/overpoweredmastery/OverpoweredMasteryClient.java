@@ -122,7 +122,10 @@ public class OverpoweredMasteryClient {
                 }
                 return IClientItemExtensions.super.applyForgeHandTransform(poseStack,player,arm,itemInHand,partialTick,equipProcess,swingProcess);
             }
-        },OMItems.CHICKEN_WUBS,OMItems.GREEN_WUBS,OMItems.RED_WUBS,OMItems.PURPLE_WUBS,OMItems.NETHER_WUBS,OMItems.TRIAL_WUBS);
+        },OMItems.CHICKEN_WUBS,
+                OMItems.GREEN_WUBS,OMItems.RED_WUBS,
+                OMItems.PURPLE_WUBS,OMItems.NETHER_WUBS,
+                OMItems.TRIAL_WUBS,OMItems.OXIDIZED_TRIAl_WUBS);
 
         event.registerItem(new IClientItemExtensions() {
             @Nullable
@@ -172,7 +175,9 @@ public class OverpoweredMasteryClient {
                 }
                 return IClientItemExtensions.super.applyForgeHandTransform(poseStack,player,arm,itemInHand,partialTick,equipProcess,swingProcess);
             }
-        },OMItems.WOODEN_SPEAR,OMItems.STONE_SPEAR,OMItems.GOLD_SPEAR,OMItems.IRON_SPEAR,OMItems.DIAMOND_SPEAR,OMItems.NETHERITE_SPEAR);
+        },OMItems.WOODEN_SPEAR,OMItems.STONE_SPEAR,
+                OMItems.GOLD_SPEAR,OMItems.IRON_SPEAR,
+                OMItems.DIAMOND_SPEAR,OMItems.NETHERITE_SPEAR);
     }
 
     @SubscribeEvent

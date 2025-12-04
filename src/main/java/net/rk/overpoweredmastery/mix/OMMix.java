@@ -24,12 +24,14 @@ public class OMMix {
     public boolean alreadyPlayingPurpleWubs = false;
     public boolean alreadyPlayingNetherWubs = false;
     public boolean alreadyPlayingTrialWubs = false;
+    public boolean alreadyPlayingOxidizedTrialWubs = false;
     public ChickenWubGunTickableSound chickenWubs;
     public GreenWubGunTickableSound greenWubs;
     public PurpleWubGunTickableSound purpleWubs;
     public RedWubGunTickableSound redWubs;
     public NetherWubGunTickableSound netherWubs;
     public TrialWubGunTickableSound trialWubs;
+    public OxidizedTrialWubGunTickableSound oxidizedTrialWubs;
 
     public boolean caughtExceptionOnce = false; // log mixin errors only once as any should be counted as severe
 
@@ -70,6 +72,11 @@ public class OMMix {
                             trialWubs.stopSound();
                             trialWubs = null;
                             alreadyPlayingTrialWubs = false;
+                        }
+                        if(alreadyPlayingOxidizedTrialWubs){
+                            oxidizedTrialWubs.stopSound();
+                            oxidizedTrialWubs = null;
+                            alreadyPlayingOxidizedTrialWubs = false;
                         }
                     }
                 }
@@ -147,6 +154,15 @@ public class OMMix {
                                 alreadyPlayingTrialWubs = true;
                             }
                         }
+                        // oxidized trial wubs
+                        if (item instanceof OxidizedTrialWubs) {
+                            if (!alreadyPlayingOxidizedTrialWubs) {
+                                oxidizedTrialWubs = null;
+                                oxidizedTrialWubs = new OxidizedTrialWubGunTickableSound(localPlayer, localPlayer.getRandom());
+                                Minecraft.getInstance().getSoundManager().playDelayed(oxidizedTrialWubs, 20);
+                                alreadyPlayingOxidizedTrialWubs = true;
+                            }
+                        }
                     } else {
                         if (alreadyPlayingChickenWubs) {
                             chickenWubs.stopSound();
@@ -171,6 +187,10 @@ public class OMMix {
                         if (alreadyPlayingTrialWubs) {
                             trialWubs.stopSound();
                             alreadyPlayingTrialWubs = false;
+                        }
+                        if (alreadyPlayingOxidizedTrialWubs) {
+                            oxidizedTrialWubs.stopSound();
+                            alreadyPlayingOxidizedTrialWubs = false;
                         }
                     }
                 }
