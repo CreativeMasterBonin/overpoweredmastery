@@ -67,5 +67,25 @@ public class OMItemTag extends ItemTagsProvider {
                 .addTag(ItemTags.FOOT_ARMOR)
                 .add(OMItems.ULTIMATE_STAFF.asItem())
         ;
+        tag(Tags.Items.ORES)
+                .add(OMItems.INERT_BLUE_ESSENCE_ORE.asItem())
+                .add(OMItems.INERT_GREEN_ESSENCE_ORE.asItem())
+                .add(OMItems.INERT_YELLOW_ESSENCE_ORE.asItem())
+                .add(OMItems.INERT_ORANGE_ESSENCE_ORE.asItem())
+                .add(OMItems.INERT_RED_ESSENCE_ORE.asItem())
+                .add(OMItems.INERT_LIGHT_ESSENCE_ORE.asItem())
+                .add(OMItems.INERT_AURORAN_ESSENCE_ORE.asItem())
+                .add(OMItems.INERT_DARK_ESSENCE_ORE.asItem())
+        ;
+        tag(OMTags.INERT_ESSENCES)
+                .add(OMItems.INERT_BLUE_ESSENCE.asItem())
+                .add(OMItems.INERT_GREEN_ESSENCE.asItem())
+                .add(OMItems.INERT_YELLOW_ESSENCE.asItem())
+                .add(OMItems.INERT_ORANGE_ESSENCE.asItem())
+                .add(OMItems.INERT_RED_ESSENCE.asItem())
+                .add(OMItems.INERT_LIGHT_ESSENCE.asItem())
+                .add(OMItems.INERT_AURORAN_ESSENCE.asItem())
+                .add(OMItems.INERT_DARK_ESSENCE.asItem())
+        ;
     }
 }

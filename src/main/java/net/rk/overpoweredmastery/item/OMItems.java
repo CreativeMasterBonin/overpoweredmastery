@@ -281,19 +281,97 @@ public class OMItems{
                     )));
 
     // ore items
+    // blue
     public static final DeferredItem<Item> INERT_BLUE_ESSENCE_ORE = ITEMS.registerItem("inert_blue_essence_ore",
             properties -> new BlockItem(OMBlocks.INERT_BLUE_ESSENCE_ORE.get(),properties
                     .setId(makeResourceKey("inert_blue_essence_ore"))));
     public static final DeferredItem<Item> INERT_BLUE_ESSENCE = ITEMS.registerItem("inert_blue_essence",
             InertEssence::new,new Item.Properties()
                     .setId(makeResourceKey("inert_blue_essence")));
-
+    // green
     public static final DeferredItem<Item> INERT_GREEN_ESSENCE_ORE = ITEMS.registerItem("inert_green_essence_ore",
             properties -> new BlockItem(OMBlocks.INERT_GREEN_ESSENCE_ORE.get(),properties
                     .setId(makeResourceKey("inert_green_essence_ore"))));
     public static final DeferredItem<Item> INERT_GREEN_ESSENCE = ITEMS.registerItem("inert_green_essence",
             InertEssence::new,new Item.Properties()
                     .setId(makeResourceKey("inert_green_essence")));
+    // yellow
+    public static final DeferredItem<Item> INERT_YELLOW_ESSENCE_ORE = ITEMS.registerItem("inert_yellow_essence_ore",
+            properties -> new BlockItem(OMBlocks.INERT_YELLOW_ESSENCE_ORE.get(),properties
+                    .setId(makeResourceKey("inert_yellow_essence_ore"))));
+    public static final DeferredItem<Item> INERT_YELLOW_ESSENCE = ITEMS.registerItem("inert_yellow_essence",
+            InertEssence::new,new Item.Properties()
+                    .setId(makeResourceKey("inert_yellow_essence")));
+    // orange
+    public static final DeferredItem<Item> INERT_ORANGE_ESSENCE_ORE = ITEMS.registerItem("inert_orange_essence_ore",
+            properties -> new BlockItem(OMBlocks.INERT_ORANGE_ESSENCE_ORE.get(),properties
+                    .setId(makeResourceKey("inert_orange_essence_ore"))));
+    public static final DeferredItem<Item> INERT_ORANGE_ESSENCE = ITEMS.registerItem("inert_orange_essence",
+            InertEssence::new,new Item.Properties()
+                    .setId(makeResourceKey("inert_orange_essence")));
+    // red
+    public static final DeferredItem<Item> INERT_RED_ESSENCE_ORE = ITEMS.registerItem("inert_red_essence_ore",
+            properties -> new BlockItem(OMBlocks.INERT_RED_ESSENCE_ORE.get(),properties
+                    .setId(makeResourceKey("inert_red_essence_ore"))));
+    public static final DeferredItem<Item> INERT_RED_ESSENCE = ITEMS.registerItem("inert_red_essence",
+            InertEssence::new,new Item.Properties()
+                    .setId(makeResourceKey("inert_red_essence")));
+    // special ore items
+    // light
+    public static final DeferredItem<Item> INERT_LIGHT_ESSENCE_ORE = ITEMS.registerItem("inert_light_essence_ore",
+            properties -> new BlockItem(OMBlocks.INERT_LIGHT_ESSENCE_ORE.get(),properties
+                    .setId(makeResourceKey("inert_light_essence_ore"))));
+    public static final DeferredItem<Item> INERT_LIGHT_ESSENCE = ITEMS.registerItem("inert_light_essence",
+            InertEssence::new,new Item.Properties()
+                    .setId(makeResourceKey("inert_light_essence")));
+    // auroran
+    public static final DeferredItem<Item> INERT_AURORAN_ESSENCE_ORE = ITEMS.registerItem("inert_auroran_essence_ore",
+            properties -> new BlockItem(OMBlocks.INERT_AURORAN_ESSENCE_ORE.get(),properties
+                    .setId(makeResourceKey("inert_auroran_essence_ore"))));
+    public static final DeferredItem<Item> INERT_AURORAN_ESSENCE = ITEMS.registerItem("inert_auroran_essence",
+            InertEssence::new,new Item.Properties()
+                    .setId(makeResourceKey("inert_auroran_essence")));
+    // dark
+    public static final DeferredItem<Item> INERT_DARK_ESSENCE_ORE = ITEMS.registerItem("inert_dark_essence_ore",
+            properties -> new BlockItem(OMBlocks.INERT_DARK_ESSENCE_ORE.get(),properties
+                    .setId(makeResourceKey("inert_dark_essence_ore"))));
+    public static final DeferredItem<Item> INERT_DARK_ESSENCE = ITEMS.registerItem("inert_dark_essence",
+            InertEssence::new,new Item.Properties()
+                    .setId(makeResourceKey("inert_dark_essence")));
+
+    // electronic components
+    public static final DeferredItem<Item> ESSENCE_ELECTRONIC_CORE = ITEMS.registerItem("essence_electronic_core",
+            properties -> new Item(properties){
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
+                    tooltipAdder.accept(Component.translatable("item.overpoweredmastery.essence_electronic_core.desc").withStyle(ChatFormatting.GRAY));
+                }
+            },new Item.Properties()
+                    .setId(makeResourceKey("essence_electronic_core")));
+    public static final DeferredItem<Item> AURORAN_PROCESSOR = ITEMS.registerItem("auroran_processor",
+            properties -> new Item(properties){
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
+                    tooltipAdder.accept(Component.translatable("item.overpoweredmastery.auroran_processor.desc").withStyle(ChatFormatting.GRAY));
+                }
+            },new Item.Properties()
+                    .setId(makeResourceKey("auroran_processor")));
+    public static final DeferredItem<Item> REDSTONE_BASE_COMPONENT = ITEMS.registerItem("redstone_base_component",
+            properties -> new Item(properties){
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
+                    tooltipAdder.accept(Component.translatable("item.overpoweredmastery.redstone_base_component.desc").withStyle(ChatFormatting.GRAY));
+                }
+            },new Item.Properties()
+                    .setId(makeResourceKey("redstone_base_component")));
+    public static final DeferredItem<Item> STRANGE_STONE = ITEMS.registerItem("strange_stone",
+            properties -> new Item(properties){
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
+                    tooltipAdder.accept(Component.translatable("item.overpoweredmastery.strange_stone.desc").withStyle(ChatFormatting.GRAY));
+                }
+            },new Item.Properties()
+                    .setId(makeResourceKey("strange_stone")));
 
 
 
@@ -312,19 +390,6 @@ public class OMItems{
                 destroyBlocksInCreative
         );
     }
-
-    public static Tool uselessTool(TagKey<Block> incorrectDrops, TagKey<Block> mineBlocks, float mineSpeed, float defaultMineSpeed, int usesUsedPerBlock, boolean destroyBlocksInCreative){
-        HolderGetter<Block> holdergetter = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);
-        return new Tool(
-                List.of(
-
-                ),
-                defaultMineSpeed,
-                usesUsedPerBlock,
-                destroyBlocksInCreative
-        );
-    }
-
 
     public static ResourceKey<Item> makeResourceKey(String name){
         return ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,name));

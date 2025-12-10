@@ -8,6 +8,7 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.rk.overpoweredmastery.OverpoweredMastery;
 import net.rk.overpoweredmastery.block.OMBlocks;
+import net.rk.overpoweredmastery.item.OMItems;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -321,16 +322,42 @@ public class OMBlockTag extends BlockTagsProvider {
                 .addTag(BlockTags.BEDS)
                 .addTag(Tags.Blocks.RELOCATION_NOT_SUPPORTED)
         ;
+        tag(OMTags.CAN_DROP_STRANGE_STONE)
+                .addTag(BlockTags.BASE_STONE_OVERWORLD)
+                .addTag(BlockTags.DIRT)
+        ;
         tag(BlockTags.MAINTAINS_FARMLAND)
                 .add(OMBlocks.SELECTION_BLOCK.get())
+        ;
+        tag(Tags.Blocks.ORES)
+                .add(OMBlocks.INERT_BLUE_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_GREEN_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_YELLOW_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_ORANGE_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_RED_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_LIGHT_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_AURORAN_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_DARK_ESSENCE_ORE.get())
         ;
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(OMBlocks.INERT_BLUE_ESSENCE_ORE.get())
                 .add(OMBlocks.INERT_GREEN_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_YELLOW_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_ORANGE_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_RED_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_LIGHT_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_AURORAN_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_DARK_ESSENCE_ORE.get())
         ;
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(OMBlocks.INERT_BLUE_ESSENCE_ORE.get())
                 .add(OMBlocks.INERT_GREEN_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_YELLOW_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_ORANGE_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_RED_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_LIGHT_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_AURORAN_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_DARK_ESSENCE_ORE.get())
         ;
     }
 }

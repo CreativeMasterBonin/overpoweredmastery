@@ -15,10 +15,12 @@ public class OMTags{
     public static final TagKey<Item> MUSIC_DISC_WUBS = omItemTag("music_disc_wubs");
     public static final TagKey<Item> SPEARS = omItemTag("spears");
     public static final TagKey<Item> CAN_HAVE_INSTAREPAIR_ENCHANTMENT = omItemTag("can_have_instarepair_enchantment");
+    public static final TagKey<Item> INERT_ESSENCES = omItemTag("inert_essences");
     public static final TagKey<Block> BANNED_PROBABLE_REWARD_BLOCKS = omBlockTag("banned_probable_reward_blocks");
     public static final TagKey<Block> PROBABLE_CANNOT_REPLACE = omBlockTag("probable_cannot_replace");
     public static final TagKey<Block> CORRECT_FOR_SPEAR = omBlockTag("correct_for_spear");
     public static final TagKey<Block> UNSAFE_FOR_SELECTION = omBlockTag("unsafe_for_selection");
+    public static final TagKey<Block> CAN_DROP_STRANGE_STONE = omBlockTag("can_drop_strange_stone");
     public static final TagKey<Enchantment> SPEAR_SUPPORTED = omEnchantmentTag("spear_supported");
 
     private static TagKey<Block> omBlockTag(String name){

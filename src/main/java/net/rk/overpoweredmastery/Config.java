@@ -21,5 +21,9 @@ public class Config {
             .comment("The time in ticks that selection blocks can exist for")
             .defineInRange("phase_block_existence_time", 140, 60, 380);
 
+    public static final ModConfigSpec.DoubleValue STRANGE_STONE_DROP_CHANCE = BUILDER
+            .comment("The percentage chance that a strange stone will drop from blocks tagged 'can_drop_strange_stone'.")
+            .defineInRange("strange_stone_drop_percentage", 0.07D, 0.0D, 1.0D);
+
     static final ModConfigSpec SPEC = BUILDER.build();
 }

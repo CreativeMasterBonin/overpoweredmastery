@@ -78,7 +78,7 @@
 			"to": [16, 16.01, 16],
 			"rotation": {"angle": 0, "axis": "z", "origin": [8, 16.01, 8]},
 			"faces": {
-				"up": {"uv": [0, 0, 16, 16], "rotation": 270, "texture": "#overlay","cullface":"top"}
+				"up": {"uv": [0, 0, 16, 16], "rotation": 0, "texture": "#overlay","cullface":"top"}
 			},
 			"neoforge_data": {
                 "block_light": 15,
@@ -91,7 +91,7 @@
 			"to": [16, -0.01, 16],
 			"rotation": {"angle": 0, "axis": "z", "origin": [8, -0.01, 8]},
 			"faces": {
-				"down": {"uv": [0, 0, 16, 16], "rotation": 270, "texture": "#overlay","cullface":"bottom"}
+				"down": {"uv": [0, 0, 16, 16], "rotation": 0, "texture": "#overlay","cullface":"bottom"}
 			},
 			"neoforge_data": {
                 "block_light": 15,

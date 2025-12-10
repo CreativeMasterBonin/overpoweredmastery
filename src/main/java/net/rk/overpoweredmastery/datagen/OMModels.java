@@ -69,8 +69,21 @@ public class OMModels extends ModelProvider {
         itemModels.generateFlatItem(OMItems.ULTIMATE_STAFF.asItem(),
                 ModelTemplates.FLAT_HANDHELD_ITEM);
 
+        blockModels.createTrivialCube(OMBlocks.INERT_DARK_ESSENCE_ORE.get());
+
         itemModels.declareCustomModelItem(OMItems.INERT_BLUE_ESSENCE_ORE.asItem());
         itemModels.declareCustomModelItem(OMItems.INERT_GREEN_ESSENCE_ORE.asItem());
+        itemModels.declareCustomModelItem(OMItems.INERT_YELLOW_ESSENCE_ORE.asItem());
+        itemModels.declareCustomModelItem(OMItems.INERT_ORANGE_ESSENCE_ORE.asItem());
+        itemModels.declareCustomModelItem(OMItems.INERT_RED_ESSENCE_ORE.asItem());
+        itemModels.declareCustomModelItem(OMItems.INERT_LIGHT_ESSENCE_ORE.asItem());
+        itemModels.declareCustomModelItem(OMItems.INERT_AURORAN_ESSENCE_ORE.asItem());
+        itemModels.declareCustomModelItem(OMItems.INERT_DARK_ESSENCE_ORE.asItem());
+
+        itemModels.generateFlatItem(OMItems.ESSENCE_ELECTRONIC_CORE.asItem(),ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(OMItems.AURORAN_PROCESSOR.asItem(),ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(OMItems.REDSTONE_BASE_COMPONENT.asItem(),ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(OMItems.STRANGE_STONE.asItem(),ModelTemplates.FLAT_ITEM);
     }
 
     @Override

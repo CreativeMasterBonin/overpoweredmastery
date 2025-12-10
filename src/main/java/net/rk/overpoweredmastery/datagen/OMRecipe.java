@@ -15,6 +15,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.Tags;
 import net.rk.overpoweredmastery.item.OMItems;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class OMRecipe extends RecipeProvider {
@@ -199,6 +200,59 @@ public class OMRecipe extends RecipeProvider {
 
         netheriteSmithing(OMItems.DIAMOND_TOOL_BINDING.asItem(),RecipeCategory.COMBAT,OMItems.NETHERITE_TOOL_BINDING.asItem());
         netheriteSmithing(OMItems.DIAMOND_SPEAR.asItem(),RecipeCategory.COMBAT,OMItems.NETHERITE_SPEAR.asItem());
+
+        shaped(RecipeCategory.MISC,OMItems.REDSTONE_BASE_COMPONENT)
+                .define('r', Items.REDSTONE)
+                .define('s', Items.SMOOTH_STONE)
+                .define('c', OMItems.STRANGE_STONE)
+                .pattern("srs")
+                .pattern("rcr")
+                .pattern("srs")
+                .unlockedBy("has_thingy",has(OMItems.STRANGE_STONE))
+                .save(this.output,"redstone_base_component");
+
+        shaped(RecipeCategory.MISC,OMItems.AURORAN_PROCESSOR)
+                .define('g', Items.GOLD_INGOT)
+                .define('a', OMItems.INERT_AURORAN_ESSENCE)
+                .define('c', Items.GREEN_CONCRETE)
+                .pattern("cgc")
+                .pattern("gag")
+                .pattern("cgc")
+                .unlockedBy("has_thingy",has(OMItems.INERT_AURORAN_ESSENCE))
+                .save(this.output,"auroran_processor");
+
+        shaped(RecipeCategory.MISC,OMItems.ESSENCE_ELECTRONIC_CORE)
+                .define('b', OMItems.INERT_BLUE_ESSENCE)
+                .define('y', OMItems.INERT_YELLOW_ESSENCE)
+                .define('g', OMItems.INERT_GREEN_ESSENCE)
+                .define('r', OMItems.INERT_RED_ESSENCE)
+                .define('c', OMItems.AURORAN_PROCESSOR)
+                .define('i', Items.IRON_INGOT)
+                .pattern("iyi")
+                .pattern("rcg")
+                .pattern("ibi")
+                .unlockedBy("has_thingy",has(Tags.Items.INGOTS_IRON))
+                .save(this.output,"essence_electronic_core");
+
+        createInertOreSmeltingAndBlasting(OMItems.INERT_BLUE_ESSENCE_ORE.asItem(),OMItems.INERT_BLUE_ESSENCE.asItem());
+        createInertOreSmeltingAndBlasting(OMItems.INERT_GREEN_ESSENCE_ORE.asItem(),OMItems.INERT_GREEN_ESSENCE.asItem());
+        createInertOreSmeltingAndBlasting(OMItems.INERT_YELLOW_ESSENCE_ORE.asItem(),OMItems.INERT_YELLOW_ESSENCE.asItem());
+        createInertOreSmeltingAndBlasting(OMItems.INERT_ORANGE_ESSENCE_ORE.asItem(),OMItems.INERT_ORANGE_ESSENCE.asItem());
+        createInertOreSmeltingAndBlasting(OMItems.INERT_RED_ESSENCE_ORE.asItem(),OMItems.INERT_RED_ESSENCE.asItem());
+        createInertOreSmeltingAndBlasting(OMItems.INERT_LIGHT_ESSENCE_ORE.asItem(),OMItems.INERT_LIGHT_ESSENCE.asItem());
+        createInertOreSmeltingAndBlasting(OMItems.INERT_AURORAN_ESSENCE_ORE.asItem(),OMItems.INERT_AURORAN_ESSENCE.asItem());
+        createInertOreSmeltingAndBlasting(OMItems.INERT_DARK_ESSENCE_ORE.asItem(),OMItems.INERT_DARK_ESSENCE.asItem());
+    }
+
+    public void createInertOreSmeltingAndBlasting(Item oreItem, Item resultItem){
+        oreSmelting(List.of(oreItem),RecipeCategory.MISC,
+                resultItem,
+                1.0f,100,
+                "inert_essence_smelting");
+        oreBlasting(List.of(oreItem),RecipeCategory.MISC,
+                resultItem,
+                1.2f,50,
+                "inert_essence_blasting");
     }
 
     public void createSpearRecipePair(String recipeId, Item spearToMake, TagKey<Item> spearHeadMaterials, Item toolBinding, Item heldEndItem){

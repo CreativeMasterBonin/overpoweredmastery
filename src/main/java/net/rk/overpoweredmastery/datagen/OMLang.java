@@ -51,6 +51,11 @@ public class OMLang extends LanguageProvider {
         addItemDesc(OMItems.OXIDIZED_TRIAl_WUBS.asItem(),"Now oxidized, the power of music is slow, but hits hard!");
         addItemDesc(OMItems.PENULTIMATE_SWORD_DARK.asItem(),"The Penultimate Sword has taken a void-like appearance. It takes away the darkest of effects... yet introduces a hint of trouble");
         addItemDesc(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),"The Penultimate Sword has taken a light-like appearance. It is strong, and provides amazing abilities");
+        addItemDesc(OMItems.REDSTONE_BASE_COMPONENT.asItem(),"The power of redstone and the strange stone used to craft it unlocks usability outside of it's limits");
+        addItemDesc(OMItems.AURORAN_PROCESSOR.asItem(),"Ancient Auroran technology makes this processor like no other");
+        addItemDesc(OMItems.ESSENCE_ELECTRONIC_CORE.asItem(),"The essences emanate their power into the auroran processor and have become a magical core");
+        addItemDesc(OMItems.STRANGE_STONE.asItem(),"This stone has an un-natural looking carving in it; perhaps it has a particular use");
+
 
         // long spears
         add(OMItems.TEST_SPEAR.asItem(),"Test Long Spear");
@@ -70,10 +75,34 @@ public class OMLang extends LanguageProvider {
         add(OMItems.INERT_BLUE_ESSENCE_ORE.asItem(),"Inert Blue Essence Ore");
         add(OMBlocks.INERT_GREEN_ESSENCE_ORE.get(),"Inert Green Essence Ore");
         add(OMItems.INERT_GREEN_ESSENCE_ORE.asItem(),"Inert Green Essence Ore");
+        add(OMBlocks.INERT_YELLOW_ESSENCE_ORE.get(),"Inert Yellow Essence Ore");
+        add(OMItems.INERT_YELLOW_ESSENCE_ORE.asItem(),"Inert Yellow Essence Ore");
+        add(OMBlocks.INERT_ORANGE_ESSENCE_ORE.get(),"Inert Orange Essence Ore");
+        add(OMItems.INERT_ORANGE_ESSENCE_ORE.asItem(),"Inert Orange Essence Ore");
+        add(OMBlocks.INERT_RED_ESSENCE_ORE.get(),"Inert Red Essence Ore");
+        add(OMItems.INERT_RED_ESSENCE_ORE.asItem(),"Inert Red Essence Ore");
+        // special ores
+        add(OMBlocks.INERT_LIGHT_ESSENCE_ORE.get(),"Inert Light Essence Ore");
+        add(OMItems.INERT_LIGHT_ESSENCE_ORE.asItem(),"Inert Light Essence Ore");
+        add(OMBlocks.INERT_AURORAN_ESSENCE_ORE.get(),"Inert Auroran Essence Ore");
+        add(OMItems.INERT_AURORAN_ESSENCE_ORE.asItem(),"Inert Auroran Essence Ore");
+        add(OMBlocks.INERT_DARK_ESSENCE_ORE.get(),"Inert Dark Essence Ore");
+        add(OMItems.INERT_DARK_ESSENCE_ORE.asItem(),"Inert Dark Essence Ore");
         // essences
         add(OMItems.INERT_BLUE_ESSENCE.asItem(),"Inert Blue Essence");
         add(OMItems.INERT_GREEN_ESSENCE.asItem(),"Inert Green Essence");
-
+        add(OMItems.INERT_YELLOW_ESSENCE.asItem(),"Inert Yellow Essence");
+        add(OMItems.INERT_ORANGE_ESSENCE.asItem(),"Inert Orange Essence");
+        add(OMItems.INERT_RED_ESSENCE.asItem(),"Inert Red Essence");
+        add(OMItems.INERT_LIGHT_ESSENCE.asItem(),"Inert Light Essence");
+        add(OMItems.INERT_AURORAN_ESSENCE.asItem(),"Inert Auroran Essence");
+        add(OMItems.INERT_DARK_ESSENCE.asItem(),"Inert Dark Essence");
+        // electronic and other components
+        add(OMItems.AURORAN_PROCESSOR.asItem(),"Auroran Processor");
+        add(OMItems.ESSENCE_ELECTRONIC_CORE.asItem(),"Essence Electronic Core");
+        add(OMItems.REDSTONE_BASE_COMPONENT.asItem(),"Redstone Base Component");
+        // misc items
+        add(OMItems.STRANGE_STONE.asItem(),"Strange Stone");
 
         // staffs
         add(OMItems.ULTIMATE_STAFF.asItem(),"Ultimate Staff");
@@ -100,6 +129,12 @@ public class OMLang extends LanguageProvider {
         add("overpoweredmastery.configuration.chicken_wub_damage_chickens.tooltip", "The base damage the Chicken Wub does to Chickens (effects projectile)");
         add("overpoweredmastery.configuration.chicken_wub_damage_chicken_jockeys.tooltip", "The base damage the Chicken Wub does to 'Chicken Jockeys' (effects projectile)");
         add("overpoweredmastery.configuration.chicken_wub_damage_baby_zombies.tooltip", "The base damage the Chicken Wub does to Baby Zombies (effects projectile)");
+        add("overpoweredmastery.configuration.phase_block_existence_time", "Phase Block Existence Time");
+        add("overpoweredmastery.configuration.phase_block_existence_time.tooltip", "The time in ticks selection blocks can last for (standing in time not affected)");
+        add("overpoweredmastery.configuration.strange_stone_drop_percentage", "Strange Stone Drop Percentage");
+        add("overpoweredmastery.configuration.strange_stone_drop_percentage.tooltip", "The percentage chance that a strange stone will drop from blocks tagged 'can_drop_strange_stone'");
+
+
         add("overpoweredmastery.configuration.section.overpoweredmastery.common.toml", "Server & Client");
         add("overpoweredmastery.configuration.section.overpoweredmastery.common.toml.title", "Common Config");
         add("item.overpoweredmastery.spear.desc","Hold right click to attack enemies while running");

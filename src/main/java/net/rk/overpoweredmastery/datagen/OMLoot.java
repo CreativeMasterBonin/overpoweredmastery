@@ -23,6 +23,12 @@ public class OMLoot extends BlockLootSubProvider {
 
         this.add(OMBlocks.INERT_BLUE_ESSENCE_ORE.get(),block -> this.createOreDrop(block,OMItems.INERT_BLUE_ESSENCE.asItem()));
         this.add(OMBlocks.INERT_GREEN_ESSENCE_ORE.get(),block -> this.createOreDrop(block,OMItems.INERT_GREEN_ESSENCE.asItem()));
+        this.add(OMBlocks.INERT_YELLOW_ESSENCE_ORE.get(),block -> this.createOreDrop(block,OMItems.INERT_YELLOW_ESSENCE.asItem()));
+        this.add(OMBlocks.INERT_ORANGE_ESSENCE_ORE.get(),block -> this.createOreDrop(block,OMItems.INERT_ORANGE_ESSENCE.asItem()));
+        this.add(OMBlocks.INERT_RED_ESSENCE_ORE.get(),block -> this.createOreDrop(block,OMItems.INERT_RED_ESSENCE.asItem()));
+        this.add(OMBlocks.INERT_LIGHT_ESSENCE_ORE.get(),block -> this.createOreDrop(block,OMItems.INERT_LIGHT_ESSENCE.asItem()));
+        this.add(OMBlocks.INERT_AURORAN_ESSENCE_ORE.get(),block -> this.createOreDrop(block,OMItems.INERT_AURORAN_ESSENCE.asItem()));
+        this.add(OMBlocks.INERT_DARK_ESSENCE_ORE.get(),block -> this.createOreDrop(block,OMItems.INERT_DARK_ESSENCE.asItem()));
     }
 
     @Override

@@ -147,11 +147,37 @@ public class OverpoweredMastery {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == ALL_TAB.getKey()){
             customItems(event);
+            // ores
+            event.accept(OMItems.INERT_BLUE_ESSENCE_ORE);
+            event.accept(OMItems.INERT_GREEN_ESSENCE_ORE);
+            event.accept(OMItems.INERT_YELLOW_ESSENCE_ORE);
+            event.accept(OMItems.INERT_ORANGE_ESSENCE_ORE);
+            event.accept(OMItems.INERT_RED_ESSENCE_ORE);
+            // special ores
+            event.accept(OMItems.INERT_LIGHT_ESSENCE_ORE);
+            event.accept(OMItems.INERT_AURORAN_ESSENCE_ORE);
+            event.accept(OMItems.INERT_DARK_ESSENCE_ORE);
+            // ore items
+            event.accept(OMItems.INERT_BLUE_ESSENCE);
+            event.accept(OMItems.INERT_GREEN_ESSENCE);
+            event.accept(OMItems.INERT_YELLOW_ESSENCE);
+            event.accept(OMItems.INERT_ORANGE_ESSENCE);
+            event.accept(OMItems.INERT_RED_ESSENCE);
+            // special ore items
+            event.accept(OMItems.INERT_LIGHT_ESSENCE);
+            event.accept(OMItems.INERT_AURORAN_ESSENCE);
+            event.accept(OMItems.INERT_DARK_ESSENCE);
+            // materials
+            event.accept(OMItems.STRANGE_STONE);
             // tool bindings
             event.accept(OMItems.WOODEN_TOOL_BINDING);
             event.accept(OMItems.METAL_TOOL_BINDING);
             event.accept(OMItems.DIAMOND_TOOL_BINDING);
             event.accept(OMItems.NETHERITE_TOOL_BINDING);
+            // electronic or other components
+            event.accept(OMItems.REDSTONE_BASE_COMPONENT);
+            event.accept(OMItems.AURORAN_PROCESSOR);
+            event.accept(OMItems.ESSENCE_ELECTRONIC_CORE);
             // spears
             event.accept(OMItems.WOODEN_SPEAR);
             event.accept(OMItems.STONE_SPEAR);
