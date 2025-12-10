@@ -29,6 +29,7 @@ import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import net.rk.overpoweredmastery.entity.renderer.*;
 import net.rk.overpoweredmastery.item.OMItems;
 import net.rk.overpoweredmastery.item.custom.AbstractSpear;
+import net.rk.overpoweredmastery.item.custom.AbstractStaff;
 import net.rk.overpoweredmastery.item.custom.AbstractWubs;
 import org.jetbrains.annotations.Nullable;
 
@@ -82,6 +83,41 @@ public class OverpoweredMasteryClient {
                 humanoidModel.leftArm.xRot = 75;
                 humanoidModel.leftArm.zRot = -0.23f;
             }
+        }
+    }
+
+    public final class StaffExtension{
+        public static final EnumProxy<HumanoidModel.ArmPose> STAFF = new EnumProxy<>(
+                HumanoidModel.ArmPose.class,true,(IArmPoseTransformer) StaffExtension::transformer
+        );
+
+        public static void transformer(HumanoidModel<?> humanoidModel, HumanoidRenderState humanoidRenderState, HumanoidArm humanoidArm) {
+            if(humanoidRenderState.isUsingItem && humanoidRenderState.useItemHand == InteractionHand.MAIN_HAND){
+                humanoidModel.rightArm.xRot = -2;
+                humanoidModel.rightArm.yRot = Mth.clamp(0.1f + (Mth.cos(1) * humanoidRenderState.ticksUsingItem),0f,0.25f);
+                if(!humanoidRenderState.isCrouching && !humanoidRenderState.isVisuallySwimming){
+                    humanoidModel.rightLeg.yRot = Mth.clamp(0.5f + (Mth.cos(1) * humanoidRenderState.ticksUsingItem),0f,0.25f);
+                    humanoidModel.leftLeg.yRot = Mth.clamp(0.5f - (Mth.cos(1) * humanoidRenderState.ticksUsingItem),-0.25f,0.0f);
+                    humanoidModel.leftLeg.zRot = Mth.clamp(0.5f - (Mth.cos(1) * humanoidRenderState.ticksUsingItem),-0.25f,0.0f);
+                }
+            }
+            else if(!humanoidRenderState.isUsingItem && humanoidRenderState.useItemHand == InteractionHand.MAIN_HAND){
+                humanoidModel.rightArm.xRot = humanoidModel.leftArm.xRot * -1;
+            }
+
+            if(humanoidRenderState.isUsingItem && humanoidRenderState.useItemHand == InteractionHand.OFF_HAND){
+                humanoidModel.leftArm.xRot = -2;
+                humanoidModel.leftArm.yRot = Mth.clamp(0.1f - (Mth.cos(1) * humanoidRenderState.ticksUsingItem),-0.25f,0.0f);
+                if(!humanoidRenderState.isCrouching && !humanoidRenderState.isVisuallySwimming){
+                    humanoidModel.leftLeg.yRot = Mth.clamp(0.5f - (Mth.cos(1) * humanoidRenderState.ticksUsingItem),-0.25f,0.0f);
+                    humanoidModel.rightLeg.yRot = Mth.clamp(0.5f + (Mth.cos(1) * humanoidRenderState.ticksUsingItem),0f,0.25f);
+                    humanoidModel.rightLeg.zRot = Mth.clamp(0.5f + (Mth.cos(1) * humanoidRenderState.ticksUsingItem),0f,0.25f);
+                }
+            }
+            else if(!humanoidRenderState.isUsingItem && humanoidRenderState.useItemHand == InteractionHand.OFF_HAND){
+                humanoidModel.leftArm.xRot = humanoidModel.rightArm.xRot * -1;
+            }
+
         }
     }
 
@@ -178,11 +214,49 @@ public class OverpoweredMasteryClient {
         },OMItems.WOODEN_SPEAR,OMItems.STONE_SPEAR,
                 OMItems.GOLD_SPEAR,OMItems.IRON_SPEAR,
                 OMItems.DIAMOND_SPEAR,OMItems.NETHERITE_SPEAR);
+
+
+        // staff
+        event.registerItem(new IClientItemExtensions() {
+                               @Nullable
+                               @Override
+                               public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
+                                   return StaffExtension.STAFF.getValue();
+                               }
+
+                               @Override
+                               public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
+                                   if(player.getMainHandItem().getItem() instanceof AbstractStaff | player.getOffhandItem().getItem() instanceof AbstractStaff){
+                                       float f6 = itemInHand.getUseDuration(player) - (player.getUseItemRemainingTicks() - partialTick + 2.0F);
+                                       if(arm == HumanoidArm.RIGHT && !player.isUsingItem()){
+                                           poseStack.mulPose(Axis.XN.rotationDegrees(2.74f));
+                                           poseStack.translate(0.9,-0.5,-1);
+                                       }
+                                       else if(arm == HumanoidArm.RIGHT && player.isUsingItem()){
+                                           poseStack.mulPose(Axis.XN.rotationDegrees(55.74f));
+                                           poseStack.translate(0.85,0.6,-0.9);
+                                           poseStack.mulPose(Axis.ZN.rotationDegrees((-1.75f / (1 + itemInHand.getUseDuration(player) - player.getUseItemRemainingTicks())) + Mth.sin(f6) * 3.95f));
+                                       }
+
+                                       if(arm == HumanoidArm.LEFT && !player.isUsingItem()){
+                                           poseStack.mulPose(Axis.XN.rotationDegrees(2.74f));
+                                           poseStack.translate(-0.9,-0.5,-1);
+                                       }
+                                       else if(arm == HumanoidArm.LEFT && player.isUsingItem()){
+                                           poseStack.mulPose(Axis.XN.rotationDegrees(55.74f));
+                                           poseStack.translate(-0.85,0.6,-0.9);
+                                           poseStack.mulPose(Axis.ZN.rotationDegrees((-1.75f / (1 + itemInHand.getUseDuration(player) - player.getUseItemRemainingTicks())) + Mth.sin(f6) * 3.95f));
+                                       }
+                                       return true;
+                                   }
+                                   return IClientItemExtensions.super.applyForgeHandTransform(poseStack,player,arm,itemInHand,partialTick,equipProcess,swingProcess);
+                               }
+                           },OMItems.ULTIMATE_STAFF);
     }
 
     @SubscribeEvent
     public static void setupModelLayer(EntityRenderersEvent.RegisterLayerDefinitions event){
-        //event.registerLayerDefinition(MultipurposeVehicleModel.MULTIPURPOSE_VEHICLE_LAYER,MultipurposeVehicleModel::createBodyLayer);
+
     }
 
     @SubscribeEvent

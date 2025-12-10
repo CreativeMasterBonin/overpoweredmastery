@@ -20,5 +20,25 @@ public class ClientConfig {
             .translation("overpoweredmastery.configuration.client.upside_down_hax_y_offset")
             .defineInRange("upsideDownHaxYOffset",3.75D,-32.0D,32.0D);
 
+    public static final ModConfigSpec.BooleanValue MINECART_ON_HEAD_HAX = BUILDER
+            .comment("Enable client-side minecart on head (very janky and experimental)")
+            .translation("overpoweredmastery.configuration.client.minecart_on_head_hax")
+            .define("minecartOnHeadHax",false);
+
+    public static final ModConfigSpec.DoubleValue MINECART_HAX_X_ROTATION = BUILDER
+            .comment("The X Rotation for the head minecart (very janky and experimental)")
+            .translation("overpoweredmastery.configuration.client.minecart_on_head_hax_x_rotation")
+            .defineInRange("minecartOnHeadHaxXRot",0.0D,-180.0D,180.0D);
+
+    public static final ModConfigSpec.DoubleValue MINECART_HAX_Y_ROTATION = BUILDER
+            .comment("The Y Rotation for the head minecart (very janky and experimental)")
+            .translation("overpoweredmastery.configuration.client.minecart_on_head_hax_y_rotation")
+            .defineInRange("minecartOnHeadHaxYRot",0.0D,-180.0D,180.0D);
+
+    public static final ModConfigSpec.DoubleValue MINECART_HAX_Z_ROTATION = BUILDER
+            .comment("The Z Rotation for the head minecart (very janky and experimental)")
+            .translation("overpoweredmastery.configuration.client.minecart_on_head_hax_z_rotation")
+            .defineInRange("minecartOnHeadHaxZRot",0.0D,-180.0D,180.0D);
+
     static final ModConfigSpec SPEC = BUILDER.build();
 }

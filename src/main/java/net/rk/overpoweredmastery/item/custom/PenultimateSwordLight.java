@@ -7,6 +7,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.monster.AbstractIllager;
@@ -61,20 +62,32 @@ public class PenultimateSwordLight extends Item {
     }
 
     @Override
+    public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
+        if(player.level() instanceof ServerLevel){
+            if(entity instanceof Player && !player.hasEffect(MobEffects.RESISTANCE)){
+                player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE,100,10));
+                ((Player) entity).addEffect(new MobEffectInstance(MobEffects.SATURATION,10,20,true,false,false));
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity interactionTarget, InteractionHand usedHand) {
         if(player.level() instanceof ServerLevel){
-            if(interactionTarget instanceof Monster){
+            if(interactionTarget instanceof Monster && !player.hasEffect(MobEffects.RESISTANCE)){
                 player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE,40,10));
                 interactionTarget.hurtServer((ServerLevel)player.level(),player.damageSources().fellOutOfWorld(),20.0f);
             }
-            else if(interactionTarget instanceof AbstractIllager){
+            else if(interactionTarget instanceof AbstractIllager && !player.hasEffect(MobEffects.RESISTANCE)){
                 player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE,20,20));
                 interactionTarget.hurtServer((ServerLevel)player.level(),player.damageSources().fellOutOfWorld(),20.0f);
             }
             else if(interactionTarget instanceof Player){
-                player.addEffect(new MobEffectInstance(MobEffects.GLOWING,20,1));
-                player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING,100,4));
-                player.addEffect(new MobEffectInstance(MobEffects.SATURATION,10,10));
+                interactionTarget.addEffect(new MobEffectInstance(MobEffects.GLOWING,20,1));
+                interactionTarget.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING,100,4));
+                interactionTarget.addEffect(new MobEffectInstance(MobEffects.SATURATION,10,10));
             }
             return InteractionResult.SUCCESS_SERVER;
         }

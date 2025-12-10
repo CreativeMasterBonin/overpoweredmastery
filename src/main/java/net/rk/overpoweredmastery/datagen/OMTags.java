@@ -18,6 +18,7 @@ public class OMTags{
     public static final TagKey<Block> BANNED_PROBABLE_REWARD_BLOCKS = omBlockTag("banned_probable_reward_blocks");
     public static final TagKey<Block> PROBABLE_CANNOT_REPLACE = omBlockTag("probable_cannot_replace");
     public static final TagKey<Block> CORRECT_FOR_SPEAR = omBlockTag("correct_for_spear");
+    public static final TagKey<Block> UNSAFE_FOR_SELECTION = omBlockTag("unsafe_for_selection");
     public static final TagKey<Enchantment> SPEAR_SUPPORTED = omEnchantmentTag("spear_supported");
 
     private static TagKey<Block> omBlockTag(String name){

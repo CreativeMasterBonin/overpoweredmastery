@@ -240,6 +240,7 @@ public class OMBlockTag extends BlockTagsProvider {
                 .add(Blocks.SLIME_BLOCK)
                 .add(Blocks.HONEY_BLOCK)
                 .add(Blocks.HONEYCOMB_BLOCK)
+                .add(OMBlocks.SELECTION_BLOCK.get())
         ;
         tag(OMTags.PROBABLE_CANNOT_REPLACE)
                 .add(Blocks.BEDROCK)
@@ -265,6 +266,7 @@ public class OMBlockTag extends BlockTagsProvider {
                 .addTag(Tags.Blocks.ENDERMAN_PLACE_ON_BLACKLIST)
                 .addTag(Tags.Blocks.VILLAGER_JOB_SITES)
                 .addTag(Tags.Blocks.BARRELS)
+                .add(OMBlocks.SELECTION_BLOCK.get())
         ;
         tag(OMTags.CORRECT_FOR_SPEAR)
                 .addTag(BlockTags.SWORD_EFFICIENT)
@@ -279,6 +281,56 @@ public class OMBlockTag extends BlockTagsProvider {
                 .add(Blocks.FIREFLY_BUSH)
                 .add(Blocks.TALL_DRY_GRASS)
                 .add(Blocks.SHORT_DRY_GRASS)
+        ;
+        tag(Tags.Blocks.ENDERMAN_PLACE_ON_BLACKLIST)
+                .add(OMBlocks.SELECTION_BLOCK.get())
+        ;
+        tag(BlockTags.DRAGON_IMMUNE)
+                .add(OMBlocks.SELECTION_BLOCK.get())
+        ;
+        tag(BlockTags.DRAGON_TRANSPARENT)
+                .add(OMBlocks.SELECTION_BLOCK.get())
+        ;
+        tag(BlockTags.WITHER_IMMUNE)
+                .add(OMBlocks.SELECTION_BLOCK.get())
+        ;
+        tag(BlockTags.PREVENT_MOB_SPAWNING_INSIDE)
+                .add(OMBlocks.SELECTION_BLOCK.get())
+        ;
+        tag(OMTags.UNSAFE_FOR_SELECTION)
+                .add(Blocks.AIR)
+                .add(Blocks.CAVE_AIR)
+                .add(Blocks.VOID_AIR)
+                .add(Blocks.BARRIER)
+                .add(Blocks.TEST_BLOCK)
+                .add(Blocks.TEST_INSTANCE_BLOCK)
+                .add(Blocks.LIGHT)
+                .add(Blocks.JIGSAW)
+                .add(Blocks.STRUCTURE_BLOCK)
+                .add(Blocks.STRUCTURE_VOID)
+                .add(Blocks.COMMAND_BLOCK)
+                .add(Blocks.CHAIN_COMMAND_BLOCK)
+                .add(Blocks.REPEATING_COMMAND_BLOCK)
+                .add(Blocks.BEDROCK)
+                .add(Blocks.NETHER_PORTAL)
+                .add(Blocks.END_PORTAL)
+                .add(Blocks.END_PORTAL_FRAME)
+                .add(Blocks.FROSTED_ICE)
+                .add(Blocks.FIRE)
+                .add(Blocks.SOUL_FIRE)
+                .addTag(BlockTags.BEDS)
+                .addTag(Tags.Blocks.RELOCATION_NOT_SUPPORTED)
+        ;
+        tag(BlockTags.MAINTAINS_FARMLAND)
+                .add(OMBlocks.SELECTION_BLOCK.get())
+        ;
+        tag(BlockTags.NEEDS_STONE_TOOL)
+                .add(OMBlocks.INERT_BLUE_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_GREEN_ESSENCE_ORE.get())
+        ;
+        tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(OMBlocks.INERT_BLUE_ESSENCE_ORE.get())
+                .add(OMBlocks.INERT_GREEN_ESSENCE_ORE.get())
         ;
     }
 }

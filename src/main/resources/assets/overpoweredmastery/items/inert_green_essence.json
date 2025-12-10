@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "overpoweredmastery:item/inert_essence",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": 5435954
+      }
+    ]
+  }
+}

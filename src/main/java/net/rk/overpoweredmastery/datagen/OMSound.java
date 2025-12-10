@@ -15,6 +15,7 @@ public class OMSound extends SoundDefinitionsProvider {
 
     @Override
     public void registerSounds() {
+        // music
         this.add(OMSoundEvents.RED_WUBS, SoundDefinition.definition().with(
                 sound("overpoweredmastery:red_wubs")
                         .volume(1.0f)
@@ -39,5 +40,15 @@ public class OMSound extends SoundDefinitionsProvider {
                         .stream(false)
                         .preload(true)
         ).subtitle("overpoweredmastery.subtitle.purple_wubs"));
+
+        // fx
+        this.add(OMSoundEvents.EFFECT, SoundDefinition.definition().with(
+                sound("overpoweredmastery:general/effect")
+                        .volume(1.0f)
+                        .pitch(1.0f)
+                        .attenuationDistance(16)
+                        .stream(false)
+                        .preload(true)
+        ).subtitle("overpoweredmastery.subtitle.effect"));
     }
 }

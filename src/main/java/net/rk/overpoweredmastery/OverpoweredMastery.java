@@ -18,6 +18,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.rk.overpoweredmastery.block.OMBlocks;
 import net.rk.overpoweredmastery.datagen.OMEnchantments;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
+import net.rk.overpoweredmastery.entity.blockentity.OMBlockEntities;
 import net.rk.overpoweredmastery.item.OMItems;
 import net.rk.overpoweredmastery.resource.OMSoundEvents;
 import org.slf4j.Logger;
@@ -63,6 +64,7 @@ public class OverpoweredMastery {
         ATTACHMENT_TYPES.register(modEventBus);
         DATA_COMPONENT_TYPES.register(modEventBus);
         OMSoundEvents.SOUND_EVENTS.register(modEventBus);
+        OMBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         OMBlocks.BLOCKS.register(modEventBus);
         OMItems.ITEMS.register(modEventBus);
         OMEntityTypes.ENTITY_TYPES.register(modEventBus);
@@ -162,6 +164,8 @@ public class OverpoweredMastery {
             event.accept(OMItems.ENDARKENED_CROSSBOW);
             event.accept(OMItems.PENULTIMATE_SWORD_DARK);
             event.accept(OMItems.PENULTIMATE_SWORD_LIGHT);
+            // staffs
+            event.accept(OMItems.ULTIMATE_STAFF);
             // wubs
             event.accept(OMItems.RED_WUBS);
             event.accept(OMItems.NETHER_WUBS);
@@ -177,5 +181,9 @@ public class OverpoweredMastery {
 
     private void onGatherData(GatherDataEvent.Client event){
         event.createDatapackRegistryObjects(OMEnchantments.enchantmentBuilder.add(Registries.ENCHANTMENT,OMEnchantments::bootstrap));
+    }
+
+    private void liquidInteractions(){
+
     }
 }

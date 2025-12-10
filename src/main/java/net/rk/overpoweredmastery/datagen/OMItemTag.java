@@ -65,6 +65,7 @@ public class OMItemTag extends ItemTagsProvider {
                 .addTag(ItemTags.CHEST_ARMOR)
                 .addTag(ItemTags.LEG_ARMOR)
                 .addTag(ItemTags.FOOT_ARMOR)
+                .add(OMItems.ULTIMATE_STAFF.asItem())
         ;
     }
 }

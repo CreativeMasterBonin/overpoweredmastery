@@ -20,16 +20,21 @@ public class OMLang extends LanguageProvider {
     protected void addTranslations(){
         add("itemGroup.overpoweredmastery","Overpowered Mastery");
 
+        // blocks
         add(OMBlocks.MOVING_PROBABLE_BLOCK.get(),"Moving Probable Block");
+        add(OMBlocks.SELECTION_BLOCK.get(),"Selection Block");
 
+        // items
         add(OMItems.ENDARKENED_CROSSBOW.asItem(),"Endarkened Crossbow");
-        add(OMItems.RED_WUBS.asItem(),"Music Disc Wub Blaster (Red Stage)");
-        add(OMItems.GREEN_WUBS.asItem(),"Music Disc Wub Shooter (Green Stage)");
-        add(OMItems.PURPLE_WUBS.asItem(),"Music Disc Wub Darkener (Purple Stage)");
-        add(OMItems.CHICKEN_WUBS.asItem(),"Music Disc Wub Plucker (Chicken Stage)");
-        add(OMItems.NETHER_WUBS.asItem(),"Music Disc Wub Melter (Nether Stage)");
-        add(OMItems.TRIAL_WUBS.asItem(),"Music Disc Wub Tester (Trial Stage)");
-        add(OMItems.OXIDIZED_TRIAl_WUBS.asItem(),"Music Disc Wub Oxidizer (Oxidized Stage)");
+
+        // music disc something with the ending 'er' in it
+        add(OMItems.RED_WUBS.asItem(),"Music Disc Blaster (Red Stage)");
+        add(OMItems.GREEN_WUBS.asItem(),"Music Disc Shooter (Green Stage)");
+        add(OMItems.PURPLE_WUBS.asItem(),"Music Disc Darkener (Purple Stage)");
+        add(OMItems.CHICKEN_WUBS.asItem(),"Music Disc Plucker (Chicken Stage)");
+        add(OMItems.NETHER_WUBS.asItem(),"Music Disc Melter (Nether Stage)");
+        add(OMItems.TRIAL_WUBS.asItem(),"Music Disc Tester (Trial Stage)");
+        add(OMItems.OXIDIZED_TRIAl_WUBS.asItem(),"Music Disc Oxidizer (Oxidized Stage)");
         add(OMItems.MOVING_PROBABLE_BLOCK_ITEM.asItem(),"Moving Probable Block");
         add(OMItems.BONE_SWORD.asItem(),"Bone Sword");
         add(OMItems.PENULTIMATE_SWORD_DARK.asItem(),"Penultimate Sword (Dark Phase)");
@@ -46,6 +51,8 @@ public class OMLang extends LanguageProvider {
         addItemDesc(OMItems.OXIDIZED_TRIAl_WUBS.asItem(),"Now oxidized, the power of music is slow, but hits hard!");
         addItemDesc(OMItems.PENULTIMATE_SWORD_DARK.asItem(),"The Penultimate Sword has taken a void-like appearance. It takes away the darkest of effects... yet introduces a hint of trouble");
         addItemDesc(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),"The Penultimate Sword has taken a light-like appearance. It is strong, and provides amazing abilities");
+
+        // long spears
         add(OMItems.TEST_SPEAR.asItem(),"Test Long Spear");
         add(OMItems.WOODEN_SPEAR.asItem(),"Wooden Long Spear");
         add(OMItems.STONE_SPEAR.asItem(),"Stone Long Spear");
@@ -58,17 +65,33 @@ public class OMLang extends LanguageProvider {
         add(OMItems.DIAMOND_TOOL_BINDING.asItem(),"Diamond Tool Binding");
         add(OMItems.NETHERITE_TOOL_BINDING.asItem(),"Netherite Tool Binding");
 
+        // ores
+        add(OMBlocks.INERT_BLUE_ESSENCE_ORE.get(),"Inert Blue Essence Ore");
+        add(OMItems.INERT_BLUE_ESSENCE_ORE.asItem(),"Inert Blue Essence Ore");
+        add(OMBlocks.INERT_GREEN_ESSENCE_ORE.get(),"Inert Green Essence Ore");
+        add(OMItems.INERT_GREEN_ESSENCE_ORE.asItem(),"Inert Green Essence Ore");
+        // essences
+        add(OMItems.INERT_BLUE_ESSENCE.asItem(),"Inert Blue Essence");
+        add(OMItems.INERT_GREEN_ESSENCE.asItem(),"Inert Green Essence");
+
+
+        // staffs
+        add(OMItems.ULTIMATE_STAFF.asItem(),"Ultimate Staff");
+
         // enchantments
         add("enchantment.overpoweredmastery.instarepair","Instarepair");
         add("enchantment.overpoweredmastery.instarepair.desc","Repairs tools for free randomly... however is quite slow");
 
-        // entity names
-        //add("entity.overpoweredmastery.multipurpose_vehicle","Multipurpose Vehicle");
+
+        add("overpoweredmastery.item.inert_essence.desc","Although useless in this form, some stimulation might make it do something...");
         // subtitles accurately called: "captions"
         add("overpoweredmastery.subtitle.red_wubs","Red Wubs Burn");
         add("overpoweredmastery.subtitle.green_wubs","Green Wubs Phase");
         add("overpoweredmastery.subtitle.purple_wubs","Purple Wubs Darkens");
+        add("overpoweredmastery.subtitle.effect","Something Whooshes");
+        // block descs
         add("block.thingamajigsgoodies.moving_probable_block.desc","A reward is granted based on the number of moves it does.");
+        add("block.overpoweredmastery.selection_block.desc","INTERNAL USE ONLY. A collision-less block for travelling through.");
         // config options
         add("overpoweredmastery.configuration.title","Overpowered Mastery Config");
         add("overpoweredmastery.configuration.chicken_wub_damage_chickens","Chicken Wub - Chicken Damage");
@@ -80,6 +103,7 @@ public class OMLang extends LanguageProvider {
         add("overpoweredmastery.configuration.section.overpoweredmastery.common.toml", "Server & Client");
         add("overpoweredmastery.configuration.section.overpoweredmastery.common.toml.title", "Common Config");
         add("item.overpoweredmastery.spear.desc","Hold right click to attack enemies while running");
+        add("item.overpoweredmastery.staff.desc","Right click to fire attacks at enemies");
         add("overpoweredmastery.configuration.section.overpoweredmastery.server.toml","Server");
         add("overpoweredmastery.configuration.section.overpoweredmastery.server.toml.title","Server Config");
         add("overpoweredmastery.configuration.section.overpoweredmastery.client.toml","Client");
@@ -90,5 +114,13 @@ public class OMLang extends LanguageProvider {
         add("overpoweredmastery.configuration.client.upside_down_hax.tooltip","Turn the player upside down all the time, alike to a certain player (very janky and experimental)");
         add("overpoweredmastery.configuration.client.upside_down_hax_y_offset","Upside Down Hax Y Offset");
         add("overpoweredmastery.configuration.client.upside_down_hax_y_offset.tooltip","Affects the Y Position of the upside down player model");
+        add("overpoweredmastery.configuration.client.minecart_on_head_hax","Minecart On Head");
+        add("overpoweredmastery.configuration.client.minecart_on_head_hax.tooltip","Show a minecart on your head (very janky and experimental)");
+        add("overpoweredmastery.configuration.client.minecart_on_head_hax_x_rotation","Head Minecart X Rotation");
+        add("overpoweredmastery.configuration.client.minecart_on_head_hax_z_rotation","Head Minecart Z Rotation");
+        add("overpoweredmastery.configuration.client.minecart_on_head_hax_y_rotation","Head Minecart Y Rotation");
+        add("overpoweredmastery.configuration.client.minecart_on_head_hax_x_rotation.tooltip","The X Rotation for the head minecart (very janky and experimental)");
+        add("overpoweredmastery.configuration.client.minecart_on_head_hax_z_rotation.tooltip","The Z Rotation for the head minecart (very janky and experimental)");
+        add("overpoweredmastery.configuration.client.minecart_on_head_hax_y_rotation.tooltip","The Y Rotation for the head minecart (very janky and experimental)");
     }
 }

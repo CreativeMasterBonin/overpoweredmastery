@@ -7,6 +7,7 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.rk.overpoweredmastery.block.OMBlocks;
+import net.rk.overpoweredmastery.item.OMItems;
 
 import java.util.Set;
 
@@ -19,14 +20,13 @@ public class OMLoot extends BlockLootSubProvider {
     protected void generate() {
         System.out.println("Generating loot tables for OMLoot");
         HolderLookup.RegistryLookup<Enchantment> registryLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+
+        this.add(OMBlocks.INERT_BLUE_ESSENCE_ORE.get(),block -> this.createOreDrop(block,OMItems.INERT_BLUE_ESSENCE.asItem()));
+        this.add(OMBlocks.INERT_GREEN_ESSENCE_ORE.get(),block -> this.createOreDrop(block,OMItems.INERT_GREEN_ESSENCE.asItem()));
     }
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        /*List<Block> knownBlocks = new ArrayList<>();
-        knownBlocks.addAll(OMBlocks.BLOCKS.getEntries().stream().filter((x) ->
-                !x.is(OMBlocks.MOVING_PROBABLE_BLOCK))
-                .map(DeferredHolder::get).toList());*/
         return OMBlocks.BLOCKS.getEntries().stream().filter(
                 x -> !x.is(OMBlocks.MOVING_PROBABLE_BLOCK)
         ).map(blk -> (Block) blk.value()).toList();

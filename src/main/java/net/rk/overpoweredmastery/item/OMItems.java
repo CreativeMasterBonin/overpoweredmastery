@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.rk.overpoweredmastery.OverpoweredMastery;
+import net.rk.overpoweredmastery.block.OMBlocks;
 import net.rk.overpoweredmastery.datagen.OMTags;
 import net.rk.overpoweredmastery.item.custom.*;
 
@@ -266,6 +267,38 @@ public class OMItems{
                     ))
     );
 
+    public static final DeferredItem<Item> ULTIMATE_STAFF = ITEMS.registerItem("ultimate_staff",
+            UltimateStaff::new,
+            new Item.Properties().setId(makeResourceKey("ultimate_staff"))
+                    .component(DataComponents.TOOLTIP_STYLE,
+                            makeTooltipReference("om_ultimate"))
+                    .component(DataComponents.BREAK_SOUND, Holder.direct(SoundEvents.TRIAL_SPAWNER_BREAK))
+                    .component(DataComponents.TOOL,new Tool(
+                            List.of(),
+                            0.1f,
+                            1,
+                            false
+                    )));
+
+    // ore items
+    public static final DeferredItem<Item> INERT_BLUE_ESSENCE_ORE = ITEMS.registerItem("inert_blue_essence_ore",
+            properties -> new BlockItem(OMBlocks.INERT_BLUE_ESSENCE_ORE.get(),properties
+                    .setId(makeResourceKey("inert_blue_essence_ore"))));
+    public static final DeferredItem<Item> INERT_BLUE_ESSENCE = ITEMS.registerItem("inert_blue_essence",
+            InertEssence::new,new Item.Properties()
+                    .setId(makeResourceKey("inert_blue_essence")));
+
+    public static final DeferredItem<Item> INERT_GREEN_ESSENCE_ORE = ITEMS.registerItem("inert_green_essence_ore",
+            properties -> new BlockItem(OMBlocks.INERT_GREEN_ESSENCE_ORE.get(),properties
+                    .setId(makeResourceKey("inert_green_essence_ore"))));
+    public static final DeferredItem<Item> INERT_GREEN_ESSENCE = ITEMS.registerItem("inert_green_essence",
+            InertEssence::new,new Item.Properties()
+                    .setId(makeResourceKey("inert_green_essence")));
+
+
+
+
+
     public static Tool spearTool(TagKey<Block> incorrectDrops, TagKey<Block> mineBlocks, float mineSpeed, float defaultMineSpeed, int usesUsedPerBlock, boolean destroyBlocksInCreative){
         HolderGetter<Block> holdergetter = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);
         return new Tool(
@@ -273,6 +306,18 @@ public class OMItems{
                         Tool.Rule.minesAndDrops(holdergetter.getOrThrow(mineBlocks),mineSpeed),
                         Tool.Rule.overrideSpeed(holdergetter.getOrThrow(BlockTags.SWORD_INSTANTLY_MINES),Float.MAX_VALUE),
                         Tool.Rule.overrideSpeed(holdergetter.getOrThrow(BlockTags.SWORD_EFFICIENT),1.15f)
+                ),
+                defaultMineSpeed,
+                usesUsedPerBlock,
+                destroyBlocksInCreative
+        );
+    }
+
+    public static Tool uselessTool(TagKey<Block> incorrectDrops, TagKey<Block> mineBlocks, float mineSpeed, float defaultMineSpeed, int usesUsedPerBlock, boolean destroyBlocksInCreative){
+        HolderGetter<Block> holdergetter = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);
+        return new Tool(
+                List.of(
+
                 ),
                 defaultMineSpeed,
                 usesUsedPerBlock,

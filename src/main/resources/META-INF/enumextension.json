@@ -17,6 +17,15 @@
         "class": "net/rk/overpoweredmastery/OverpoweredMasteryClient$SpearExtension",
         "field": "SPEAR"
       }
+    },
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "overpoweredmastery_staff_arm_pose",
+      "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "net/rk/overpoweredmastery/OverpoweredMasteryClient$StaffExtension",
+        "field": "STAFF"
+      }
     }
   ]
 }
