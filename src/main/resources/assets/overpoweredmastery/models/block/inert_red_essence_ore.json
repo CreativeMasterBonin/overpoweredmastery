@@ -1,0 +1,7 @@
+{
+  "parent": "overpoweredmastery:block/base_overlay_block_emissive",
+  "textures": {
+    "main": "overpoweredmastery:block/inert_red_essence_ore",
+    "overlay": "overpoweredmastery:block/inert_generic_essence_ore_overlay"
+  }
+}
