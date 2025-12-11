@@ -11,6 +11,10 @@ If you contribute to the mod, you will gain credit in some form, either text or 
 
 The code is public, and you can rename methods and their layout (their logic)[please try and redo the logic, so it is original to you] when using them in your own mods IF YOU GIVE CREDIT BACK TO THIS MOD AND CREATIVEMASTERBONIN.
 Failure to credit the proper persons (when using programming from this repository) will result in a C&D or other applicable punishment by law.
+
+Note: Any code snippets that are not originally from CreativeMasterBonin are listed as such with the license they had attached to them:
+- MIT License KaupenJoe HammerItem Check BlockPos Logic
+
 You may study the code and assets freely, without payment to access the content. You cannot copy and paste any images or text files (including JSON files). Addon mod files can reference model files, but cannot copy them verbatim (meaning they cannot use a single line of code from them, only model reference names).
 
 Follow these simple guidelines, and enjoy the mod.
