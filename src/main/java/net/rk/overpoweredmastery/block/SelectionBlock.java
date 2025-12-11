@@ -56,6 +56,11 @@ public class SelectionBlock extends BaseEntityBlock {
     }
 
     @Override
+    public boolean makesOpenTrapdoorAboveClimbable(BlockState state, LevelReader level, BlockPos pos, BlockState trapdoorState) {
+        return true;
+    }
+
+    @Override
     protected VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
         return Shapes.empty();
     }

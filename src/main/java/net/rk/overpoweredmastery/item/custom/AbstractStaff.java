@@ -3,11 +3,14 @@ package net.rk.overpoweredmastery.item.custom;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.ARGB;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -41,6 +44,10 @@ public abstract class AbstractStaff extends ProjectileWeaponItem {
             ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"staff_block_reach");
     public static final ResourceLocation STAFF_ENTITY_REACH_MODIFIER =
             ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"staff_entity_reach");
+    public static final ResourceLocation STAFF_SAFE_FALL_DISTANCE =
+            ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"staff_safe_fall_distance");
+    public static final ResourceLocation STAFF_FALL_DAMAGE_MULTIPLIER =
+            ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"staff_fall_damage_multiplier");
 
     public AbstractStaff(Properties p) {
         super(p.stacksTo(1));
@@ -94,6 +101,72 @@ public abstract class AbstractStaff extends ProjectileWeaponItem {
     }
 
     public abstract void extraOnUse(Level level, LivingEntity livingEntity, ItemStack itemStack, int remainDuration);
+
+    /**
+     * Performs a complex action for this staff
+     * @param level The current level (should be server level)
+     * @param entity The entity doing the action
+     * @param stack The item stack being used
+     * @param remainingDuration The ticks left till reset
+     * @param stage The stage of action, which determines what happens and if a projectile is involved, which projectile is fired
+     */
+    public abstract void action(Level level, LivingEntity entity, ItemStack stack, int remainingDuration, int stage);
+
+    /**
+     * The universal color method that display friendly particles above the user of the staff
+     * @param level The level that the particles will appear in
+     * @param livingEntity The entity that the particles will appear near
+     */
+    public void staffDefaultParticles(Level level, LivingEntity livingEntity){
+        int allTheColors = ARGB.color(Mth.randomBetweenInclusive(
+                        level.getRandom(), 0, 255),
+                Mth.randomBetweenInclusive(level.getRandom(), 0, 255),
+                Mth.randomBetweenInclusive(level.getRandom(), 0, 255));
+
+        // make the math better and lined up with item in hand
+        if (livingEntity.getUsedItemHand() == InteractionHand.MAIN_HAND) {
+            double x = livingEntity.getDeltaMovement().x;
+            double z = livingEntity.getDeltaMovement().z;
+
+            if(x < 0 && z < 0){
+                level.addParticle(new DustParticleOptions(allTheColors, 1.0f),
+                        livingEntity.getX() + 0.3,
+                        livingEntity.getY() + 2.5,
+                        livingEntity.getZ() + 0.3,
+                        0, 1, 0);
+            } else if (x > 0 && z < 0) {
+                level.addParticle(new DustParticleOptions(allTheColors, 1.0f),
+                        livingEntity.getX() + 0.3,
+                        livingEntity.getY() + 2.5,
+                        livingEntity.getZ() + 0.3,
+                        0, 1, 0);
+            } else if (x > 0 && z > 0) {
+                level.addParticle(new DustParticleOptions(allTheColors, 1.0f),
+                        livingEntity.getX() + 0.3,
+                        livingEntity.getY() + 2.5,
+                        livingEntity.getZ() - 0.3,
+                        0, 1, 0);
+            } else if (x < 0 && z > 0) {
+                level.addParticle(new DustParticleOptions(allTheColors, 1.0f),
+                        livingEntity.getX() + 0.3,
+                        livingEntity.getY() + 2.5,
+                        livingEntity.getZ() + 0.3,
+                        0, 1, 0);
+            } else {
+                level.addParticle(new DustParticleOptions(allTheColors, 1.0f),
+                        livingEntity.getX(),
+                        livingEntity.getY() + 2.5,
+                        livingEntity.getZ(),
+                        0, 1, 0);
+            }
+        } else if (livingEntity.getUsedItemHand() == InteractionHand.OFF_HAND) {
+            level.addParticle(new DustParticleOptions(allTheColors, 1.0f),
+                    livingEntity.getX() + livingEntity.yHeadRot,
+                    livingEntity.getY() + 2.5,
+                    livingEntity.getZ() - livingEntity.yHeadRot,
+                    0, 1, 0);
+        }
+    }
 
     @Override
     public Predicate<ItemStack> getAllSupportedProjectiles() {

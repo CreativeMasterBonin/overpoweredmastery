@@ -47,6 +47,7 @@ public class OMItemTag extends ItemTagsProvider {
                 .add(OMItems.PENULTIMATE_SWORD_DARK.asItem())
                 .add(OMItems.PENULTIMATE_SWORD_LIGHT.asItem())
                 .addTag(OMTags.SPEARS)
+                .add(OMItems.ULTRA_SWORD.asItem())
         ;
         tag(Tags.Items.MELEE_WEAPON_TOOLS)
                 .addTag(OMTags.SPEARS)
@@ -66,6 +67,7 @@ public class OMItemTag extends ItemTagsProvider {
                 .addTag(ItemTags.LEG_ARMOR)
                 .addTag(ItemTags.FOOT_ARMOR)
                 .add(OMItems.ULTIMATE_STAFF.asItem())
+                .add(OMItems.ULTRA_SWORD.asItem())
         ;
         tag(Tags.Items.ORES)
                 .add(OMItems.INERT_BLUE_ESSENCE_ORE.asItem())
@@ -76,6 +78,10 @@ public class OMItemTag extends ItemTagsProvider {
                 .add(OMItems.INERT_LIGHT_ESSENCE_ORE.asItem())
                 .add(OMItems.INERT_AURORAN_ESSENCE_ORE.asItem())
                 .add(OMItems.INERT_DARK_ESSENCE_ORE.asItem())
+        ;
+        tag(Tags.Items.INGOTS)
+                .add(OMItems.ULTIMATE_INGOT.asItem())
+                .add(OMItems.ULTRA_INGOT.asItem())
         ;
         tag(OMTags.INERT_ESSENCES)
                 .add(OMItems.INERT_BLUE_ESSENCE.asItem())

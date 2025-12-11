@@ -84,6 +84,8 @@ public class OMModels extends ModelProvider {
         itemModels.generateFlatItem(OMItems.AURORAN_PROCESSOR.asItem(),ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(OMItems.REDSTONE_BASE_COMPONENT.asItem(),ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(OMItems.STRANGE_STONE.asItem(),ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(OMItems.ULTIMATE_INGOT.asItem(),ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(OMItems.ULTRA_INGOT.asItem(),ModelTemplates.FLAT_ITEM);
     }
 
     @Override
@@ -96,6 +98,7 @@ public class OMModels extends ModelProvider {
     @Override
     protected Stream<? extends Holder<Item>> getKnownItems() {
         return OMItems.ITEMS.getEntries().stream().filter((x)->
+                !x.is(OMItems.ULTRA_SWORD) &&
                 !(x.value() instanceof InertEssence) &&
                 !(x.value() instanceof AbstractWubs)
                 && !(x.value() instanceof AbstractSpear)

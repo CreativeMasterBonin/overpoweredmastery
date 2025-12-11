@@ -94,6 +94,7 @@ dependencies {
     runtimeOnly("curse.maven:yacl-667299:6662856")
     runtimeOnly("curse.maven:atomicstrykers-infernal-mobs-227875:6937473")
     runtimeOnly("curse.maven:enchantment-descriptions-250419:7037177")
+    runtimeOnly("curse.maven:tropicraft-254794:6892496")
     runtimeOnly("maven.modrinth:aaRl8GiW:5iVG8y0w")
 }
 

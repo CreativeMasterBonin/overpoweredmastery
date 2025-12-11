@@ -8,7 +8,6 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.rk.overpoweredmastery.OverpoweredMastery;
 import net.rk.overpoweredmastery.block.OMBlocks;
-import net.rk.overpoweredmastery.item.OMItems;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -298,6 +297,9 @@ public class OMBlockTag extends BlockTagsProvider {
         tag(BlockTags.PREVENT_MOB_SPAWNING_INSIDE)
                 .add(OMBlocks.SELECTION_BLOCK.get())
         ;
+        /*tag(BlockTags.CLIMBABLE)
+                .add(OMBlocks.SELECTION_BLOCK.get())
+        ;*/
         tag(OMTags.UNSAFE_FOR_SELECTION)
                 .add(Blocks.AIR)
                 .add(Blocks.CAVE_AIR)

@@ -1,15 +1,12 @@
 package net.rk.overpoweredmastery.item;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ARGB;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -19,15 +16,13 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.AbstractIllager;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.LargeFireball;
+import net.minecraft.world.entity.projectile.SmallFireball;
+import net.minecraft.world.entity.projectile.WitherSkull;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ClipContext;
@@ -45,11 +40,10 @@ import net.rk.overpoweredmastery.resource.OMSoundEvents;
 import net.rk.overpoweredmastery.util.OPUtil;
 
 import java.util.List;
-import java.util.Set;
 
 public class UltimateStaff extends AbstractStaff {
     public UltimateStaff(Properties p) {
-        super(p.enchantable(30).rarity(Rarity.EPIC).durability(9999).fireResistant()
+        super(p.enchantable(30).rarity(OMRarity.ULTIMATE.getValue()).durability(9999).fireResistant()
                 .attributes(ItemAttributeModifiers.builder()
                         .add(Attributes.MOVEMENT_SPEED,
                                 new AttributeModifier(AbstractStaff.STAFF_MOVEMENT_SPEED_MODIFIER,0.05f,AttributeModifier.Operation.ADD_VALUE),
@@ -60,12 +54,40 @@ public class UltimateStaff extends AbstractStaff {
                         .add(Attributes.ENTITY_INTERACTION_RANGE,
                                 new AttributeModifier(AbstractStaff.STAFF_ENTITY_REACH_MODIFIER,5,AttributeModifier.Operation.ADD_VALUE),
                                 EquipmentSlotGroup.HAND)
+                        .add(Attributes.SAFE_FALL_DISTANCE,
+                                new AttributeModifier(AbstractStaff.STAFF_SAFE_FALL_DISTANCE,384,AttributeModifier.Operation.ADD_VALUE),
+                                EquipmentSlotGroup.ANY)
+                        .add(Attributes.FALL_DAMAGE_MULTIPLIER,
+                                new AttributeModifier(AbstractStaff.STAFF_FALL_DAMAGE_MULTIPLIER,-0.5D,AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
+                                EquipmentSlotGroup.ANY)
                         .build()));
     }
 
     @Override
     public int getUseDuration(ItemStack stack, LivingEntity entity) {
-        return 80;
+        return 800;
+    }
+
+    @Override
+    public boolean onEntitySwing(ItemStack stack, LivingEntity entity, InteractionHand hand) {
+        boolean didAction = false;
+        if(entity instanceof Player player){
+            if(player.getCooldowns().isOnCooldown(stack)){
+                return false;
+            }
+            if(player.isSecondaryUseActive()){
+                didAction = true;
+                entity.addDeltaMovement(entity.getLookAngle()
+                        .multiply(1.2, 1.2, 1.2)
+                        .normalize()
+                        .scale(0.91 / (entity.getAttributeValue(Attributes.MOVEMENT_EFFICIENCY) + 1.0f)));
+                player.getCooldowns().addCooldown(stack,20);
+            }
+            else{
+                return false;
+            }
+        }
+        return didAction ? true : false;
     }
 
     @Override
@@ -216,54 +238,21 @@ public class UltimateStaff extends AbstractStaff {
             }
         }
 
-        if(remainingUseDuration < 78) {
-            int allTheColors = ARGB.color(Mth.randomBetweenInclusive(
-                            level.getRandom(), 0, 255),
-                    Mth.randomBetweenInclusive(level.getRandom(), 0, 255),
-                    Mth.randomBetweenInclusive(level.getRandom(), 0, 255));
-
-            // make the math better and lined up with item in hand
-            if (livingEntity.getUsedItemHand() == InteractionHand.MAIN_HAND) {
-                double x = livingEntity.getDeltaMovement().x;
-                double z = livingEntity.getDeltaMovement().z;
-
-                if(x < 0 && z < 0){
-                    level.addParticle(new DustParticleOptions(allTheColors, 1.0f),
-                            livingEntity.getX() + 0.3,
-                            livingEntity.getY() + 2.5,
-                            livingEntity.getZ() + 0.3,
-                            0, 1, 0);
-                } else if (x > 0 && z < 0) {
-                    level.addParticle(new DustParticleOptions(allTheColors, 1.0f),
-                            livingEntity.getX() + 0.3,
-                            livingEntity.getY() + 2.5,
-                            livingEntity.getZ() + 0.3,
-                            0, 1, 0);
-                } else if (x > 0 && z > 0) {
-                    level.addParticle(new DustParticleOptions(allTheColors, 1.0f),
-                            livingEntity.getX() + 0.3,
-                            livingEntity.getY() + 2.5,
-                            livingEntity.getZ() - 0.3,
-                            0, 1, 0);
-                } else if (x < 0 && z > 0) {
-                    level.addParticle(new DustParticleOptions(allTheColors, 1.0f),
-                            livingEntity.getX() + 0.3,
-                            livingEntity.getY() + 2.5,
-                            livingEntity.getZ() + 0.3,
-                            0, 1, 0);
-                } else {
-                    level.addParticle(new DustParticleOptions(allTheColors, 1.0f),
-                            livingEntity.getX(),
-                            livingEntity.getY() + 2.5,
-                            livingEntity.getZ(),
-                            0, 1, 0);
+        if(remainingUseDuration < 780) {
+            staffDefaultParticles(level,livingEntity);
+            if(remainingUseDuration % 4 == 0){
+                if(remainingUseDuration < 200){
+                    action(level,livingEntity,stack,remainingUseDuration,2);
                 }
-            } else if (livingEntity.getUsedItemHand() == InteractionHand.OFF_HAND) {
-                level.addParticle(new DustParticleOptions(allTheColors, 1.0f),
-                        livingEntity.getX() + livingEntity.yHeadRot,
-                        livingEntity.getY() + 2.5,
-                        livingEntity.getZ() - livingEntity.yHeadRot,
-                        0, 1, 0);
+            }
+
+            if(remainingUseDuration % 10 == 0){
+                if(remainingUseDuration < 400){
+                    action(level,livingEntity,stack,remainingUseDuration,1);
+                }
+                else{
+                    action(level,livingEntity,stack,remainingUseDuration,0);
+                }
             }
 
             if(stack.getEnchantmentLevel(OPUtil.getEnchantmentHolderFromKeyStatic(level,OMEnchantments.INSTAREPAIR)) > 0){
@@ -278,6 +267,38 @@ public class UltimateStaff extends AbstractStaff {
             }
             else{
                 stack.hurtAndBreak(1,livingEntity,livingEntity.getUsedItemHand());
+            }
+        }
+    }
+
+    @Override
+    public void action(Level level, LivingEntity entity, ItemStack stack, int remainingDuration, int stage){
+        if(entity.getRandom().nextIntBetweenInclusive(0,100) <= 1){
+            entity.playSound(OMSoundEvents.EFFECT.get(),0.75f,entity.getRandom().triangle(0.95f,1.1f));
+        }
+        if(level instanceof ServerLevel serverLevel){
+            switch(stage){
+                case 0:{
+                    entity.playSound(SoundEvents.FIRECHARGE_USE,0.45f,entity.getRandom().triangle(0.95f,1.1f));
+                    SmallFireball fireball = new SmallFireball(level,entity,entity.getViewVector(5));
+                    fireball.setPos(fireball.getX(),entity.getEyeY(),fireball.getZ());
+                    serverLevel.addFreshEntity(fireball);
+                    break;
+                }
+                case 1:{
+                    entity.playSound(SoundEvents.FIRECHARGE_USE,0.45f,entity.getRandom().triangle(0.95f,1.1f));
+                    LargeFireball largeFireball = new LargeFireball(level,entity,entity.getViewVector(4),2);
+                    largeFireball.setPos(largeFireball.getX(),entity.getEyeY() + 0.51D,largeFireball.getZ());
+                    serverLevel.addFreshEntity(largeFireball);
+                    break;
+                }
+                case 2:{
+                    entity.playSound(SoundEvents.LAVA_POP,0.45f,entity.getRandom().triangle(0.95f,1.1f));
+                    WitherSkull witherSkull = new WitherSkull(level,entity,entity.getViewVector(7));
+                    witherSkull.setCustomName(Component.literal("Grumm"));
+                    witherSkull.setPos(witherSkull.getX(),entity.getEyeY() + 0.81D,witherSkull.getZ());
+                    serverLevel.addFreshEntity(witherSkull);
+                }
             }
         }
     }

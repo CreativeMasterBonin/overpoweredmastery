@@ -7,14 +7,19 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Weapon;
 import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.fluids.FluidInteractionRegistry;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import net.neoforged.neoforge.registries.RegisterEvent;
 import net.rk.overpoweredmastery.block.OMBlocks;
 import net.rk.overpoweredmastery.datagen.OMEnchantments;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
@@ -178,6 +183,9 @@ public class OverpoweredMastery {
             event.accept(OMItems.REDSTONE_BASE_COMPONENT);
             event.accept(OMItems.AURORAN_PROCESSOR);
             event.accept(OMItems.ESSENCE_ELECTRONIC_CORE);
+            // ingots
+            event.accept(OMItems.ULTIMATE_INGOT);
+            event.accept(OMItems.ULTRA_INGOT);
             // spears
             event.accept(OMItems.WOODEN_SPEAR);
             event.accept(OMItems.STONE_SPEAR);
@@ -185,11 +193,12 @@ public class OverpoweredMastery {
             event.accept(OMItems.IRON_SPEAR);
             event.accept(OMItems.DIAMOND_SPEAR);
             event.accept(OMItems.NETHERITE_SPEAR);
-            //
+            // swords
             event.accept(OMItems.BONE_SWORD);
             event.accept(OMItems.ENDARKENED_CROSSBOW);
             event.accept(OMItems.PENULTIMATE_SWORD_DARK);
             event.accept(OMItems.PENULTIMATE_SWORD_LIGHT);
+            event.accept(OMItems.ULTRA_SWORD);
             // staffs
             event.accept(OMItems.ULTIMATE_STAFF);
             // wubs
@@ -207,9 +216,5 @@ public class OverpoweredMastery {
 
     private void onGatherData(GatherDataEvent.Client event){
         event.createDatapackRegistryObjects(OMEnchantments.enchantmentBuilder.add(Registries.ENCHANTMENT,OMEnchantments::bootstrap));
-    }
-
-    private void liquidInteractions(){
-
     }
 }

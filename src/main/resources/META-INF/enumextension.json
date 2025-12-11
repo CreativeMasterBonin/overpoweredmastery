@@ -26,6 +26,24 @@
         "class": "net/rk/overpoweredmastery/OverpoweredMasteryClient$StaffExtension",
         "field": "STAFF"
       }
+    },
+    {
+      "enum": "net/minecraft/world/item/Rarity",
+      "name": "overpoweredmastery_ultimate",
+      "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
+      "parameters": {
+        "class": "net/rk/overpoweredmastery/item/OMRarity",
+        "field": "ULTIMATE"
+      }
+    },
+    {
+      "enum": "net/minecraft/world/item/Rarity",
+      "name": "overpoweredmastery_ultra",
+      "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
+      "parameters": {
+        "class": "net/rk/overpoweredmastery/item/OMRarity",
+        "field": "ULTRA"
+      }
     }
   ]
 }

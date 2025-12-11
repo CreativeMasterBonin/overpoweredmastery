@@ -35,10 +35,14 @@ public class OMLang extends LanguageProvider {
         add(OMItems.NETHER_WUBS.asItem(),"Music Disc Melter (Nether Stage)");
         add(OMItems.TRIAL_WUBS.asItem(),"Music Disc Tester (Trial Stage)");
         add(OMItems.OXIDIZED_TRIAl_WUBS.asItem(),"Music Disc Oxidizer (Oxidized Stage)");
+        // others
         add(OMItems.MOVING_PROBABLE_BLOCK_ITEM.asItem(),"Moving Probable Block");
+        // swords
         add(OMItems.BONE_SWORD.asItem(),"Bone Sword");
         add(OMItems.PENULTIMATE_SWORD_DARK.asItem(),"Penultimate Sword (Dark Phase)");
         add(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),"Penultimate Sword (Light Phase)");
+        add(OMItems.ULTRA_SWORD.asItem(),"Ultra Sword");
+        add(OMItems.ULTRA_INGOT.asItem(),"Ultra Ingot");
 
         addItemDesc(OMItems.ENDARKENED_CROSSBOW.asItem(),"The more health you have, the less rate of fire you have!");
         add("item.wub.generic_desc","Hold right click to continuously fire the musical weapon. Shifting or not holding right click stops playing the weapon.");
@@ -103,6 +107,7 @@ public class OMLang extends LanguageProvider {
         add(OMItems.REDSTONE_BASE_COMPONENT.asItem(),"Redstone Base Component");
         // misc items
         add(OMItems.STRANGE_STONE.asItem(),"Strange Stone");
+        add(OMItems.ULTIMATE_INGOT.asItem(),"Ultimate Ingot");
 
         // staffs
         add(OMItems.ULTIMATE_STAFF.asItem(),"Ultimate Staff");

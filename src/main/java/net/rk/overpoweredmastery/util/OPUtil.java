@@ -8,6 +8,9 @@ import net.minecraft.world.level.Level;
 import java.util.Random;
 
 public class OPUtil {
+    public static final int ULTRA_COLOR = 13162472;
+    public static final int ULTIMATE_COLOR = 8737009;
+
     public static Holder<Enchantment> getEnchantmentHolderFromKeyStatic(Level lvl, ResourceKey<Enchantment> enchantmentResourceKey){
         return lvl.registryAccess().getOrThrow(enchantmentResourceKey);
     }

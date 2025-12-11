@@ -28,6 +28,7 @@ import net.rk.overpoweredmastery.OverpoweredMastery;
 import net.rk.overpoweredmastery.block.OMBlocks;
 import net.rk.overpoweredmastery.datagen.OMTags;
 import net.rk.overpoweredmastery.item.custom.*;
+import net.rk.overpoweredmastery.util.OPUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -373,7 +374,52 @@ public class OMItems{
             },new Item.Properties()
                     .setId(makeResourceKey("strange_stone")));
 
+    // ultimate items
+    public static final DeferredItem<Item> ULTIMATE_INGOT = ITEMS.registerItem("ultimate_ingot",
+            Item::new,new Item.Properties()
+                    .setId(makeResourceKey("ultimate_ingot")).fireResistant()
+                    .component(DataComponents.TOOLTIP_STYLE,
+                            makeTooltipReference("om_ultimate")).rarity(OMRarity.ULTIMATE.getValue()));
 
+
+
+    // ultra items
+    public static final DeferredItem<Item> ULTRA_INGOT = ITEMS.registerItem("ultra_ingot",
+            Item::new,new Item.Properties()
+                    .setId(makeResourceKey("ultra_ingot")).fireResistant()
+                    .rarity(OMRarity.ULTRA.getValue()));
+
+    public static final DeferredItem<Item> ULTRA_SWORD = ITEMS.registerItem("ultra_sword",
+            UltraSword::new,
+            new Item.Properties().setId(makeResourceKey("ultra_sword"))
+                    .attributes(ItemAttributeModifiers.builder()
+                            .add(Attributes.ATTACK_DAMAGE,
+                                    new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID,99999.0f,AttributeModifier.Operation.ADD_VALUE),
+                                    EquipmentSlotGroup.HAND)
+                            .add(Attributes.ATTACK_SPEED,
+                                    new AttributeModifier(Item.BASE_ATTACK_SPEED_ID,99.0f,AttributeModifier.Operation.ADD_VALUE),
+                                    EquipmentSlotGroup.HAND)
+                            .build())
+                    .component(DataComponents.WEAPON,new Weapon(1,60))
+                    .component(DataComponents.BREAK_SOUND, Holder.direct(SoundEvents.TRIAL_SPAWNER_AMBIENT_OMINOUS))
+                    .component(DataComponents.ENCHANTABLE,new Enchantable(120))
+                    .component(DataComponents.BLOCKS_ATTACKS,
+                            new BlocksAttacks(
+                                    0.01f,
+                                    0.95f,
+                                    List.of(new BlocksAttacks.DamageReduction(360.0F, Optional.empty(), 900.5F, 1.0F)),
+                                    new BlocksAttacks.ItemDamageFunction(45.0F, 90.0F, 90.0F),
+                                    Optional.empty(),
+                                    Optional.of(Holder.direct(SoundEvents.TRIAL_SPAWNER_HIT)),
+                                    Optional.of(Holder.direct(SoundEvents.TRIAL_SPAWNER_CLOSE_SHUTTER))
+                            ))
+                    .component(DataComponents.TOOL,new Tool(
+                            List.of(),
+                            3.0f,
+                            1,
+                            false
+                    ))
+    );
 
 
 
