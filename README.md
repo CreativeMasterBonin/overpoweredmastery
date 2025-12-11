@@ -16,3 +16,9 @@ Enjoy the mod, and it's source code.</p>
 </b>
 
 Keep checking here for future updates to the code and more, and contribute if you want.
+
+This mod uses the official mappings (and parchment).
+
+NOT AFFILIATED WITH MOJANG STUDIOS OR MICROSOFT.
+
+NOT AN OFFICIAL MINECRAFT PRODUCT.
