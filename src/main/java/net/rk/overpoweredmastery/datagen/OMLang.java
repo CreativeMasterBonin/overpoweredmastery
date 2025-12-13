@@ -20,6 +20,9 @@ public class OMLang extends LanguageProvider {
     protected void addTranslations(){
         add("itemGroup.overpoweredmastery","Overpowered Mastery");
 
+        // screens and menus
+        add("screen.overpoweredmastery.multi_assembler","Multi Assembler");
+
         // blocks
         add(OMBlocks.MOVING_PROBABLE_BLOCK.get(),"Moving Probable Block");
         add(OMBlocks.SELECTION_BLOCK.get(),"Selection Block");

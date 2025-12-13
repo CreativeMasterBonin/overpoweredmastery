@@ -10,6 +10,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.Tags;
@@ -242,6 +243,73 @@ public class OMRecipe extends RecipeProvider {
         createInertOreSmeltingAndBlasting(OMItems.INERT_LIGHT_ESSENCE_ORE.asItem(),OMItems.INERT_LIGHT_ESSENCE.asItem());
         createInertOreSmeltingAndBlasting(OMItems.INERT_AURORAN_ESSENCE_ORE.asItem(),OMItems.INERT_AURORAN_ESSENCE.asItem());
         createInertOreSmeltingAndBlasting(OMItems.INERT_DARK_ESSENCE_ORE.asItem(),OMItems.INERT_DARK_ESSENCE.asItem());
+
+        multiAssembler(
+                Ingredient.of(OMItems.INERT_BLUE_ESSENCE),
+                Ingredient.of(OMItems.INERT_BLUE_ESSENCE),
+                Ingredient.of(OMItems.INERT_BLUE_ESSENCE),
+                Ingredient.of(OMItems.INERT_BLUE_ESSENCE),
+                Ingredient.of(OMItems.INERT_AURORAN_ESSENCE),
+                Ingredient.of(Items.IRON_INGOT),
+                Ingredient.of(Items.ICE),
+                120,
+                new ItemStack(Items.IRON_BLOCK),
+                Items.IRON_INGOT.asItem()
+        );
+    }
+
+    public void multiAssembler(Ingredient firstEssence,
+                               Ingredient secondEssence,
+                               Ingredient thirdEssence,
+                               Ingredient fourthEssence,
+                               Ingredient extraEssence,
+                               Ingredient craftingItem,
+                               Ingredient additiveItem,
+                               int assemblyTime,
+                               ItemStack resultItem, Item unlockItem){
+        MultiAssemblerRecipeBuilder builder = new MultiAssemblerRecipeBuilder(
+                firstEssence,secondEssence,thirdEssence,fourthEssence,extraEssence,craftingItem,additiveItem,assemblyTime,resultItem
+        );
+        StringBuilder nameBuilder = new StringBuilder();
+        nameBuilder.append(getItemName(resultItem.getItem()));
+        nameBuilder.append("_from_multi_assembler");
+        builder.unlockedBy("has_thingy",has(unlockItem));
+        builder.save(this.output,nameBuilder.toString());
+    }
+
+    public void multiAssemblerCustom(Ingredient firstEssence,
+                               Ingredient secondEssence,
+                               Ingredient thirdEssence,
+                               Ingredient fourthEssence,
+                               Ingredient extraEssence,
+                               Ingredient craftingItem,
+                               Ingredient additiveItem,
+                               int assemblyTime,
+                               ItemStack resultItem, Item unlockItem, String customName){
+        MultiAssemblerRecipeBuilder builder = new MultiAssemblerRecipeBuilder(
+                firstEssence,secondEssence,thirdEssence,fourthEssence,extraEssence,craftingItem,additiveItem,assemblyTime,resultItem
+        );
+        builder.unlockedBy("has_thingy",has(unlockItem));
+        builder.save(this.output,customName);
+    }
+
+    public void multiAssembler(Ingredient firstEssence,
+                               Ingredient secondEssence,
+                               Ingredient thirdEssence,
+                               Ingredient fourthEssence,
+                               Ingredient extraEssence,
+                               Ingredient craftingItem,
+                               Ingredient additiveItem,
+                               int assemblyTime,
+                               ItemStack resultItem, TagKey<Item> unlockTag){
+        MultiAssemblerRecipeBuilder builder = new MultiAssemblerRecipeBuilder(
+                firstEssence,secondEssence,thirdEssence,fourthEssence,extraEssence,craftingItem,additiveItem,assemblyTime,resultItem
+        );
+        StringBuilder nameBuilder = new StringBuilder();
+        nameBuilder.append(getItemName(resultItem.getItem()));
+        nameBuilder.append("_from_multi_assembler");
+        builder.unlockedBy("has_thingy",has(unlockTag));
+        builder.save(this.output,nameBuilder.toString());
     }
 
     public void createInertOreSmeltingAndBlasting(Item oreItem, Item resultItem){

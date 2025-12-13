@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -20,17 +21,22 @@ import net.neoforged.fml.common.asm.enumextension.EnumProxy;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.IArmPoseTransformer;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.rk.overpoweredmastery.datagen.OMTags;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
+import net.rk.overpoweredmastery.entity.blockentity.OMBlockEntities;
+import net.rk.overpoweredmastery.entity.model.MultiAssemblerModel;
 import net.rk.overpoweredmastery.entity.renderer.*;
 import net.rk.overpoweredmastery.item.OMItems;
 import net.rk.overpoweredmastery.item.custom.AbstractSpear;
 import net.rk.overpoweredmastery.item.custom.AbstractStaff;
 import net.rk.overpoweredmastery.item.custom.AbstractWubs;
+import net.rk.overpoweredmastery.menu.OMMenus;
+import net.rk.overpoweredmastery.screen.MultiAssemblerScreen;
 import org.jetbrains.annotations.Nullable;
 
 @Mod(value = OverpoweredMastery.MODID, dist = Dist.CLIENT)
@@ -43,7 +49,7 @@ public class OverpoweredMasteryClient {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event){
-
+        BlockEntityRenderers.register(OMBlockEntities.MULTI_ASSEMBLER_BLOCK_ENTITY.get(),MultiAssemblerBlockEntityRenderer::new);
     }
 
     public final class WubExtension{
@@ -256,7 +262,7 @@ public class OverpoweredMasteryClient {
 
     @SubscribeEvent
     public static void setupModelLayer(EntityRenderersEvent.RegisterLayerDefinitions event){
-
+        event.registerLayerDefinition(MultiAssemblerModel.MULTI_ASSEMBLER_MODEL_LAYER_LOCATION,MultiAssemblerModel::createBodyLayer);
     }
 
     @SubscribeEvent
@@ -267,5 +273,10 @@ public class OverpoweredMasteryClient {
         event.registerEntityRenderer(OMEntityTypes.CHICKEN_WUB_ENERGY_BALL.get(),ChickenWubEnergyBallRenderer::new);
         event.registerEntityRenderer(OMEntityTypes.NETHER_WUB_ENERGY_BALL.get(),NetherWubEnergyBallRenderer::new);
         event.registerEntityRenderer(OMEntityTypes.TRIAL_WUB_ENERGY_BALL.get(),TrialWubEnergyBallRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void setupScreen(RegisterMenuScreensEvent event){
+        event.register(OMMenus.MULTI_ASSEMBLER_MENU.get(),MultiAssemblerScreen::new);
     }
 }

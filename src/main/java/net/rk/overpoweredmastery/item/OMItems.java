@@ -422,6 +422,16 @@ public class OMItems{
     );
 
 
+    // machines and devices
+    public static final DeferredItem<Item> MULTI_ASSEMBLER = ITEMS.registerItem("multi_assembler",
+            properties -> new BlockItem(OMBlocks.MULTI_ASSEMBLER.get(),
+                    properties.setId(makeResourceKey("multi_assembler"))));
+
+    public static final DeferredItem<Item> PLACEHOLDER_ITEM = ITEMS.registerItem("placeholder_item",
+            PlaceholderItem::new,
+            new Item.Properties().setId(makeResourceKey("placeholder_item")));
+
+
 
     public static Tool spearTool(TagKey<Block> incorrectDrops, TagKey<Block> mineBlocks, float mineSpeed, float defaultMineSpeed, int usesUsedPerBlock, boolean destroyBlocksInCreative){
         HolderGetter<Block> holdergetter = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);

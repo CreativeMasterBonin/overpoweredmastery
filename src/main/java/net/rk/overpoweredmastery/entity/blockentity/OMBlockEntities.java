@@ -16,4 +16,8 @@ public class OMBlockEntities{
             "selection_block_entity",() ->
                     new BlockEntityType<>(SelectionBlockEntity::new,true,OMBlocks.SELECTION_BLOCK.get()));
 
+    public static final Supplier<BlockEntityType<MultiAssemblerBlockEntity>> MULTI_ASSEMBLER_BLOCK_ENTITY = BLOCK_ENTITIES.register(
+            "multi_assembler",() ->
+                    new BlockEntityType<>(MultiAssemblerBlockEntity::new,false,OMBlocks.MULTI_ASSEMBLER.get()));
+
 }

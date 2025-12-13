@@ -5,12 +5,18 @@ import net.minecraft.SharedConstants;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Weapon;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.fml.config.ModConfig;
@@ -25,6 +31,10 @@ import net.rk.overpoweredmastery.datagen.OMEnchantments;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import net.rk.overpoweredmastery.entity.blockentity.OMBlockEntities;
 import net.rk.overpoweredmastery.item.OMItems;
+import net.rk.overpoweredmastery.menu.OMMenus;
+import net.rk.overpoweredmastery.recipe.MultiAssemblerRecipe;
+import net.rk.overpoweredmastery.recipe.MultiAssemblerRecipeDisplay;
+import net.rk.overpoweredmastery.recipe.MultiAssemblerRecipeSerializer;
 import net.rk.overpoweredmastery.resource.OMSoundEvents;
 import org.slf4j.Logger;
 
@@ -47,7 +57,32 @@ public class OverpoweredMastery {
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
     private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MODID);
-    private static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE,MODID);
+    private static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES =
+            DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE,MODID);
+
+    private static final DeferredRegister<RecipeBookCategory> RECIPE_CATEGORIES =
+            DeferredRegister.create(Registries.RECIPE_BOOK_CATEGORY,MODID);
+    private static final DeferredRegister<RecipeDisplay.Type<?>> RECIPE_DISPLAY_TYPES =
+            DeferredRegister.create(Registries.RECIPE_DISPLAY,MODID);
+    private static final DeferredRegister<RecipeType<?>> RECIPE_TYPES =
+            DeferredRegister.create(Registries.RECIPE_TYPE,MODID);
+    private static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS =
+            DeferredRegister.create(Registries.RECIPE_SERIALIZER,MODID);
+
+    public static final Supplier<RecipeSerializer<MultiAssemblerRecipe>> MULTI_ASSEMBLER_SERIALIZER =
+            RECIPE_SERIALIZERS.register("multi_assembler", MultiAssemblerRecipeSerializer::new);
+
+    public static final Supplier<RecipeType<MultiAssemblerRecipe>> MULTI_ASSEMBLER_RECIPE =
+            RECIPE_TYPES.register("multi_assembler",
+                    RecipeType::simple);
+
+    public static final Supplier<RecipeBookCategory> MULTI_ASSEMBLER_CATEGORY =
+            RECIPE_CATEGORIES.register("multi_assembler",RecipeBookCategory::new);
+
+    public static final Supplier<RecipeDisplay.Type<MultiAssemblerRecipeDisplay>> MULTI_ASSEMBLER_RECIPE_DISPLAY = RECIPE_DISPLAY_TYPES.register(
+            "multi_assembler",
+            () -> new RecipeDisplay.Type<>(MultiAssemblerRecipeDisplay.MAP_CODEC,MultiAssemblerRecipeDisplay.STREAM_CODEC)
+    );
 
     public static final DeferredHolder<DataComponentType<?>,DataComponentType<Integer>> TICKS_ALLOWED_TILL_USELESS =
             DATA_COMPONENT_TYPES.register("ticks_allowed_till_useless",
@@ -68,6 +103,11 @@ public class OverpoweredMastery {
         modEventBus.addListener(this::onGatherData);
         ATTACHMENT_TYPES.register(modEventBus);
         DATA_COMPONENT_TYPES.register(modEventBus);
+        RECIPE_CATEGORIES.register(modEventBus);
+        RECIPE_SERIALIZERS.register(modEventBus);
+        RECIPE_DISPLAY_TYPES.register(modEventBus);
+        RECIPE_TYPES.register(modEventBus);
+        OMMenus.MENU_TYPES.register(modEventBus);
         OMSoundEvents.SOUND_EVENTS.register(modEventBus);
         OMBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         OMBlocks.BLOCKS.register(modEventBus);
@@ -152,6 +192,8 @@ public class OverpoweredMastery {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == ALL_TAB.getKey()){
             customItems(event);
+            // machines and devices
+            event.accept(OMItems.MULTI_ASSEMBLER);
             // ores
             event.accept(OMItems.INERT_BLUE_ESSENCE_ORE);
             event.accept(OMItems.INERT_GREEN_ESSENCE_ORE);

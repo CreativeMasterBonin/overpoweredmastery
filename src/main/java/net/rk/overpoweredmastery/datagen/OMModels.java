@@ -86,11 +86,14 @@ public class OMModels extends ModelProvider {
         itemModels.generateFlatItem(OMItems.STRANGE_STONE.asItem(),ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(OMItems.ULTIMATE_INGOT.asItem(),ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(OMItems.ULTRA_INGOT.asItem(),ModelTemplates.FLAT_ITEM);
+
+        itemModels.declareCustomModelItem(OMItems.PLACEHOLDER_ITEM.asItem());
     }
 
     @Override
     protected Stream<? extends Holder<Block>> getKnownBlocks() {
         return OMBlocks.BLOCKS.getEntries().stream().filter((x) ->
+                !(x.is(OMBlocks.MULTI_ASSEMBLER)) &&
                 !(x.value() instanceof InertEssenceOre) &&
                 !(x.is(OMBlocks.SELECTION_BLOCK)));
     }

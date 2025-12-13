@@ -12,6 +12,10 @@ version = mod_version
 group = mod_group_id
 
 repositories {
+    flatDir{
+        dirs 'xtras'
+    }
+
     exclusiveContent {
         forRepository {
             maven {
@@ -89,13 +93,15 @@ dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
     runtimeOnly("maven.modrinth:u6dRKJwZ:IzRpN4ri")
 
-    runtimeOnly("curse.maven:friends-and-foes-forge-602059:7130779")
+    runtimeOnly("curse.maven:friends-and-foes-forge-602059:7130779") // mobs weak
     runtimeOnly("curse.maven:resourceful-lib-570073:6662876")
     runtimeOnly("curse.maven:yacl-667299:6662856")
-    runtimeOnly("curse.maven:atomicstrykers-infernal-mobs-227875:6937473")
-    runtimeOnly("curse.maven:enchantment-descriptions-250419:7037177")
-    runtimeOnly("curse.maven:tropicraft-254794:6892496")
+    runtimeOnly("curse.maven:atomicstrykers-infernal-mobs-227875:6937473") // mobs weak
+    runtimeOnly("curse.maven:enchantment-descriptions-250419:7037177") // native support added
+    runtimeOnly("curse.maven:tropicraft-254794:6892496") // mobs weak
     runtimeOnly("maven.modrinth:aaRl8GiW:5iVG8y0w")
+    //runtimeOnly("dev.tr7zw.skinlayers:skinlayers3d-neoforge-1.9.2-mc1.21.8") // works
+    //runtimeOnly("dev.gigaherz.jsonthings:JsonThings-1.21.6-0.16.0") // works
 }
 
 tasks.withType(ProcessResources).configureEach {

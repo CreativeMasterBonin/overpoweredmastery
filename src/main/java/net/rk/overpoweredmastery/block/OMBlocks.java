@@ -24,6 +24,12 @@ public class OMBlocks{
             SelectionBlock::new,BlockBehaviour.Properties.of().isValidSpawn(OMBlocks::never)
                     .setId(makeResourceKey("selection_block")));
 
+    public static final DeferredBlock<Block> MULTI_ASSEMBLER = BLOCKS.registerBlock("multi_assembler",
+            MultiAssembler::new,BlockBehaviour.Properties.of()
+                    .isValidSpawn(OMBlocks::never).isViewBlocking(OMBlocks::never)
+                    .isSuffocating(OMBlocks::never).isRedstoneConductor(OMBlocks::never)
+                            .lightLevel(light -> 15)
+                    .setId(makeResourceKey("multi_assembler")));
 
     // ores
     public static final DeferredBlock<Block> INERT_BLUE_ESSENCE_ORE = BLOCKS.registerBlock(

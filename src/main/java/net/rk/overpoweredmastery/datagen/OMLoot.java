@@ -34,7 +34,7 @@ public class OMLoot extends BlockLootSubProvider {
     @Override
     protected Iterable<Block> getKnownBlocks() {
         return OMBlocks.BLOCKS.getEntries().stream().filter(
-                x -> !x.is(OMBlocks.MOVING_PROBABLE_BLOCK)
+                x -> !x.is(OMBlocks.MOVING_PROBABLE_BLOCK) && !x.is(OMBlocks.MULTI_ASSEMBLER)
         ).map(blk -> (Block) blk.value()).toList();
     }
 }
