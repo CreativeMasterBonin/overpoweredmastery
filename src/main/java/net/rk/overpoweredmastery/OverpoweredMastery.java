@@ -216,6 +216,7 @@ public class OverpoweredMastery {
             event.accept(OMItems.INERT_DARK_ESSENCE);
             // materials
             event.accept(OMItems.STRANGE_STONE);
+            event.accept(OMItems.CONCENTRATED_MULTI_ESSENCE);
             // tool bindings
             event.accept(OMItems.WOODEN_TOOL_BINDING);
             event.accept(OMItems.METAL_TOOL_BINDING);
@@ -241,6 +242,8 @@ public class OverpoweredMastery {
             event.accept(OMItems.PENULTIMATE_SWORD_DARK);
             event.accept(OMItems.PENULTIMATE_SWORD_LIGHT);
             event.accept(OMItems.ULTRA_SWORD);
+            // bows
+            event.accept(OMItems.ULTIMATE_BOW);
             // staffs
             event.accept(OMItems.ULTIMATE_STAFF);
             // wubs

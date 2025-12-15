@@ -381,6 +381,11 @@ public class OMItems{
                     .component(DataComponents.TOOLTIP_STYLE,
                             makeTooltipReference("om_ultimate")).rarity(OMRarity.ULTIMATE.getValue()));
 
+    public static final DeferredItem<Item> ULTIMATE_BOW = ITEMS.registerItem("ultimate_bow",
+            UltimateBow::new,
+            new Item.Properties().setId(makeResourceKey("ultimate_bow"))
+                    .component(DataComponents.TOOLTIP_STYLE,
+                            makeTooltipReference("om_ultimate")));
 
 
     // ultra items
@@ -421,15 +426,22 @@ public class OMItems{
                     ))
     );
 
+    public static final DeferredItem<Item> PLACEHOLDER_ITEM = ITEMS.registerItem("placeholder_item",
+            PlaceholderItem::new,
+            new Item.Properties().setId(makeResourceKey("placeholder_item")));
+
+    public static final DeferredItem<Item> CONCENTRATED_MULTI_ESSENCE = ITEMS.registerItem("concentrated_multi_essence",
+            Item::new,
+            new Item.Properties().setId(makeResourceKey("concentrated_multi_essence")));
+
+
 
     // machines and devices
     public static final DeferredItem<Item> MULTI_ASSEMBLER = ITEMS.registerItem("multi_assembler",
             properties -> new BlockItem(OMBlocks.MULTI_ASSEMBLER.get(),
                     properties.setId(makeResourceKey("multi_assembler"))));
 
-    public static final DeferredItem<Item> PLACEHOLDER_ITEM = ITEMS.registerItem("placeholder_item",
-            PlaceholderItem::new,
-            new Item.Properties().setId(makeResourceKey("placeholder_item")));
+
 
 
 

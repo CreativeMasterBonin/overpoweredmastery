@@ -45,7 +45,7 @@ public class OMLang extends LanguageProvider {
         add(OMItems.PENULTIMATE_SWORD_DARK.asItem(),"Penultimate Sword (Dark Phase)");
         add(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),"Penultimate Sword (Light Phase)");
         add(OMItems.ULTRA_SWORD.asItem(),"Ultra Sword");
-        add(OMItems.ULTRA_INGOT.asItem(),"Ultra Ingot");
+        add(OMItems.ULTIMATE_BOW.asItem(),"Ultimate Bow");
 
         addItemDesc(OMItems.ENDARKENED_CROSSBOW.asItem(),"The more health you have, the less rate of fire you have!");
         add("item.wub.generic_desc","Hold right click to continuously fire the musical weapon. Shifting or not holding right click stops playing the weapon.");
@@ -72,6 +72,7 @@ public class OMLang extends LanguageProvider {
         add(OMItems.IRON_SPEAR.asItem(),"Iron Long Spear");
         add(OMItems.DIAMOND_SPEAR.asItem(),"Diamond Long Spear");
         add(OMItems.NETHERITE_SPEAR.asItem(),"Netherite Long Spear");
+        // binding
         add(OMItems.WOODEN_TOOL_BINDING.asItem(),"Wooden Tool Binding");
         add(OMItems.METAL_TOOL_BINDING.asItem(),"Metal Tool Binding");
         add(OMItems.DIAMOND_TOOL_BINDING.asItem(),"Diamond Tool Binding");
@@ -111,6 +112,8 @@ public class OMLang extends LanguageProvider {
         // misc items
         add(OMItems.STRANGE_STONE.asItem(),"Strange Stone");
         add(OMItems.ULTIMATE_INGOT.asItem(),"Ultimate Ingot");
+        add(OMItems.ULTRA_INGOT.asItem(),"Ultra Ingot");
+        add(OMItems.CONCENTRATED_MULTI_ESSENCE.asItem(),"Concentrated Multi Essence");
 
         // staffs
         add(OMItems.ULTIMATE_STAFF.asItem(),"Ultimate Staff");

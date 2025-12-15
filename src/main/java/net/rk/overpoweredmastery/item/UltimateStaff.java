@@ -43,7 +43,7 @@ import java.util.List;
 
 public class UltimateStaff extends AbstractStaff {
     public UltimateStaff(Properties p) {
-        super(p.enchantable(30).rarity(OMRarity.ULTIMATE.getValue()).durability(9999).fireResistant()
+        super(p.enchantable(30).rarity(OMRarity.ULTIMATE.getValue()).durability(OPUtil.ULTIMATE_SHARED_DURABILITY).fireResistant()
                 .attributes(ItemAttributeModifiers.builder()
                         .add(Attributes.MOVEMENT_SPEED,
                                 new AttributeModifier(AbstractStaff.STAFF_MOVEMENT_SPEED_MODIFIER,0.05f,AttributeModifier.Operation.ADD_VALUE),

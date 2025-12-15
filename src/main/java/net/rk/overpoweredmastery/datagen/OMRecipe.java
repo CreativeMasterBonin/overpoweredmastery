@@ -244,17 +244,43 @@ public class OMRecipe extends RecipeProvider {
         createInertOreSmeltingAndBlasting(OMItems.INERT_AURORAN_ESSENCE_ORE.asItem(),OMItems.INERT_AURORAN_ESSENCE.asItem());
         createInertOreSmeltingAndBlasting(OMItems.INERT_DARK_ESSENCE_ORE.asItem(),OMItems.INERT_DARK_ESSENCE.asItem());
 
+        shaped(RecipeCategory.MISC,OMItems.MULTI_ASSEMBLER)
+                .define('c', OMItems.ESSENCE_ELECTRONIC_CORE)
+                .define('b', OMItems.METAL_TOOL_BINDING)
+                .define('i', Items.NETHERITE_INGOT)
+                .define('n', Items.NETHERITE_BLOCK)
+                .define('p',Items.POLISHED_BLACKSTONE_PRESSURE_PLATE)
+                .pattern("ccc")
+                .pattern("bpb")
+                .pattern("ini")
+                .unlockedBy("has_thingy",has(Tags.Items.INGOTS_NETHERITE))
+                .save(this.output,"multi_assembler");
+
+        // multi assembler recipes
         multiAssembler(
                 Ingredient.of(OMItems.INERT_BLUE_ESSENCE),
-                Ingredient.of(OMItems.INERT_BLUE_ESSENCE),
-                Ingredient.of(OMItems.INERT_BLUE_ESSENCE),
-                Ingredient.of(OMItems.INERT_BLUE_ESSENCE),
-                Ingredient.of(OMItems.INERT_AURORAN_ESSENCE),
+                Ingredient.of(OMItems.INERT_YELLOW_ESSENCE),
+                Ingredient.of(OMItems.INERT_GREEN_ESSENCE),
+                Ingredient.of(OMItems.INERT_RED_ESSENCE),
+                Ingredient.of(OMItems.AURORAN_PROCESSOR),
                 Ingredient.of(Items.IRON_INGOT),
-                Ingredient.of(Items.ICE),
-                120,
-                new ItemStack(Items.IRON_BLOCK),
-                Items.IRON_INGOT.asItem()
+                Ingredient.of(Items.IRON_INGOT),
+                2,
+                new ItemStack(OMItems.ESSENCE_ELECTRONIC_CORE.asItem(),2),
+                OMItems.AURORAN_PROCESSOR.asItem()
+        );
+
+        multiAssembler(
+                Ingredient.of(items.getOrThrow(OMTags.INERT_ESSENCES)),
+                Ingredient.of(items.getOrThrow(OMTags.INERT_ESSENCES)),
+                Ingredient.of(items.getOrThrow(OMTags.INERT_ESSENCES)),
+                Ingredient.of(items.getOrThrow(OMTags.INERT_ESSENCES)),
+                Ingredient.of(items.getOrThrow(OMTags.INERT_ESSENCES)),
+                Ingredient.of(items.getOrThrow(Tags.Items.DYES)),
+                Ingredient.of(Items.HEAVY_CORE),
+                20,
+                new ItemStack(OMItems.CONCENTRATED_MULTI_ESSENCE.asItem(),1),
+                Items.HEAVY_CORE.asItem()
         );
     }
 

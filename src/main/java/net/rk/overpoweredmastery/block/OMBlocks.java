@@ -9,6 +9,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.rk.overpoweredmastery.OverpoweredMastery;
@@ -81,8 +82,6 @@ public class OMBlocks{
             properties -> new InertEssenceOre(128,0,128,
                     140,5,140,properties),BlockBehaviour.Properties.of()
                     .setId(makeResourceKey("inert_dark_essence_ore"))); // dark (literal and virtually)
-
-
 
 
     public static ResourceKey<Block> makeResourceKey(String name){
