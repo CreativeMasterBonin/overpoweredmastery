@@ -236,16 +236,20 @@ public class OverpoweredMastery {
             event.accept(OMItems.IRON_SPEAR);
             event.accept(OMItems.DIAMOND_SPEAR);
             event.accept(OMItems.NETHERITE_SPEAR);
-            // swords
+            // tier order weapons
+            // starter
             event.accept(OMItems.BONE_SWORD);
             event.accept(OMItems.ENDARKENED_CROSSBOW);
+            // penultimate
             event.accept(OMItems.PENULTIMATE_SWORD_DARK);
             event.accept(OMItems.PENULTIMATE_SWORD_LIGHT);
-            event.accept(OMItems.ULTRA_SWORD);
-            // bows
+            // ultimate
             event.accept(OMItems.ULTIMATE_BOW);
-            // staffs
+            event.accept(OMItems.ULTIMATE_SWORD);
+            event.accept(OMItems.ULTIMATE_HOE);
             event.accept(OMItems.ULTIMATE_STAFF);
+            // ultra (finale tier)
+            event.accept(OMItems.ULTRA_SWORD);
             // wubs
             event.accept(OMItems.RED_WUBS);
             event.accept(OMItems.NETHER_WUBS);

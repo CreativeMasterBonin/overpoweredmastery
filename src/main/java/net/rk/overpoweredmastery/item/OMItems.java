@@ -387,6 +387,18 @@ public class OMItems{
                     .component(DataComponents.TOOLTIP_STYLE,
                             makeTooltipReference("om_ultimate")));
 
+    public static final DeferredItem<Item> ULTIMATE_SWORD = ITEMS.registerItem("ultimate_sword",
+            UltimateSword::new,
+            new Item.Properties().setId(makeResourceKey("ultimate_sword"))
+                    .component(DataComponents.TOOLTIP_STYLE,
+                            makeTooltipReference("om_ultimate")));
+
+    public static final DeferredItem<Item> ULTIMATE_HOE = ITEMS.registerItem("ultimate_hoe",
+            UltimateHoe::new,
+            new Item.Properties().setId(makeResourceKey("ultimate_hoe"))
+                    .component(DataComponents.TOOLTIP_STYLE,
+                            makeTooltipReference("om_ultimate")));
+
 
     // ultra items
     public static final DeferredItem<Item> ULTRA_INGOT = ITEMS.registerItem("ultra_ingot",

@@ -42,12 +42,16 @@ public class OMItemTag extends ItemTagsProvider {
         tag(ItemTags.BOW_ENCHANTABLE)
                 .add(OMItems.ENDARKENED_CROSSBOW.asItem())
         ;
+        tag(Tags.Items.TOOLS_BOW)
+                .add(OMItems.ULTIMATE_BOW.asItem())
+        ;
         tag(ItemTags.SWORDS)
                 .add(OMItems.BONE_SWORD.asItem())
                 .add(OMItems.PENULTIMATE_SWORD_DARK.asItem())
                 .add(OMItems.PENULTIMATE_SWORD_LIGHT.asItem())
                 .addTag(OMTags.SPEARS)
                 .add(OMItems.ULTRA_SWORD.asItem())
+                .add(OMItems.ULTIMATE_SWORD.asItem())
         ;
         tag(Tags.Items.MELEE_WEAPON_TOOLS)
                 .addTag(OMTags.SPEARS)

@@ -45,6 +45,12 @@ public class OMLang extends LanguageProvider {
         add(OMItems.PENULTIMATE_SWORD_DARK.asItem(),"Penultimate Sword (Dark Phase)");
         add(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),"Penultimate Sword (Light Phase)");
         add(OMItems.ULTRA_SWORD.asItem(),"Ultra Sword");
+        add(OMItems.ULTIMATE_SWORD.asItem(),"Ultimate Sword");
+
+        // hoes
+        add(OMItems.ULTIMATE_HOE.asItem(),"Ultimate Hoe");
+
+        // bows
         add(OMItems.ULTIMATE_BOW.asItem(),"Ultimate Bow");
 
         addItemDesc(OMItems.ENDARKENED_CROSSBOW.asItem(),"The more health you have, the less rate of fire you have!");

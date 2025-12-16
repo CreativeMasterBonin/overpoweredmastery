@@ -246,7 +246,7 @@ public class OMRecipe extends RecipeProvider {
 
         shaped(RecipeCategory.MISC,OMItems.MULTI_ASSEMBLER)
                 .define('c', OMItems.ESSENCE_ELECTRONIC_CORE)
-                .define('b', OMItems.METAL_TOOL_BINDING)
+                .define('b', OMItems.NETHERITE_TOOL_BINDING)
                 .define('i', Items.NETHERITE_INGOT)
                 .define('n', Items.NETHERITE_BLOCK)
                 .define('p',Items.POLISHED_BLACKSTONE_PRESSURE_PLATE)

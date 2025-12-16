@@ -91,6 +91,9 @@ public class OMModels extends ModelProvider {
         itemModels.generateFlatItem(OMItems.CONCENTRATED_MULTI_ESSENCE.asItem(),ModelTemplates.FLAT_ITEM);
 
         itemModels.generateBow(OMItems.ULTIMATE_BOW.asItem());
+
+        itemModels.generateFlatItem(OMItems.ULTIMATE_SWORD.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(OMItems.ULTIMATE_HOE.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
     }
 
     @Override
