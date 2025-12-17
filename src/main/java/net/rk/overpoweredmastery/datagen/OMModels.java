@@ -11,6 +11,7 @@ import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.renderer.block.model.VariantMutator;
 import net.minecraft.client.renderer.item.BlockModelWrapper;
 import net.minecraft.client.renderer.item.ClientItem;
+import net.minecraft.client.renderer.item.SpecialModelWrapper;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -18,9 +19,11 @@ import net.minecraft.util.random.Weighted;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.registries.DeferredItem;
 import net.rk.overpoweredmastery.OverpoweredMastery;
 import net.rk.overpoweredmastery.block.InertEssenceOre;
 import net.rk.overpoweredmastery.block.OMBlocks;
+import net.rk.overpoweredmastery.entity.renderer.MultiAssemblerSpecialModelRenderer;
 import net.rk.overpoweredmastery.item.OMItems;
 import net.rk.overpoweredmastery.item.custom.AbstractSpear;
 import net.rk.overpoweredmastery.item.custom.AbstractWubs;
@@ -94,6 +97,25 @@ public class OMModels extends ModelProvider {
 
         itemModels.generateFlatItem(OMItems.ULTIMATE_SWORD.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModels.generateFlatItem(OMItems.ULTIMATE_HOE.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
+
+        itemModels.itemModelOutput.accept(OMItems.MULTI_ASSEMBLER.asItem(),
+                new SpecialModelWrapper.Unbaked(
+                        obtainItemModelLocation(OMItems.MULTI_ASSEMBLER),
+                        new MultiAssemblerSpecialModelRenderer.Unbaked(
+                                ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,
+                                        "multi_assembler")
+                        )
+                ));
+
+        itemModels.generateFishingRod(OMItems.ULTIMATE_FISHING_ROD.asItem());
+    }
+
+    public static ResourceLocation obtainItemModelLocation(DeferredItem<Item> item){
+        return ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,getItemModelLocationFromItem(item.getRegisteredName()));
+    }
+
+    public static String getItemModelLocationFromItem(String registeredName){
+        return registeredName.replaceAll("overpoweredmastery:","item/");
     }
 
     @Override

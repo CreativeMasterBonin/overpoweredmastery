@@ -16,20 +16,13 @@ public class OMEntityTag extends EntityTypeTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        /*this.tag(EntityTypeTags.DEFLECTS_PROJECTILES)
-                .add(OMEntityTypes.MULTIPURPOSE_VEHICLE.get())
+        this.tag(EntityTypeTags.IMPACT_PROJECTILES)
+                .add(OMEntityTypes.CHICKEN_WUB_ENERGY_BALL.get())
+                .add(OMEntityTypes.RED_WUB_ENERGY_BALL.get())
+                .add(OMEntityTypes.GREEN_WUB_ENERGY_BALL.get())
+                .add(OMEntityTypes.PURPLE_WUB_ENERGY_BALL.get())
+                .add(OMEntityTypes.TRIAL_WUB_ENERGY_BALL.get())
+                .add(OMEntityTypes.NETHER_WUB_ENERGY_BALL.get())
         ;
-        this.tag(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
-                .add(OMEntityTypes.MULTIPURPOSE_VEHICLE.get())
-        ;
-        this.tag(EntityTypeTags.IMMUNE_TO_INFESTED)
-                .add(OMEntityTypes.MULTIPURPOSE_VEHICLE.get())
-        ;
-        this.tag(EntityTypeTags.IMMUNE_TO_OOZING)
-                .add(OMEntityTypes.MULTIPURPOSE_VEHICLE.get())
-        ;
-        this.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE)
-                .add(OMEntityTypes.MULTIPURPOSE_VEHICLE.get())
-        ;*/
     }
 }

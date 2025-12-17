@@ -32,8 +32,6 @@ public abstract class AbstractSpecialHoe extends HoeItem {
 
         // more functionality for staff strength
         Direction resultDir = result.getDirection();
-        double resultDist = result.getBlockPos().distToCenterSqr(start.getX(),start.getY(),start.getZ()); // for staff power in future
-
         if(result.getType() == HitResult.Type.MISS){
             return clippingBlocks;
         }

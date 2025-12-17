@@ -6,6 +6,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
@@ -22,6 +23,8 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.IArmPoseTransformer;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.RegisterSpecialBlockModelRendererEvent;
+import net.neoforged.neoforge.client.event.RegisterSpecialModelRendererEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
@@ -41,10 +44,21 @@ import org.jetbrains.annotations.Nullable;
 
 @Mod(value = OverpoweredMastery.MODID, dist = Dist.CLIENT)
 @EventBusSubscriber(modid = OverpoweredMastery.MODID, value = Dist.CLIENT)
-public class OverpoweredMasteryClient {
+public class OverpoweredMasteryClient{
     public OverpoweredMasteryClient(IEventBus eventBus, ModContainer container) {
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
         eventBus.addListener(this::setupClientExtensions);
+    }
+
+    @SubscribeEvent
+    public static void setupSpecialRenderers(RegisterSpecialModelRendererEvent event){
+        event.register(ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"multi_assembler"),
+                MultiAssemblerSpecialModelRenderer.Unbaked.MAP_CODEC);
+    }
+
+    @SubscribeEvent
+    public static void setupSpecialBlockRenderers(RegisterSpecialBlockModelRendererEvent event){
+
     }
 
     @SubscribeEvent

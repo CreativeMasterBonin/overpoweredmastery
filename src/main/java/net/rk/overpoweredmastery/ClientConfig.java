@@ -10,6 +10,11 @@ public class ClientConfig {
             .translation("overpoweredmastery.configuration.client.mouse_ears_hax")
             .define("mouseEarsHax",false);
 
+    public static final ModConfigSpec.ConfigValue<String> MOUSE_EARS_RL = BUILDER
+            .comment("Mouse Ears Custom Texture Location (very janky and experimental)")
+            .translation("overpoweredmastery.configuration.client.mouse_ears_hax_texture_location")
+            .define("mouseEarsTextureLocation","minecraft:textures/entity/player/wide/steve.png");
+
     public static final ModConfigSpec.BooleanValue UPSIDE_DOWN_HAX = BUILDER
             .comment("Enable client-side upside down model (very janky and experimental)")
             .translation("overpoweredmastery.configuration.client.upside_down_hax")

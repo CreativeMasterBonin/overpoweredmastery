@@ -16,6 +16,17 @@ repositories {
         dirs 'xtras'
     }
 
+    maven {
+        // location of the maven that hosts JEI files since January 2023
+        name = "Jared's maven"
+        url = "https://maven.blamejared.com/"
+    }
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
+
     exclusiveContent {
         forRepository {
             maven {
@@ -91,6 +102,7 @@ configurations {
 
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
+    compileOnly("mezz.jei:jei-1.21.8-neoforge-api:${jei_version}")
     runtimeOnly("maven.modrinth:u6dRKJwZ:IzRpN4ri")
 
     runtimeOnly("curse.maven:friends-and-foes-forge-602059:7130779") // mobs weak

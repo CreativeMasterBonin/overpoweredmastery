@@ -247,6 +247,7 @@ public class OverpoweredMastery {
             event.accept(OMItems.ULTIMATE_BOW);
             event.accept(OMItems.ULTIMATE_SWORD);
             event.accept(OMItems.ULTIMATE_HOE);
+            event.accept(OMItems.ULTIMATE_FISHING_ROD);
             event.accept(OMItems.ULTIMATE_STAFF);
             // ultra (finale tier)
             event.accept(OMItems.ULTRA_SWORD);

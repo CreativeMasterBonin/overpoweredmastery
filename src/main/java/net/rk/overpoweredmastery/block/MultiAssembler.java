@@ -23,7 +23,7 @@ public class MultiAssembler extends BaseEntityBlock{
     public static final MapCodec<MultiAssembler> CODEC = simpleCodec(MultiAssembler::new);
 
     public MultiAssembler(Properties properties){
-        super(properties);
+        super(properties.strength(1.2f,50f));
     }
 
     @Override

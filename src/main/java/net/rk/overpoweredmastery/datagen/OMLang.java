@@ -40,19 +40,20 @@ public class OMLang extends LanguageProvider {
         add(OMItems.OXIDIZED_TRIAl_WUBS.asItem(),"Music Disc Oxidizer (Oxidized Stage)");
         // others
         add(OMItems.MOVING_PROBABLE_BLOCK_ITEM.asItem(),"Moving Probable Block");
+        add(OMItems.MULTI_ASSEMBLER.asItem(),"Multi-Assembler");
         // swords
         add(OMItems.BONE_SWORD.asItem(),"Bone Sword");
         add(OMItems.PENULTIMATE_SWORD_DARK.asItem(),"Penultimate Sword (Dark Phase)");
         add(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),"Penultimate Sword (Light Phase)");
         add(OMItems.ULTRA_SWORD.asItem(),"Ultra Sword");
         add(OMItems.ULTIMATE_SWORD.asItem(),"Ultimate Sword");
-
         // hoes
         add(OMItems.ULTIMATE_HOE.asItem(),"Ultimate Hoe");
-
         // bows
         add(OMItems.ULTIMATE_BOW.asItem(),"Ultimate Bow");
-
+        // fishing rods
+        add(OMItems.ULTIMATE_FISHING_ROD.asItem(),"Ultimate Fishing Rod");
+        //
         addItemDesc(OMItems.ENDARKENED_CROSSBOW.asItem(),"The more health you have, the less rate of fire you have!");
         add("item.wub.generic_desc","Hold right click to continuously fire the musical weapon. Shifting or not holding right click stops playing the weapon.");
         addItemDesc(OMItems.RED_WUBS.asItem(),"Raiders get mad and take extra damage! Blows up small areas too!");
@@ -68,7 +69,9 @@ public class OMLang extends LanguageProvider {
         addItemDesc(OMItems.AURORAN_PROCESSOR.asItem(),"Ancient Auroran technology makes this processor like no other");
         addItemDesc(OMItems.ESSENCE_ELECTRONIC_CORE.asItem(),"The essences emanate their power into the auroran processor and have become a magical core");
         addItemDesc(OMItems.STRANGE_STONE.asItem(),"This stone has an un-natural looking carving in it; perhaps it has a particular use");
-
+        addItemDesc(OMItems.ULTIMATE_SWORD.asItem(),"This blade combines the best of both Penultimate swords, and more!");
+        addItemDesc(OMItems.ULTIMATE_HOE.asItem(),"When shifting, tool tills and hydrates a 3x3 area, otherwise applies a bonemeal effect to plants!");
+        addItemDesc(OMItems.ULTIMATE_FISHING_ROD.asItem(),"Fishing yields instant results. When the bobber hits the water, pull it in!");
 
         // long spears
         add(OMItems.TEST_SPEAR.asItem(),"Test Long Spear");
@@ -174,5 +177,7 @@ public class OMLang extends LanguageProvider {
         add("overpoweredmastery.configuration.client.minecart_on_head_hax_x_rotation.tooltip","The X Rotation for the head minecart (very janky and experimental)");
         add("overpoweredmastery.configuration.client.minecart_on_head_hax_z_rotation.tooltip","The Z Rotation for the head minecart (very janky and experimental)");
         add("overpoweredmastery.configuration.client.minecart_on_head_hax_y_rotation.tooltip","The Y Rotation for the head minecart (very janky and experimental)");
+        add("overpoweredmastery.configuration.client.mouse_ears_hax_texture_location","Mouse Ears Texture");
+        add("overpoweredmastery.configuration.client.mouse_ears_hax_texture_location.tooltip","The custom texture location for the mouse ears (very janky and experimental)");
     }
 }

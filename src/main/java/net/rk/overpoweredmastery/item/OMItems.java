@@ -399,6 +399,12 @@ public class OMItems{
                     .component(DataComponents.TOOLTIP_STYLE,
                             makeTooltipReference("om_ultimate")));
 
+    public static final DeferredItem<Item> ULTIMATE_FISHING_ROD = ITEMS.registerItem("ultimate_fishing_rod",
+            UltimateFishingRod::new,
+            new Item.Properties().setId(makeResourceKey("ultimate_fishing_rod"))
+                    .component(DataComponents.TOOLTIP_STYLE,
+                            makeTooltipReference("om_ultimate")));
+
 
     // ultra items
     public static final DeferredItem<Item> ULTRA_INGOT = ITEMS.registerItem("ultra_ingot",
@@ -444,14 +450,16 @@ public class OMItems{
 
     public static final DeferredItem<Item> CONCENTRATED_MULTI_ESSENCE = ITEMS.registerItem("concentrated_multi_essence",
             Item::new,
-            new Item.Properties().setId(makeResourceKey("concentrated_multi_essence")));
+            new Item.Properties().setId(makeResourceKey("concentrated_multi_essence"))
+                    .fireResistant());
 
 
 
     // machines and devices
     public static final DeferredItem<Item> MULTI_ASSEMBLER = ITEMS.registerItem("multi_assembler",
             properties -> new BlockItem(OMBlocks.MULTI_ASSEMBLER.get(),
-                    properties.setId(makeResourceKey("multi_assembler"))));
+                    properties.setId(makeResourceKey("multi_assembler"))
+                            .rarity(Rarity.EPIC).fireResistant()));
 
 
 

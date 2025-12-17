@@ -29,12 +29,13 @@ public class OMLoot extends BlockLootSubProvider {
         this.add(OMBlocks.INERT_LIGHT_ESSENCE_ORE.get(),block -> this.createOreDrop(block,OMItems.INERT_LIGHT_ESSENCE.asItem()));
         this.add(OMBlocks.INERT_AURORAN_ESSENCE_ORE.get(),block -> this.createOreDrop(block,OMItems.INERT_AURORAN_ESSENCE.asItem()));
         this.add(OMBlocks.INERT_DARK_ESSENCE_ORE.get(),block -> this.createOreDrop(block,OMItems.INERT_DARK_ESSENCE.asItem()));
+        this.add(OMBlocks.MULTI_ASSEMBLER.get(),this.createSingleItemTable(OMItems.MULTI_ASSEMBLER.get()));
     }
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
         return OMBlocks.BLOCKS.getEntries().stream().filter(
-                x -> !x.is(OMBlocks.MOVING_PROBABLE_BLOCK) && !x.is(OMBlocks.MULTI_ASSEMBLER)
+                x -> !x.is(OMBlocks.MOVING_PROBABLE_BLOCK)
         ).map(blk -> (Block) blk.value()).toList();
     }
 }

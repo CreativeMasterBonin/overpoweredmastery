@@ -53,6 +53,9 @@ public class OMItemTag extends ItemTagsProvider {
                 .add(OMItems.ULTRA_SWORD.asItem())
                 .add(OMItems.ULTIMATE_SWORD.asItem())
         ;
+        tag(ItemTags.FISHING_ENCHANTABLE)
+                .add(OMItems.ULTIMATE_FISHING_ROD.asItem())
+        ;
         tag(Tags.Items.MELEE_WEAPON_TOOLS)
                 .addTag(OMTags.SPEARS)
         ;

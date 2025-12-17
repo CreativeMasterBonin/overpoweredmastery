@@ -18,6 +18,10 @@ public class OMBlockTag extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        tag(Tags.Blocks.RELOCATION_NOT_SUPPORTED)
+                .add(OMBlocks.SELECTION_BLOCK.get())
+                .add(OMBlocks.MULTI_ASSEMBLER.get())
+        ;
         tag(OMTags.BANNED_PROBABLE_REWARD_BLOCKS)
                 .add(Blocks.AIR)
                 .add(Blocks.CAVE_AIR)
@@ -241,6 +245,7 @@ public class OMBlockTag extends BlockTagsProvider {
                 .add(Blocks.HONEY_BLOCK)
                 .add(Blocks.HONEYCOMB_BLOCK)
                 .add(OMBlocks.SELECTION_BLOCK.get())
+                .add(OMBlocks.MULTI_ASSEMBLER.get())
         ;
         tag(OMTags.PROBABLE_CANNOT_REPLACE)
                 .add(Blocks.BEDROCK)
@@ -267,6 +272,7 @@ public class OMBlockTag extends BlockTagsProvider {
                 .addTag(Tags.Blocks.VILLAGER_JOB_SITES)
                 .addTag(Tags.Blocks.BARRELS)
                 .add(OMBlocks.SELECTION_BLOCK.get())
+                .add(OMBlocks.MULTI_ASSEMBLER.get())
         ;
         tag(OMTags.CORRECT_FOR_SPEAR)
                 .addTag(BlockTags.SWORD_EFFICIENT)
@@ -284,18 +290,23 @@ public class OMBlockTag extends BlockTagsProvider {
         ;
         tag(Tags.Blocks.ENDERMAN_PLACE_ON_BLACKLIST)
                 .add(OMBlocks.SELECTION_BLOCK.get())
+                .add(OMBlocks.MULTI_ASSEMBLER.get())
         ;
         tag(BlockTags.DRAGON_IMMUNE)
                 .add(OMBlocks.SELECTION_BLOCK.get())
+                .add(OMBlocks.MULTI_ASSEMBLER.get())
         ;
         tag(BlockTags.DRAGON_TRANSPARENT)
                 .add(OMBlocks.SELECTION_BLOCK.get())
+                .add(OMBlocks.MULTI_ASSEMBLER.get())
         ;
         tag(BlockTags.WITHER_IMMUNE)
                 .add(OMBlocks.SELECTION_BLOCK.get())
+                .add(OMBlocks.MULTI_ASSEMBLER.get())
         ;
         tag(BlockTags.PREVENT_MOB_SPAWNING_INSIDE)
                 .add(OMBlocks.SELECTION_BLOCK.get())
+                .add(OMBlocks.MULTI_ASSEMBLER.get())
         ;
         /*tag(BlockTags.CLIMBABLE)
                 .add(OMBlocks.SELECTION_BLOCK.get())
@@ -351,6 +362,9 @@ public class OMBlockTag extends BlockTagsProvider {
                 .add(OMBlocks.INERT_AURORAN_ESSENCE_ORE.get())
                 .add(OMBlocks.INERT_DARK_ESSENCE_ORE.get())
         ;
+        tag(Tags.Blocks.NEEDS_NETHERITE_TOOL)
+                .add(OMBlocks.MULTI_ASSEMBLER.get())
+        ;
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(OMBlocks.INERT_BLUE_ESSENCE_ORE.get())
                 .add(OMBlocks.INERT_GREEN_ESSENCE_ORE.get())
@@ -360,6 +374,7 @@ public class OMBlockTag extends BlockTagsProvider {
                 .add(OMBlocks.INERT_LIGHT_ESSENCE_ORE.get())
                 .add(OMBlocks.INERT_AURORAN_ESSENCE_ORE.get())
                 .add(OMBlocks.INERT_DARK_ESSENCE_ORE.get())
+                .add(OMBlocks.MULTI_ASSEMBLER.get())
         ;
     }
 }

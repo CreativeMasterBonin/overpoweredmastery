@@ -6,11 +6,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.player.ItemFishedEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.rk.overpoweredmastery.Config;
 import net.rk.overpoweredmastery.OverpoweredMastery;
 import net.rk.overpoweredmastery.datagen.OMTags;
 import net.rk.overpoweredmastery.item.OMItems;
+import net.rk.overpoweredmastery.item.custom.UltimateSword;
 import net.rk.overpoweredmastery.util.OPUtil;
 
 @EventBusSubscriber(modid = OverpoweredMastery.MODID)
@@ -58,5 +61,15 @@ public class OMWorldEvents{
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onFishedItem(ItemFishedEvent event){
+
+    }
+
+    @SubscribeEvent
+    public static void onCraftItem(PlayerEvent.ItemCraftedEvent event){
+
     }
 }
