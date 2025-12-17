@@ -9,6 +9,7 @@ import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.FluidState;
@@ -21,6 +22,7 @@ public class InertEssenceOre extends DropExperienceBlock{
     int redMinNumber = 0;
     int greenMinNumber = 0;
     int blueMinNumber = 0;
+    boolean isDeep = false; // whether this ore is deepslate
 
     public InertEssenceOre(Properties properties) {
         super(ConstantInt.of(1),properties.mapColor(MapColor.STONE).instrument(NoteBlockInstrument.CHIME)
@@ -38,6 +40,24 @@ public class InertEssenceOre extends DropExperienceBlock{
         this.blueMaxNumber = blueMaxNumber;
     }
 
+    public InertEssenceOre(boolean isDeep, Properties properties) {
+        super(ConstantInt.of(2),properties.mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.CHIME)
+                .requiresCorrectToolForDrops().strength(4.5f,20.0f).sound(SoundType.DEEPSLATE));
+        this.isDeep = isDeep;
+    }
+
+    public InertEssenceOre(int redMinNumber, int greenMinNumber, int blueMinNumber, int redMaxNumber, int greenMaxNumber, int blueMaxNumber, boolean isDeep, Properties properties) {
+        super(ConstantInt.of(2),properties.mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.CHIME)
+                .requiresCorrectToolForDrops().strength(4.5f,20.0f).sound(SoundType.DEEPSLATE));
+        this.redMinNumber = redMinNumber;
+        this.greenMinNumber = greenMinNumber;
+        this.blueMinNumber = blueMinNumber;
+        this.redMaxNumber = redMaxNumber;
+        this.greenMaxNumber = greenMaxNumber;
+        this.blueMaxNumber = blueMaxNumber;
+        this.isDeep = isDeep;
+    }
+
     @Override
     public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid){
         if(level instanceof ServerLevel serverLevel){
@@ -50,7 +70,7 @@ public class InertEssenceOre extends DropExperienceBlock{
                     pos.getX() + 0.0 - level.getRandom().triangle(-0.5f,0.5f),
                     pos.getY() + 0.5,
                     pos.getZ() + 0.0 - level.getRandom().triangle(-0.5f,0.5f),
-                    10,
+                    this.isDeep ? 5 : 10,
                     0,0,0,0.25D);
         }
         return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);

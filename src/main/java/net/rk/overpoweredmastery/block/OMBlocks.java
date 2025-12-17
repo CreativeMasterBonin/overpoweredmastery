@@ -83,6 +83,58 @@ public class OMBlocks{
                     140,5,140,properties),BlockBehaviour.Properties.of()
                     .setId(makeResourceKey("inert_dark_essence_ore"))); // dark (literal and virtually)
 
+    // deepslate ores (only found in deep underground areas)
+    public static final DeferredBlock<Block> DEEPSLATE_INERT_BLUE_ESSENCE_ORE = BLOCKS.registerBlock(
+            "deepslate_inert_blue_essence_ore",
+            properties -> new InertEssenceOre(
+                    0,0,200,
+                    1, 1,255,true,properties),BlockBehaviour.Properties.of()
+                    .setId(makeResourceKey("deepslate_inert_blue_essence_ore"))); // water and ice (cold)
+
+    public static final DeferredBlock<Block> DEEPSLATE_INERT_GREEN_ESSENCE_ORE = BLOCKS.registerBlock(
+            "deepslate_inert_green_essence_ore",
+            properties -> new InertEssenceOre(0,240,0,
+                    2,255,2,true,properties),BlockBehaviour.Properties.of()
+                    .setId(makeResourceKey("deepslate_inert_green_essence_ore"))); // plant and earth
+
+    public static final DeferredBlock<Block> DEEPSLATE_INERT_YELLOW_ESSENCE_ORE = BLOCKS.registerBlock(
+            "deepslate_inert_yellow_essence_ore",
+            properties -> new InertEssenceOre(253,253,0,
+                    255,255,1,true,properties),BlockBehaviour.Properties.of()
+                    .setId(makeResourceKey("deepslate_inert_yellow_essence_ore"))); // lightning
+
+    public static final DeferredBlock<Block> DEEPSLATE_INERT_ORANGE_ESSENCE_ORE = BLOCKS.registerBlock(
+            "deepslate_inert_orange_essence_ore",
+            properties -> new InertEssenceOre(240,240,0,
+                    255,245,1,true,properties),BlockBehaviour.Properties.of()
+                    .setId(makeResourceKey("deepslate_inert_orange_essence_ore"))); // air
+
+    public static final DeferredBlock<Block> DEEPSLATE_INERT_RED_ESSENCE_ORE = BLOCKS.registerBlock(
+            "deepslate_inert_red_essence_ore",
+            properties -> new InertEssenceOre(240,0,0,
+                    255,1,1,true,properties),BlockBehaviour.Properties.of()
+                    .setId(makeResourceKey("deepslate_inert_red_essence_ore"))); // fire and lava
+
+    // special deepslate ores (very sparse)
+    public static final DeferredBlock<Block> DEEPSLATE_INERT_LIGHT_ESSENCE_ORE = BLOCKS.registerBlock(
+            "deepslate_inert_light_essence_ore",
+            properties -> new InertEssenceOre(254,254,254,
+                    255,255,255,true,properties),BlockBehaviour.Properties.of()
+                    .setId(makeResourceKey("deepslate_inert_light_essence_ore"))); // light (literal and virtually)
+
+    public static final DeferredBlock<Block> DEEPSLATE_INERT_AURORAN_ESSENCE_ORE = BLOCKS.registerBlock(
+            "deepslate_inert_auroran_essence_ore",
+            properties -> new InertEssenceOre(4,240,240,
+                    5,255,255,true,properties),BlockBehaviour.Properties.of()
+                    .setId(makeResourceKey("deepslate_inert_auroran_essence_ore"))); // technology
+
+    public static final DeferredBlock<Block> DEEPSLATE_INERT_DARK_ESSENCE_ORE = BLOCKS.registerBlock(
+            "deepslate_inert_dark_essence_ore",
+            properties -> new InertEssenceOre(128,0,128,
+                    140,5,140,true,properties),BlockBehaviour.Properties.of()
+                    .setId(makeResourceKey("deepslate_inert_dark_essence_ore"))); // dark (literal and virtually)
+
+
 
     public static ResourceKey<Block> makeResourceKey(String name){
         return ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,name));

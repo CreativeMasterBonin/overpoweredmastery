@@ -339,6 +339,39 @@ public class OMItems{
     public static final DeferredItem<Item> INERT_DARK_ESSENCE = ITEMS.registerItem("inert_dark_essence",
             InertEssence::new,new Item.Properties()
                     .setId(makeResourceKey("inert_dark_essence")));
+    // deepslate ore items
+    public static final DeferredItem<Item> DEEPSLATE_INERT_BLUE_ESSENCE_ORE = ITEMS.registerItem("deepslate_inert_blue_essence_ore",
+            properties -> new BlockItem(OMBlocks.DEEPSLATE_INERT_BLUE_ESSENCE_ORE.get(),properties
+                    .setId(makeResourceKey("deepslate_inert_blue_essence_ore"))));
+
+    public static final DeferredItem<Item> DEEPSLATE_INERT_GREEN_ESSENCE_ORE = ITEMS.registerItem("deepslate_inert_green_essence_ore",
+            properties -> new BlockItem(OMBlocks.DEEPSLATE_INERT_GREEN_ESSENCE_ORE.get(),properties
+                    .setId(makeResourceKey("deepslate_inert_green_essence_ore"))));
+
+    public static final DeferredItem<Item> DEEPSLATE_INERT_YELLOW_ESSENCE_ORE = ITEMS.registerItem("deepslate_inert_yellow_essence_ore",
+            properties -> new BlockItem(OMBlocks.DEEPSLATE_INERT_YELLOW_ESSENCE_ORE.get(),properties
+                    .setId(makeResourceKey("deepslate_inert_yellow_essence_ore"))));
+
+    public static final DeferredItem<Item> DEEPSLATE_INERT_ORANGE_ESSENCE_ORE = ITEMS.registerItem("deepslate_inert_orange_essence_ore",
+            properties -> new BlockItem(OMBlocks.DEEPSLATE_INERT_ORANGE_ESSENCE_ORE.get(),properties
+                    .setId(makeResourceKey("deepslate_inert_orange_essence_ore"))));
+
+    public static final DeferredItem<Item> DEEPSLATE_INERT_RED_ESSENCE_ORE = ITEMS.registerItem("deepslate_inert_red_essence_ore",
+            properties -> new BlockItem(OMBlocks.DEEPSLATE_INERT_RED_ESSENCE_ORE.get(),properties
+                    .setId(makeResourceKey("deepslate_inert_red_essence_ore"))));
+
+    public static final DeferredItem<Item> DEEPSLATE_INERT_LIGHT_ESSENCE_ORE = ITEMS.registerItem("deepslate_inert_light_essence_ore",
+            properties -> new BlockItem(OMBlocks.DEEPSLATE_INERT_LIGHT_ESSENCE_ORE.get(),properties
+                    .setId(makeResourceKey("deepslate_inert_light_essence_ore"))));
+
+    public static final DeferredItem<Item> DEEPSLATE_INERT_AURORAN_ESSENCE_ORE = ITEMS.registerItem("deepslate_inert_auroran_essence_ore",
+            properties -> new BlockItem(OMBlocks.DEEPSLATE_INERT_AURORAN_ESSENCE_ORE.get(),properties
+                    .setId(makeResourceKey("deepslate_inert_auroran_essence_ore"))));
+
+    public static final DeferredItem<Item> DEEPSLATE_INERT_DARK_ESSENCE_ORE = ITEMS.registerItem("deepslate_inert_dark_essence_ore",
+            properties -> new BlockItem(OMBlocks.DEEPSLATE_INERT_DARK_ESSENCE_ORE.get(),properties
+                    .setId(makeResourceKey("deepslate_inert_dark_essence_ore"))));
+
 
     // electronic components
     public static final DeferredItem<Item> ESSENCE_ELECTRONIC_CORE = ITEMS.registerItem("essence_electronic_core",

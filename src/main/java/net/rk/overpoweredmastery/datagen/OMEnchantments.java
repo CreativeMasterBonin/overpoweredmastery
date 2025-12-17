@@ -22,7 +22,7 @@ public class OMEnchantments{
     public static final ResourceLocation INSTAREPAIR_ARMOR_TOUGHNESS_MODIFIER = ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"instarepair_modifier");
     public static final ResourceLocation INSTAREPAIR_NOTICEABLE_MODIFIER = ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"instarepair_noticeable_modifier");
     public static final ResourceLocation INSTAREPAIR_MOVEMENT_EFFECTIVENESS_MODIFIER = ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"instarepair_movement_effectiveness_modifier");
-    public static final RegistrySetBuilder enchantmentBuilder = new RegistrySetBuilder();
+    //public static final RegistrySetBuilder enchantmentBuilder = new RegistrySetBuilder();
 
     public static void bootstrap(BootstrapContext<Enchantment> context){
         //HolderGetter<DamageType> holdergetter = context.lookup(Registries.DAMAGE_TYPE);

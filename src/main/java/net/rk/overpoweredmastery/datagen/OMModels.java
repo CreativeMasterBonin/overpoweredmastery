@@ -1,22 +1,16 @@
 package net.rk.overpoweredmastery.datagen;
 
-import com.mojang.math.Quadrant;
 import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
-import net.minecraft.client.data.models.MultiVariant;
-import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.model.*;
-import net.minecraft.client.renderer.block.model.VariantMutator;
 import net.minecraft.client.renderer.item.BlockModelWrapper;
 import net.minecraft.client.renderer.item.ClientItem;
 import net.minecraft.client.renderer.item.SpecialModelWrapper;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.random.Weighted;
-import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -43,11 +37,27 @@ public class OMModels extends ModelProvider {
 
     public static final ModelTemplate BASE_BLOCK_WITH_EMISSIVE_OVERLAY_TEMPLATE =
             new ModelTemplate(
-                    Optional.of(ModelLocationUtils.decorateBlockModelLocation("base_overlay_block_emissive")),
+                    Optional.of(ResourceLocation.parse("overpoweredmastery:block/base_overlay_block_emissive")),
                     Optional.empty(),
                     MAIN,
                     OVERLAY
             );
+
+    public static TextureMapping makeTextureMappingEmissiveBase(ResourceLocation main, ResourceLocation overlay){
+        return new TextureMapping().put(MAIN, main).put(OVERLAY, overlay);
+    }
+
+    public static TextureMapping makeTextureMappingEmissiveBase(String main, String overlay){
+        main = main.replace("overpoweredmastery:","");
+        overlay = overlay.replace("overpoweredmastery:","");
+        StringBuilder builder = new StringBuilder();
+        builder.append("block/");
+        builder.append(main);
+        StringBuilder builderOverlay = new StringBuilder();
+        builderOverlay.append("block/");
+        builderOverlay.append(overlay);
+        return new TextureMapping().put(MAIN,ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,builder.toString())).put(OVERLAY,ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,builderOverlay.toString()));
+    }
 
     public OMModels(PackOutput output) {
         super(output, OverpoweredMastery.MODID);
@@ -59,6 +69,33 @@ public class OMModels extends ModelProvider {
         genItem = itemModels;
         itemModels.generateCrossbow(OMItems.ENDARKENED_CROSSBOW.asItem());
         blockModels.createTrivialCube(OMBlocks.MOVING_PROBABLE_BLOCK.get());
+
+        // deepslate essence ores
+        BASE_BLOCK_WITH_EMISSIVE_OVERLAY_TEMPLATE.create(OMBlocks.DEEPSLATE_INERT_BLUE_ESSENCE_ORE.get(),
+                makeTextureMappingEmissiveBase(OMBlocks.DEEPSLATE_INERT_BLUE_ESSENCE_ORE.getRegisteredName(),
+                        "inert_generic_essence_ore_overlay"),blockModels.modelOutput);
+        BASE_BLOCK_WITH_EMISSIVE_OVERLAY_TEMPLATE.create(OMBlocks.DEEPSLATE_INERT_GREEN_ESSENCE_ORE.get(),
+                makeTextureMappingEmissiveBase(OMBlocks.DEEPSLATE_INERT_GREEN_ESSENCE_ORE.getRegisteredName(),
+                        "inert_generic_essence_ore_overlay"),blockModels.modelOutput);
+        BASE_BLOCK_WITH_EMISSIVE_OVERLAY_TEMPLATE.create(OMBlocks.DEEPSLATE_INERT_YELLOW_ESSENCE_ORE.get(),
+                makeTextureMappingEmissiveBase(OMBlocks.DEEPSLATE_INERT_YELLOW_ESSENCE_ORE.getRegisteredName(),
+                        "inert_generic_essence_ore_overlay"),blockModels.modelOutput);
+        BASE_BLOCK_WITH_EMISSIVE_OVERLAY_TEMPLATE.create(OMBlocks.DEEPSLATE_INERT_ORANGE_ESSENCE_ORE.get(),
+                makeTextureMappingEmissiveBase(OMBlocks.DEEPSLATE_INERT_ORANGE_ESSENCE_ORE.getRegisteredName(),
+                        "inert_generic_essence_ore_overlay"),blockModels.modelOutput);
+        BASE_BLOCK_WITH_EMISSIVE_OVERLAY_TEMPLATE.create(OMBlocks.DEEPSLATE_INERT_RED_ESSENCE_ORE.get(),
+                makeTextureMappingEmissiveBase(OMBlocks.DEEPSLATE_INERT_RED_ESSENCE_ORE.getRegisteredName(),
+                        "inert_generic_essence_ore_overlay"),blockModels.modelOutput);
+        // deepslate special essence ores
+        BASE_BLOCK_WITH_EMISSIVE_OVERLAY_TEMPLATE.create(OMBlocks.DEEPSLATE_INERT_LIGHT_ESSENCE_ORE.get(),
+                makeTextureMappingEmissiveBase(OMBlocks.DEEPSLATE_INERT_LIGHT_ESSENCE_ORE.getRegisteredName(),
+                        "inert_light_essence_ore_overlay"),blockModels.modelOutput);
+        BASE_BLOCK_WITH_EMISSIVE_OVERLAY_TEMPLATE.create(OMBlocks.DEEPSLATE_INERT_AURORAN_ESSENCE_ORE.get(),
+                makeTextureMappingEmissiveBase(OMBlocks.DEEPSLATE_INERT_AURORAN_ESSENCE_ORE.getRegisteredName(),
+                        "inert_auroran_essence_ore_overlay"),blockModels.modelOutput);
+        blockModels.createTrivialCube(OMBlocks.DEEPSLATE_INERT_DARK_ESSENCE_ORE.get());
+
+
 
         itemModels.generateFlatItem(OMItems.BONE_SWORD.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModels.generateFlatItem(OMItems.PENULTIMATE_SWORD_DARK.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);

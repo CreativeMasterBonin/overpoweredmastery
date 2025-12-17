@@ -98,6 +98,16 @@ public class OMLang extends LanguageProvider {
         add(OMItems.INERT_ORANGE_ESSENCE_ORE.asItem(),"Inert Orange Essence Ore");
         add(OMBlocks.INERT_RED_ESSENCE_ORE.get(),"Inert Red Essence Ore");
         add(OMItems.INERT_RED_ESSENCE_ORE.asItem(),"Inert Red Essence Ore");
+        add(OMBlocks.DEEPSLATE_INERT_BLUE_ESSENCE_ORE.get(),"Deepslate Inert Blue Essence Ore");
+        add(OMItems.DEEPSLATE_INERT_BLUE_ESSENCE_ORE.asItem(),"Deepslate Inert Blue Essence Ore");
+        add(OMBlocks.DEEPSLATE_INERT_GREEN_ESSENCE_ORE.get(),"Deepslate Inert Green Essence Ore");
+        add(OMItems.DEEPSLATE_INERT_GREEN_ESSENCE_ORE.asItem(),"Deepslate Inert Green Essence Ore");
+        add(OMBlocks.DEEPSLATE_INERT_YELLOW_ESSENCE_ORE.get(),"Deepslate Inert Yellow Essence Ore");
+        add(OMItems.DEEPSLATE_INERT_YELLOW_ESSENCE_ORE.asItem(),"Deepslate Inert Yellow Essence Ore");
+        add(OMBlocks.DEEPSLATE_INERT_ORANGE_ESSENCE_ORE.get(),"Deepslate Inert Orange Essence Ore");
+        add(OMItems.DEEPSLATE_INERT_ORANGE_ESSENCE_ORE.asItem(),"Deepslate Inert Orange Essence Ore");
+        add(OMBlocks.DEEPSLATE_INERT_RED_ESSENCE_ORE.get(),"Deepslate Inert Red Essence Ore");
+        add(OMItems.DEEPSLATE_INERT_RED_ESSENCE_ORE.asItem(),"Deepslate Inert Red Essence Ore");
         // special ores
         add(OMBlocks.INERT_LIGHT_ESSENCE_ORE.get(),"Inert Light Essence Ore");
         add(OMItems.INERT_LIGHT_ESSENCE_ORE.asItem(),"Inert Light Essence Ore");
@@ -105,6 +115,12 @@ public class OMLang extends LanguageProvider {
         add(OMItems.INERT_AURORAN_ESSENCE_ORE.asItem(),"Inert Auroran Essence Ore");
         add(OMBlocks.INERT_DARK_ESSENCE_ORE.get(),"Inert Dark Essence Ore");
         add(OMItems.INERT_DARK_ESSENCE_ORE.asItem(),"Inert Dark Essence Ore");
+        add(OMBlocks.DEEPSLATE_INERT_LIGHT_ESSENCE_ORE.get(),"Deepslate Inert Light Essence Ore");
+        add(OMItems.DEEPSLATE_INERT_LIGHT_ESSENCE_ORE.asItem(),"Deepslate Inert Light Essence Ore");
+        add(OMBlocks.DEEPSLATE_INERT_AURORAN_ESSENCE_ORE.get(),"Deepslate Inert Auroran Essence Ore");
+        add(OMItems.DEEPSLATE_INERT_AURORAN_ESSENCE_ORE.asItem(),"Deepslate Inert Auroran Essence Ore");
+        add(OMBlocks.DEEPSLATE_INERT_DARK_ESSENCE_ORE.get(),"Deepslate Inert Dark Essence Ore");
+        add(OMItems.DEEPSLATE_INERT_DARK_ESSENCE_ORE.asItem(),"Deepslate Inert Dark Essence Ore");
         // essences
         add(OMItems.INERT_BLUE_ESSENCE.asItem(),"Inert Blue Essence");
         add(OMItems.INERT_GREEN_ESSENCE.asItem(),"Inert Green Essence");

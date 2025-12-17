@@ -28,6 +28,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.rk.overpoweredmastery.block.OMBlocks;
 import net.rk.overpoweredmastery.datagen.OMEnchantments;
+import net.rk.overpoweredmastery.datagen.OMWorldgen;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import net.rk.overpoweredmastery.entity.blockentity.OMBlockEntities;
 import net.rk.overpoweredmastery.item.OMItems;
@@ -204,6 +205,15 @@ public class OverpoweredMastery {
             event.accept(OMItems.INERT_LIGHT_ESSENCE_ORE);
             event.accept(OMItems.INERT_AURORAN_ESSENCE_ORE);
             event.accept(OMItems.INERT_DARK_ESSENCE_ORE);
+            // deepslate ores
+            event.accept(OMItems.DEEPSLATE_INERT_BLUE_ESSENCE_ORE);
+            event.accept(OMItems.DEEPSLATE_INERT_GREEN_ESSENCE_ORE);
+            event.accept(OMItems.DEEPSLATE_INERT_YELLOW_ESSENCE_ORE);
+            event.accept(OMItems.DEEPSLATE_INERT_ORANGE_ESSENCE_ORE);
+            event.accept(OMItems.DEEPSLATE_INERT_RED_ESSENCE_ORE);
+            event.accept(OMItems.DEEPSLATE_INERT_LIGHT_ESSENCE_ORE);
+            event.accept(OMItems.DEEPSLATE_INERT_AURORAN_ESSENCE_ORE);
+            event.accept(OMItems.DEEPSLATE_INERT_DARK_ESSENCE_ORE);
             // ore items
             event.accept(OMItems.INERT_BLUE_ESSENCE);
             event.accept(OMItems.INERT_GREEN_ESSENCE);
@@ -265,6 +275,6 @@ public class OverpoweredMastery {
     }
 
     private void onGatherData(GatherDataEvent.Client event){
-        event.createDatapackRegistryObjects(OMEnchantments.enchantmentBuilder.add(Registries.ENCHANTMENT,OMEnchantments::bootstrap));
+        event.createDatapackRegistryObjects(OMWorldgen.WORLD_GEN_BUILDER.add(Registries.ENCHANTMENT,OMEnchantments::bootstrap));
     }
 }
