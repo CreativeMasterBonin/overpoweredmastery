@@ -139,6 +139,7 @@ public class OMLang extends LanguageProvider {
         add(OMItems.ULTIMATE_INGOT.asItem(),"Ultimate Ingot");
         add(OMItems.ULTRA_INGOT.asItem(),"Ultra Ingot");
         add(OMItems.CONCENTRATED_MULTI_ESSENCE.asItem(),"Concentrated Multi Essence");
+        add(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE.asItem(),"Infused Concentrated Multi Essence");
 
         // staffs
         add(OMItems.ULTIMATE_STAFF.asItem(),"Ultimate Staff");

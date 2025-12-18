@@ -14,6 +14,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.rk.overpoweredmastery.entity.blockentity.MultiAssemblerBlockEntity;
 import net.rk.overpoweredmastery.entity.blockentity.OMBlockEntities;
@@ -23,7 +25,8 @@ public class MultiAssembler extends BaseEntityBlock{
     public static final MapCodec<MultiAssembler> CODEC = simpleCodec(MultiAssembler::new);
 
     public MultiAssembler(Properties properties){
-        super(properties.strength(1.2f,50f));
+        super(properties.strength(1.75f,150f).noOcclusion().requiresCorrectToolForDrops()
+                .instrument(NoteBlockInstrument.COW_BELL).mapColor(MapColor.COLOR_GRAY));
     }
 
     @Override

@@ -484,9 +484,17 @@ public class OMItems{
     public static final DeferredItem<Item> CONCENTRATED_MULTI_ESSENCE = ITEMS.registerItem("concentrated_multi_essence",
             Item::new,
             new Item.Properties().setId(makeResourceKey("concentrated_multi_essence"))
-                    .fireResistant());
+                    .fireResistant().rarity(Rarity.RARE));
 
+    public static final DeferredItem<Item> PENULTIMATE_SWORD_CATALYST = ITEMS.registerItem("penultimate_sword_catalyst",
+            Item::new,
+            new Item.Properties().setId(makeResourceKey("penultimate_sword_catalyst"))
+                    .fireResistant().rarity(Rarity.RARE));
 
+    public static final DeferredItem<Item> INFUSED_CONCENTRATED_MULTI_ESSENCE = ITEMS.registerItem("infused_concentrated_multi_essence",
+            Item::new,
+            new Item.Properties().setId(makeResourceKey("infused_concentrated_multi_essence"))
+                    .fireResistant().rarity(Rarity.EPIC));
 
     // machines and devices
     public static final DeferredItem<Item> MULTI_ASSEMBLER = ITEMS.registerItem("multi_assembler",

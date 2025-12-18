@@ -16,6 +16,8 @@ public class OMTags{
     public static final TagKey<Item> SPEARS = omItemTag("spears");
     public static final TagKey<Item> CAN_HAVE_INSTAREPAIR_ENCHANTMENT = omItemTag("can_have_instarepair_enchantment");
     public static final TagKey<Item> INERT_ESSENCES = omItemTag("inert_essences");
+    public static final TagKey<Item> ULTIMATE_TOOLS = omItemTag("ultimate_tools");
+    public static final TagKey<Item> ULTRA_TOOLS = omItemTag("ultra_tools");
     public static final TagKey<Block> BANNED_PROBABLE_REWARD_BLOCKS = omBlockTag("banned_probable_reward_blocks");
     public static final TagKey<Block> PROBABLE_CANNOT_REPLACE = omBlockTag("probable_cannot_replace");
     public static final TagKey<Block> CORRECT_FOR_SPEAR = omBlockTag("correct_for_spear");

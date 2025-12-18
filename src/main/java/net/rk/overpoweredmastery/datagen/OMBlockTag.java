@@ -21,6 +21,7 @@ public class OMBlockTag extends BlockTagsProvider {
         tag(Tags.Blocks.RELOCATION_NOT_SUPPORTED)
                 .add(OMBlocks.SELECTION_BLOCK.get())
                 .add(OMBlocks.MULTI_ASSEMBLER.get())
+                .add(OMBlocks.MOVING_PROBABLE_BLOCK.get())
         ;
         tag(OMTags.BANNED_PROBABLE_REWARD_BLOCKS)
                 .add(Blocks.AIR)
@@ -273,6 +274,7 @@ public class OMBlockTag extends BlockTagsProvider {
                 .addTag(Tags.Blocks.BARRELS)
                 .add(OMBlocks.SELECTION_BLOCK.get())
                 .add(OMBlocks.MULTI_ASSEMBLER.get())
+                .add(OMBlocks.MOVING_PROBABLE_BLOCK.get())
         ;
         tag(OMTags.CORRECT_FOR_SPEAR)
                 .addTag(BlockTags.SWORD_EFFICIENT)
@@ -291,22 +293,27 @@ public class OMBlockTag extends BlockTagsProvider {
         tag(Tags.Blocks.ENDERMAN_PLACE_ON_BLACKLIST)
                 .add(OMBlocks.SELECTION_BLOCK.get())
                 .add(OMBlocks.MULTI_ASSEMBLER.get())
+                .add(OMBlocks.MOVING_PROBABLE_BLOCK.get())
         ;
         tag(BlockTags.DRAGON_IMMUNE)
                 .add(OMBlocks.SELECTION_BLOCK.get())
                 .add(OMBlocks.MULTI_ASSEMBLER.get())
+                .add(OMBlocks.MOVING_PROBABLE_BLOCK.get())
         ;
         tag(BlockTags.DRAGON_TRANSPARENT)
                 .add(OMBlocks.SELECTION_BLOCK.get())
                 .add(OMBlocks.MULTI_ASSEMBLER.get())
+                .add(OMBlocks.MOVING_PROBABLE_BLOCK.get())
         ;
         tag(BlockTags.WITHER_IMMUNE)
                 .add(OMBlocks.SELECTION_BLOCK.get())
                 .add(OMBlocks.MULTI_ASSEMBLER.get())
+                .add(OMBlocks.MOVING_PROBABLE_BLOCK.get())
         ;
         tag(BlockTags.PREVENT_MOB_SPAWNING_INSIDE)
                 .add(OMBlocks.SELECTION_BLOCK.get())
                 .add(OMBlocks.MULTI_ASSEMBLER.get())
+                .add(OMBlocks.MOVING_PROBABLE_BLOCK.get())
         ;
         /*tag(BlockTags.CLIMBABLE)
                 .add(OMBlocks.SELECTION_BLOCK.get())
@@ -337,10 +344,11 @@ public class OMBlockTag extends BlockTagsProvider {
         ;
         tag(OMTags.CAN_DROP_STRANGE_STONE)
                 .addTag(BlockTags.BASE_STONE_OVERWORLD)
-                .addTag(BlockTags.DIRT)
+                .addTag(BlockTags.STONE_ORE_REPLACEABLES)
         ;
         tag(BlockTags.MAINTAINS_FARMLAND)
                 .add(OMBlocks.SELECTION_BLOCK.get())
+                .add(OMBlocks.MOVING_PROBABLE_BLOCK.get())
         ;
         tag(Tags.Blocks.ORES)
                 .add(OMBlocks.INERT_BLUE_ESSENCE_ORE.get())
@@ -361,6 +369,14 @@ public class OMBlockTag extends BlockTagsProvider {
                 .add(OMBlocks.INERT_LIGHT_ESSENCE_ORE.get())
                 .add(OMBlocks.INERT_AURORAN_ESSENCE_ORE.get())
                 .add(OMBlocks.INERT_DARK_ESSENCE_ORE.get())
+                .add(OMBlocks.DEEPSLATE_INERT_BLUE_ESSENCE_ORE.get())
+                .add(OMBlocks.DEEPSLATE_INERT_GREEN_ESSENCE_ORE.get())
+                .add(OMBlocks.DEEPSLATE_INERT_YELLOW_ESSENCE_ORE.get())
+                .add(OMBlocks.DEEPSLATE_INERT_ORANGE_ESSENCE_ORE.get())
+                .add(OMBlocks.DEEPSLATE_INERT_RED_ESSENCE_ORE.get())
+                .add(OMBlocks.DEEPSLATE_INERT_LIGHT_ESSENCE_ORE.get())
+                .add(OMBlocks.DEEPSLATE_INERT_AURORAN_ESSENCE_ORE.get())
+                .add(OMBlocks.DEEPSLATE_INERT_DARK_ESSENCE_ORE.get())
         ;
         tag(Tags.Blocks.NEEDS_NETHERITE_TOOL)
                 .add(OMBlocks.MULTI_ASSEMBLER.get())
@@ -374,6 +390,14 @@ public class OMBlockTag extends BlockTagsProvider {
                 .add(OMBlocks.INERT_LIGHT_ESSENCE_ORE.get())
                 .add(OMBlocks.INERT_AURORAN_ESSENCE_ORE.get())
                 .add(OMBlocks.INERT_DARK_ESSENCE_ORE.get())
+                .add(OMBlocks.DEEPSLATE_INERT_BLUE_ESSENCE_ORE.get())
+                .add(OMBlocks.DEEPSLATE_INERT_GREEN_ESSENCE_ORE.get())
+                .add(OMBlocks.DEEPSLATE_INERT_YELLOW_ESSENCE_ORE.get())
+                .add(OMBlocks.DEEPSLATE_INERT_ORANGE_ESSENCE_ORE.get())
+                .add(OMBlocks.DEEPSLATE_INERT_RED_ESSENCE_ORE.get())
+                .add(OMBlocks.DEEPSLATE_INERT_LIGHT_ESSENCE_ORE.get())
+                .add(OMBlocks.DEEPSLATE_INERT_AURORAN_ESSENCE_ORE.get())
+                .add(OMBlocks.DEEPSLATE_INERT_DARK_ESSENCE_ORE.get())
                 .add(OMBlocks.MULTI_ASSEMBLER.get())
         ;
     }

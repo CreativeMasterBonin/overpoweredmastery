@@ -7,6 +7,7 @@ import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ItemTagsProvider;
 import net.rk.overpoweredmastery.OverpoweredMastery;
+import net.rk.overpoweredmastery.block.OMBlocks;
 import net.rk.overpoweredmastery.item.OMItems;
 
 import java.util.concurrent.CompletableFuture;
@@ -18,6 +19,16 @@ public class OMItemTag extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        tag(OMTags.ULTIMATE_TOOLS)
+                .add(OMItems.ULTIMATE_SWORD.asItem())
+                .add(OMItems.ULTIMATE_HOE.asItem())
+                .add(OMItems.ULTIMATE_BOW.asItem())
+                .add(OMItems.ULTIMATE_FISHING_ROD.asItem())
+                .add(OMItems.ULTIMATE_STAFF.asItem())
+        ;
+        tag(OMTags.ULTRA_TOOLS)
+                .add(OMItems.ULTRA_SWORD.asItem())
+        ;
         tag(OMTags.MUSIC_DISC_WUBS)
                 .add(OMItems.RED_WUBS.asItem())
                 .add(OMItems.GREEN_WUBS.asItem())
@@ -73,8 +84,8 @@ public class OMItemTag extends ItemTagsProvider {
                 .addTag(ItemTags.CHEST_ARMOR)
                 .addTag(ItemTags.LEG_ARMOR)
                 .addTag(ItemTags.FOOT_ARMOR)
-                .add(OMItems.ULTIMATE_STAFF.asItem())
-                .add(OMItems.ULTRA_SWORD.asItem())
+                .addTag(OMTags.ULTIMATE_TOOLS)
+                .addTag(OMTags.ULTRA_TOOLS)
         ;
         tag(Tags.Items.ORES)
                 .add(OMItems.INERT_BLUE_ESSENCE_ORE.asItem())
@@ -85,6 +96,14 @@ public class OMItemTag extends ItemTagsProvider {
                 .add(OMItems.INERT_LIGHT_ESSENCE_ORE.asItem())
                 .add(OMItems.INERT_AURORAN_ESSENCE_ORE.asItem())
                 .add(OMItems.INERT_DARK_ESSENCE_ORE.asItem())
+                .add(OMItems.DEEPSLATE_INERT_BLUE_ESSENCE_ORE.get())
+                .add(OMItems.DEEPSLATE_INERT_GREEN_ESSENCE_ORE.get())
+                .add(OMItems.DEEPSLATE_INERT_YELLOW_ESSENCE_ORE.get())
+                .add(OMItems.DEEPSLATE_INERT_ORANGE_ESSENCE_ORE.get())
+                .add(OMItems.DEEPSLATE_INERT_RED_ESSENCE_ORE.get())
+                .add(OMItems.DEEPSLATE_INERT_LIGHT_ESSENCE_ORE.get())
+                .add(OMItems.DEEPSLATE_INERT_AURORAN_ESSENCE_ORE.get())
+                .add(OMItems.DEEPSLATE_INERT_DARK_ESSENCE_ORE.get())
         ;
         tag(Tags.Items.INGOTS)
                 .add(OMItems.ULTIMATE_INGOT.asItem())

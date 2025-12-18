@@ -40,7 +40,7 @@ public class OMRecipe extends RecipeProvider {
         shaped(RecipeCategory.COMBAT, OMItems.RED_WUBS,1)
                 .define('i', Items.IRON_INGOT)
                 .define('g', Items.CROSSBOW)
-                .define('d', Items.MUSIC_DISC_CHIRP)
+                .define('d', Items.MUSIC_DISC_BLOCKS)
                 .define('t', ItemTags.TRAPDOORS)
                 .define('j', Items.JUKEBOX)
                 .pattern("gii")
@@ -52,7 +52,7 @@ public class OMRecipe extends RecipeProvider {
         shaped(RecipeCategory.COMBAT, OMItems.GREEN_WUBS,1)
                 .define('i', Items.IRON_INGOT)
                 .define('g', Items.CROSSBOW)
-                .define('d', Items.MUSIC_DISC_CAT)
+                .define('d', Items.MUSIC_DISC_FAR)
                 .define('c', Items.CACTUS)
                 .define('t', ItemTags.TRAPDOORS)
                 .define('j', Items.JUKEBOX)
@@ -65,7 +65,7 @@ public class OMRecipe extends RecipeProvider {
         shaped(RecipeCategory.COMBAT, OMItems.PURPLE_WUBS,1)
                 .define('o', Items.OBSIDIAN)
                 .define('g', Items.CROSSBOW)
-                .define('d', Items.MUSIC_DISC_MALL)
+                .define('d', Items.MUSIC_DISC_MELLOHI)
                 .define('c', Items.CRYING_OBSIDIAN)
                 .define('t', ItemTags.TRAPDOORS)
                 .define('j', Items.JUKEBOX)
@@ -277,10 +277,75 @@ public class OMRecipe extends RecipeProvider {
                 Ingredient.of(items.getOrThrow(OMTags.INERT_ESSENCES)),
                 Ingredient.of(items.getOrThrow(OMTags.INERT_ESSENCES)),
                 Ingredient.of(items.getOrThrow(Tags.Items.DYES)),
-                Ingredient.of(Items.HEAVY_CORE),
-                20,
+                Ingredient.of(Items.ENDER_PEARL),
+                80,
                 new ItemStack(OMItems.CONCENTRATED_MULTI_ESSENCE.asItem(),1),
-                Items.HEAVY_CORE.asItem()
+                Items.ENDER_PEARL.asItem()
+        );
+
+        multiAssembler(
+                Ingredient.of(OMItems.CONCENTRATED_MULTI_ESSENCE),
+                Ingredient.of(OMItems.CONCENTRATED_MULTI_ESSENCE),
+                Ingredient.of(OMItems.INERT_DARK_ESSENCE),
+                Ingredient.of(OMItems.INERT_LIGHT_ESSENCE),
+                Ingredient.of(OMItems.INERT_AURORAN_ESSENCE),
+                Ingredient.of(Items.NETHERITE_SWORD),
+                Ingredient.of(Items.IRON_INGOT),
+                320,
+                new ItemStack(OMItems.PENULTIMATE_SWORD_CATALYST.asItem(),1),
+                OMItems.CONCENTRATED_MULTI_ESSENCE.asItem()
+        );
+
+        multiAssembler(
+                Ingredient.of(Items.GLOWSTONE),
+                Ingredient.of(Items.GLOWSTONE),
+                Ingredient.of(Items.GLOWSTONE),
+                Ingredient.of(OMItems.INERT_LIGHT_ESSENCE),
+                Ingredient.of(OMItems.INERT_LIGHT_ESSENCE),
+                Ingredient.of(OMItems.PENULTIMATE_SWORD_CATALYST),
+                Ingredient.of(Items.TORCHFLOWER),
+                720,
+                new ItemStack(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),1),
+                OMItems.PENULTIMATE_SWORD_CATALYST.asItem()
+        );
+
+        multiAssembler(
+                Ingredient.of(Items.GILDED_BLACKSTONE),
+                Ingredient.of(Items.GILDED_BLACKSTONE),
+                Ingredient.of(Items.GILDED_BLACKSTONE),
+                Ingredient.of(OMItems.INERT_DARK_ESSENCE),
+                Ingredient.of(OMItems.INERT_DARK_ESSENCE),
+                Ingredient.of(OMItems.PENULTIMATE_SWORD_CATALYST),
+                Ingredient.of(Items.NETHER_STAR),
+                720,
+                new ItemStack(OMItems.PENULTIMATE_SWORD_DARK.asItem(),1),
+                OMItems.PENULTIMATE_SWORD_CATALYST.asItem()
+        );
+
+        multiAssembler(
+                Ingredient.of(Items.NETHERITE_BLOCK),
+                Ingredient.of(Items.SHULKER_BOX),
+                Ingredient.of(Items.OMINOUS_BOTTLE),
+                Ingredient.of(OMItems.CONCENTRATED_MULTI_ESSENCE),
+                Ingredient.of(OMItems.PENULTIMATE_SWORD_LIGHT),
+                Ingredient.of(OMItems.PENULTIMATE_SWORD_DARK),
+                Ingredient.of(OMItems.ULTIMATE_INGOT),
+                1200,
+                new ItemStack(OMItems.ULTIMATE_SWORD.asItem(),1),
+                OMItems.CONCENTRATED_MULTI_ESSENCE.asItem()
+        );
+
+        multiAssembler(
+                Ingredient.of(OMItems.STRANGE_STONE),
+                Ingredient.of(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE),
+                Ingredient.of(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE),
+                Ingredient.of(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE),
+                Ingredient.of(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE),
+                Ingredient.of(Items.NETHERITE_INGOT),
+                Ingredient.of(Items.NETHERITE_INGOT),
+                900,
+                new ItemStack(OMItems.ULTIMATE_INGOT.asItem(),1),
+                OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE.asItem()
         );
     }
 
