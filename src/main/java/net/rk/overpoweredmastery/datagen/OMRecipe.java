@@ -244,6 +244,15 @@ public class OMRecipe extends RecipeProvider {
         createInertOreSmeltingAndBlasting(OMItems.INERT_AURORAN_ESSENCE_ORE.asItem(),OMItems.INERT_AURORAN_ESSENCE.asItem());
         createInertOreSmeltingAndBlasting(OMItems.INERT_DARK_ESSENCE_ORE.asItem(),OMItems.INERT_DARK_ESSENCE.asItem());
 
+        createInertOreSmeltingAndBlasting(OMItems.DEEPSLATE_INERT_BLUE_ESSENCE_ORE.asItem(),OMItems.INERT_BLUE_ESSENCE.asItem());
+        createInertOreSmeltingAndBlasting(OMItems.DEEPSLATE_INERT_GREEN_ESSENCE_ORE.asItem(),OMItems.INERT_GREEN_ESSENCE.asItem());
+        createInertOreSmeltingAndBlasting(OMItems.DEEPSLATE_INERT_YELLOW_ESSENCE_ORE.asItem(),OMItems.INERT_YELLOW_ESSENCE.asItem());
+        createInertOreSmeltingAndBlasting(OMItems.DEEPSLATE_INERT_ORANGE_ESSENCE_ORE.asItem(),OMItems.INERT_ORANGE_ESSENCE.asItem());
+        createInertOreSmeltingAndBlasting(OMItems.DEEPSLATE_INERT_RED_ESSENCE_ORE.asItem(),OMItems.INERT_RED_ESSENCE.asItem());
+        createInertOreSmeltingAndBlasting(OMItems.DEEPSLATE_INERT_LIGHT_ESSENCE_ORE.asItem(),OMItems.INERT_LIGHT_ESSENCE.asItem());
+        createInertOreSmeltingAndBlasting(OMItems.DEEPSLATE_INERT_AURORAN_ESSENCE_ORE.asItem(),OMItems.INERT_AURORAN_ESSENCE.asItem());
+        createInertOreSmeltingAndBlasting(OMItems.DEEPSLATE_INERT_DARK_ESSENCE_ORE.asItem(),OMItems.INERT_DARK_ESSENCE.asItem());
+
         shaped(RecipeCategory.MISC,OMItems.MULTI_ASSEMBLER)
                 .define('c', OMItems.ESSENCE_ELECTRONIC_CORE)
                 .define('b', OMItems.NETHERITE_TOOL_BINDING)

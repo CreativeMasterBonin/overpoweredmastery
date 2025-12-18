@@ -147,6 +147,8 @@ public class OMLang extends LanguageProvider {
         // enchantments
         add("enchantment.overpoweredmastery.instarepair","Instarepair");
         add("enchantment.overpoweredmastery.instarepair.desc","Repairs tools for free randomly... however is quite slow");
+        add("enchantment.overpoweredmastery.bypass_denial","Bypass Denial");
+        add("enchantment.overpoweredmastery.bypass_denial.desc","Damage that bypasses is denied!");
 
 
         add("overpoweredmastery.item.inert_essence.desc","Although useless in this form, some stimulation might make it do something...");
