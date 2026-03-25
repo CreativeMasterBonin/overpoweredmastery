@@ -3,6 +3,8 @@
 
 <i>Overpowered tools and armor that don't listen to vanilla!</i>
 
+<i>This is the 1.21.11 branch. All 1.21.11 bugs and changes must be applied to this branch only.</i>
+
 <p>Go crazy and become a master of Overpowered-ness!
 This mod doesn't follow the vanilla way, instead does whatever it wants.
 
