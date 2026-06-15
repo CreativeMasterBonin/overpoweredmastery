@@ -19,6 +19,13 @@ import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
+import net.minecraft.world.entity.monster.skeleton.Skeleton;
+import net.minecraft.world.entity.monster.skeleton.Stray;
+import net.minecraft.world.entity.monster.zombie.Drowned;
+import net.minecraft.world.entity.monster.zombie.Husk;
+import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.monster.zombie.ZombifiedPiglin;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -48,7 +55,7 @@ public class MovingProbableBlock extends Block{
     public static IntegerProperty MOVES = IntegerProperty.create("moves",0,32);
 
     public MovingProbableBlock(Properties properties){
-        super(properties.noCollission().noLootTable());
+        super(properties.noCollision().noLootTable());
         this.registerDefaultState(this.defaultBlockState().setValue(MOVES,0));
     }
 
@@ -499,7 +506,7 @@ public class MovingProbableBlock extends Block{
                 }
             }
             else if(rs.nextInt(100) <= 3){
-                if(!lvl.isClientSide){
+                if(!lvl.isClientSide()){
                     if(rs.nextInt(100) <= 30){
                         Skeleton s1 = new Skeleton(EntityType.SKELETON,lvl);
 

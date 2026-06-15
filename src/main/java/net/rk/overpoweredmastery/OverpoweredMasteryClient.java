@@ -6,7 +6,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
@@ -47,12 +47,12 @@ import org.jetbrains.annotations.Nullable;
 public class OverpoweredMasteryClient{
     public OverpoweredMasteryClient(IEventBus eventBus, ModContainer container) {
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-        eventBus.addListener(this::setupClientExtensions);
+        //eventBus.addListener(this::setupClientExtensions);
     }
 
     @SubscribeEvent
     public static void setupSpecialRenderers(RegisterSpecialModelRendererEvent event){
-        event.register(ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"multi_assembler"),
+        event.register(Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"multi_assembler"),
                 MultiAssemblerSpecialModelRenderer.Unbaked.MAP_CODEC);
     }
 
@@ -66,7 +66,7 @@ public class OverpoweredMasteryClient{
         BlockEntityRenderers.register(OMBlockEntities.MULTI_ASSEMBLER_BLOCK_ENTITY.get(),MultiAssemblerBlockEntityRenderer::new);
     }
 
-    public final class WubExtension{
+    /*public final class WubExtension{
         public static final EnumProxy<HumanoidModel.ArmPose> WUB = new EnumProxy<>(
                 HumanoidModel.ArmPose.class,true,(IArmPoseTransformer) WubExtension::transformer
         );
@@ -272,7 +272,7 @@ public class OverpoweredMasteryClient{
                                    return IClientItemExtensions.super.applyForgeHandTransform(poseStack,player,arm,itemInHand,partialTick,equipProcess,swingProcess);
                                }
                            },OMItems.ULTIMATE_STAFF);
-    }
+    }*/
 
     @SubscribeEvent
     public static void setupModelLayer(EntityRenderersEvent.RegisterLayerDefinitions event){

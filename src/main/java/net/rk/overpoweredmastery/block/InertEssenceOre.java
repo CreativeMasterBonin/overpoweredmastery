@@ -7,6 +7,7 @@ import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -59,7 +60,7 @@ public class InertEssenceOre extends DropExperienceBlock{
     }
 
     @Override
-    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid){
+    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, ItemStack toolStack, boolean willHarvest, FluidState fluid) {
         if(level instanceof ServerLevel serverLevel){
             int allTheColors = ARGB.color(Mth.randomBetweenInclusive(
                             level.getRandom(), redMinNumber, redMaxNumber),
@@ -73,6 +74,6 @@ public class InertEssenceOre extends DropExperienceBlock{
                     this.isDeep ? 5 : 10,
                     0,0,0,0.25D);
         }
-        return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
+        return super.onDestroyedByPlayer(state,level,pos,player,toolStack,willHarvest,fluid);
     }
 }

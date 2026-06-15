@@ -1,12 +1,12 @@
 package net.rk.overpoweredmastery.datagen;
 
-import net.minecraft.advancements.critereon.DamageSourcePredicate;
-import net.minecraft.advancements.critereon.TagPredicate;
+import net.minecraft.advancements.criterion.DamageSourcePredicate;
+import net.minecraft.advancements.criterion.TagPredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.ItemTags;
@@ -31,9 +31,9 @@ public class OMEnchantments{
     public static final ResourceKey<Enchantment> BYPASS_DENIAL = key("bypass_denial");
 
 
-    public static final ResourceLocation INSTAREPAIR_ARMOR_TOUGHNESS_MODIFIER = ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"instarepair_modifier");
-    public static final ResourceLocation INSTAREPAIR_NOTICEABLE_MODIFIER = ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"instarepair_noticeable_modifier");
-    public static final ResourceLocation INSTAREPAIR_MOVEMENT_EFFECTIVENESS_MODIFIER = ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"instarepair_movement_effectiveness_modifier");
+    public static final Identifier INSTAREPAIR_ARMOR_TOUGHNESS_MODIFIER = Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"instarepair_modifier");
+    public static final Identifier INSTAREPAIR_NOTICEABLE_MODIFIER = Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"instarepair_noticeable_modifier");
+    public static final Identifier INSTAREPAIR_MOVEMENT_EFFECTIVENESS_MODIFIER = Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"instarepair_movement_effectiveness_modifier");
     //public static final RegistrySetBuilder enchantmentBuilder = new RegistrySetBuilder();
 
     public static void bootstrap(BootstrapContext<Enchantment> context){
@@ -100,7 +100,7 @@ public class OMEnchantments{
                         .withEffect(
                                 EnchantmentEffectComponents.ATTRIBUTES,
                                 new EnchantmentAttributeEffect(
-                                        ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"enchantment.bypass_denial"),
+                                        Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"enchantment.bypass_denial"),
                                         Attributes.EXPLOSION_KNOCKBACK_RESISTANCE,
                                         LevelBasedValue.perLevel(1.25f),
                                         AttributeModifier.Operation.ADD_VALUE
@@ -109,7 +109,7 @@ public class OMEnchantments{
                         .withEffect(
                                 EnchantmentEffectComponents.ATTRIBUTES,
                                 new EnchantmentAttributeEffect(
-                                        ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"enchantment.bypass_denial"),
+                                        Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"enchantment.bypass_denial"),
                                         Attributes.KNOCKBACK_RESISTANCE,
                                         LevelBasedValue.perLevel(1.25f),
                                         AttributeModifier.Operation.ADD_VALUE
@@ -146,10 +146,10 @@ public class OMEnchantments{
      */
 
     public static void registerEnchantment(BootstrapContext<Enchantment> context,ResourceKey<Enchantment> key,Enchantment.Builder builder) {
-        context.register(key, builder.build(key.location()));
+        context.register(key, builder.build(key.identifier()));
     }
 
     public static ResourceKey<Enchantment> key(String name) {
-        return ResourceKey.create(Registries.ENCHANTMENT,ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,name));
+        return ResourceKey.create(Registries.ENCHANTMENT,Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,name));
     }
 }

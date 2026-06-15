@@ -2,7 +2,7 @@ package net.rk.overpoweredmastery.item.custom;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -19,7 +19,7 @@ import net.rk.overpoweredmastery.OverpoweredMastery;
 import java.util.function.Consumer;
 
 public abstract class AbstractSpear extends Item {
-    public static final ResourceLocation BASE_SPEAR_REACH = ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"base_spear_reach");
+    public static final Identifier BASE_SPEAR_REACH = Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"base_spear_reach");
     public AbstractSpear(Properties properties) {
         super(properties.stacksTo(1));
     }

@@ -1,9 +1,8 @@
 package net.rk.overpoweredmastery.datagen;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -26,14 +25,14 @@ public class OMTags{
     public static final TagKey<Enchantment> SPEAR_SUPPORTED = omEnchantmentTag("spear_supported");
 
     private static TagKey<Block> omBlockTag(String name){
-        return BlockTags.create(ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID, name));
+        return BlockTags.create(Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID, name));
     }
 
     private static TagKey<Item> omItemTag(String name){
-        return ItemTags.create(ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID, name));
+        return ItemTags.create(Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID, name));
     }
 
     private static TagKey<Enchantment> omEnchantmentTag(String name){
-        return TagKey.create(Registries.ENCHANTMENT,ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,name));
+        return TagKey.create(Registries.ENCHANTMENT,Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,name));
     }
 }

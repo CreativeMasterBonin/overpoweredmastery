@@ -2,7 +2,7 @@ package net.rk.overpoweredmastery.item.custom;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -17,9 +17,9 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.npc.AbstractVillager;
+import net.minecraft.world.entity.monster.illager.AbstractIllager;
+import net.minecraft.world.entity.npc.villager.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -27,7 +27,6 @@ import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.TooltipDisplay;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.rk.overpoweredmastery.OverpoweredMastery;
 import net.rk.overpoweredmastery.item.OMItems;
@@ -39,10 +38,10 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class UltimateSword extends Item {
-    public static final ResourceLocation ULTIMATE_SWORD_ATTACK_DAMAGE =
-            ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"ultimate_sword_attack_damage");
-    public static final ResourceLocation ULTIMATE_SWORD_ATTACK_SPEED =
-            ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"ultimate_sword_attack_speed");
+    public static final Identifier ULTIMATE_SWORD_ATTACK_DAMAGE =
+            Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"ultimate_sword_attack_damage");
+    public static final Identifier ULTIMATE_SWORD_ATTACK_SPEED =
+            Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"ultimate_sword_attack_speed");
 
     public UltimateSword(Properties properties) {
         super(properties.sword(ToolMaterial.NETHERITE,38,10)

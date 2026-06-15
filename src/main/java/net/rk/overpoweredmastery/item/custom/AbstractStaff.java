@@ -5,7 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -38,16 +38,16 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public abstract class AbstractStaff extends ProjectileWeaponItem {
-    public static final ResourceLocation STAFF_MOVEMENT_SPEED_MODIFIER =
-            ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"staff_movement_speed");
-    public static final ResourceLocation STAFF_BLOCK_REACH_MODIFIER =
-            ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"staff_block_reach");
-    public static final ResourceLocation STAFF_ENTITY_REACH_MODIFIER =
-            ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"staff_entity_reach");
-    public static final ResourceLocation STAFF_SAFE_FALL_DISTANCE =
-            ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"staff_safe_fall_distance");
-    public static final ResourceLocation STAFF_FALL_DAMAGE_MULTIPLIER =
-            ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"staff_fall_damage_multiplier");
+    public static final Identifier STAFF_MOVEMENT_SPEED_MODIFIER =
+            Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"staff_movement_speed");
+    public static final Identifier STAFF_BLOCK_REACH_MODIFIER =
+            Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"staff_block_reach");
+    public static final Identifier STAFF_ENTITY_REACH_MODIFIER =
+            Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"staff_entity_reach");
+    public static final Identifier STAFF_SAFE_FALL_DISTANCE =
+            Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"staff_safe_fall_distance");
+    public static final Identifier STAFF_FALL_DAMAGE_MULTIPLIER =
+            Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"staff_fall_damage_multiplier");
 
     public AbstractStaff(Properties p) {
         super(p.stacksTo(1));

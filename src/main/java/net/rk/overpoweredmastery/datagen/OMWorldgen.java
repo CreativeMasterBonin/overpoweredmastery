@@ -9,13 +9,12 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -23,7 +22,6 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.BlockStateMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.neoforged.neoforge.common.Tags;
@@ -73,7 +71,7 @@ public class OMWorldgen extends DatapackBuiltinEntriesProvider {
     // biome modifiers
     public static final ResourceKey<BiomeModifier> ESSENCE_ORE_MODIFIER = ResourceKey.create(
             NeoForgeRegistries.Keys.BIOME_MODIFIERS,
-            ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID, "essence_ore_modifier")
+            Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID, "essence_ore_modifier")
     );
 
     // seed for testing: 7663407759271754169 (should be a pillager outpost nearby)
@@ -386,10 +384,10 @@ public class OMWorldgen extends DatapackBuiltinEntriesProvider {
     }
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,name));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,name));
     }
 
     public static ResourceKey<PlacedFeature> createPlacedFeatureKey(String name) {
-        return ResourceKey.create(Registries.PLACED_FEATURE,ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,name));
+        return ResourceKey.create(Registries.PLACED_FEATURE,Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,name));
     }
 }

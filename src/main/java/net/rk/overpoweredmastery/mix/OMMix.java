@@ -38,7 +38,7 @@ public class OMMix {
     @Inject(method = "tick", at = @At("TAIL"))
     public void tick(CallbackInfo ci){
         try{
-            if(Minecraft.getInstance().player.hasClientLoaded()){
+            if(Minecraft.getInstance().player.connection.hasClientLoaded()){
                 localPlayer = Minecraft.getInstance().player;
                 if(Minecraft.getInstance() != null){
                     // reset the player's sound instances if crouching or the player stops using any item
@@ -94,7 +94,7 @@ public class OMMix {
     @Inject(method = "onSyncedDataUpdated", at = @At("TAIL"))
     public void onSyncedDataUpdated(EntityDataAccessor<?> key, CallbackInfo ci){
         try {
-            if(Minecraft.getInstance().player.hasClientLoaded()){
+            if(Minecraft.getInstance().player.connection.hasClientLoaded()){
                 localPlayer = Minecraft.getInstance().player;
                 // reset all wubs when crouching, or continue to play the sound if not crouching from last point
                 if (Minecraft.getInstance().player.getUseItem().getItem() instanceof AbstractWubs) {

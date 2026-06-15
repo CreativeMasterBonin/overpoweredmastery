@@ -1,6 +1,5 @@
 package net.rk.overpoweredmastery.entity.custom;
 
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
@@ -13,10 +12,11 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Util;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
-import net.minecraft.world.entity.projectile.ThrownLingeringPotion;
+import net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownLingeringPotion;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;

@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.item.ClientItem;
 import net.minecraft.client.renderer.item.SpecialModelWrapper;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -37,13 +37,13 @@ public class OMModels extends ModelProvider {
 
     public static final ModelTemplate BASE_BLOCK_WITH_EMISSIVE_OVERLAY_TEMPLATE =
             new ModelTemplate(
-                    Optional.of(ResourceLocation.parse("overpoweredmastery:block/base_overlay_block_emissive")),
+                    Optional.of(Identifier.parse("overpoweredmastery:block/base_overlay_block_emissive")),
                     Optional.empty(),
                     MAIN,
                     OVERLAY
             );
 
-    public static TextureMapping makeTextureMappingEmissiveBase(ResourceLocation main, ResourceLocation overlay){
+    public static TextureMapping makeTextureMappingEmissiveBase(Identifier main, Identifier overlay){
         return new TextureMapping().put(MAIN, main).put(OVERLAY, overlay);
     }
 
@@ -56,7 +56,7 @@ public class OMModels extends ModelProvider {
         StringBuilder builderOverlay = new StringBuilder();
         builderOverlay.append("block/");
         builderOverlay.append(overlay);
-        return new TextureMapping().put(MAIN,ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,builder.toString())).put(OVERLAY,ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,builderOverlay.toString()));
+        return new TextureMapping().put(MAIN,Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,builder.toString())).put(OVERLAY,Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,builderOverlay.toString()));
     }
 
     public OMModels(PackOutput output) {
@@ -139,7 +139,7 @@ public class OMModels extends ModelProvider {
                 new SpecialModelWrapper.Unbaked(
                         obtainItemModelLocation(OMItems.MULTI_ASSEMBLER),
                         new MultiAssemblerSpecialModelRenderer.Unbaked(
-                                ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,
+                                Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,
                                         "multi_assembler")
                         )
                 ));
@@ -149,8 +149,8 @@ public class OMModels extends ModelProvider {
         itemModels.generateFlatItem(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE.asItem(),ModelTemplates.FLAT_ITEM);
     }
 
-    public static ResourceLocation obtainItemModelLocation(DeferredItem<Item> item){
-        return ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,getItemModelLocationFromItem(item.getRegisteredName()));
+    public static Identifier obtainItemModelLocation(DeferredItem<Item> item){
+        return Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,getItemModelLocationFromItem(item.getRegisteredName()));
     }
 
     public static String getItemModelLocationFromItem(String registeredName){
@@ -176,7 +176,7 @@ public class OMModels extends ModelProvider {
     }
 
     public void customItemModel(Block block, String customLocation){
-        ResourceLocation rs = ResourceLocation.parse(customLocation);
+        Identifier rs = Identifier.parse(customLocation);
         gen.itemModelOutput.register(
                 block.asItem(),
                 new ClientItem(
@@ -185,7 +185,7 @@ public class OMModels extends ModelProvider {
                                 Collections.emptyList()
                         ),
                         new ClientItem.Properties(
-                                true,false
+                                true,false,1.0f
                         )));
     }
 
@@ -200,7 +200,7 @@ public class OMModels extends ModelProvider {
                                 Collections.emptyList()
                         ),
                         new ClientItem.Properties(
-                                true,false
+                                true,false,1.0f
                         )));
     }
 
@@ -215,7 +215,7 @@ public class OMModels extends ModelProvider {
                                 Collections.emptyList()
                         ),
                         new ClientItem.Properties(
-                                true,false
+                                true,false,1.0f
                         )));
     }
 
@@ -230,7 +230,7 @@ public class OMModels extends ModelProvider {
                                 Collections.emptyList()
                         ),
                         new ClientItem.Properties(
-                                false,false
+                                false,false,1.0f
                         )));
     }
 
@@ -245,7 +245,7 @@ public class OMModels extends ModelProvider {
                                 Collections.emptyList()
                         ),
                         new ClientItem.Properties(
-                                false,true
+                                false,true,1.0f
                         )));
     }
 
@@ -254,11 +254,11 @@ public class OMModels extends ModelProvider {
                 item,
                 new ClientItem(
                         new BlockModelWrapper.Unbaked(
-                                ResourceLocation.parse(customLocation),
+                                Identifier.parse(customLocation),
                                 Collections.emptyList()
                         ),
                         new ClientItem.Properties(
-                                true,false
+                                true,false,1.0f
                         )));
     }
 
@@ -267,11 +267,11 @@ public class OMModels extends ModelProvider {
                 item,
                 new ClientItem(
                         new BlockModelWrapper.Unbaked(
-                                ResourceLocation.parse(customLocation),
+                                Identifier.parse(customLocation),
                                 sources
                         ),
                         new ClientItem.Properties(
-                                true,false
+                                true,false,1.0f
                         )));
     }
 }

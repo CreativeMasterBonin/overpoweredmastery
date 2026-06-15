@@ -42,7 +42,7 @@ public class SelectionBlock extends BaseEntityBlock {
 
     public SelectionBlock(BlockBehaviour.Properties properties){
         super(properties
-                .noCollission()
+                .noCollision()
                 .noLootTable()
                 .pushReaction(PushReaction.BLOCK)
                 .mapColor(MapColor.COLOR_BLACK)
@@ -116,7 +116,7 @@ public class SelectionBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier){
+    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier applier, boolean intersects) {
         if(level instanceof ServerLevel serverLevel){
             if(serverLevel.getBlockEntity(pos) instanceof SelectionBlockEntity sbe){
                 if(entity instanceof Player player){

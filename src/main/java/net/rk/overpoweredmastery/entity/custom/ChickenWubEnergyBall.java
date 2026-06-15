@@ -2,15 +2,14 @@ package net.rk.overpoweredmastery.entity.custom;
 
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.entity.animal.chicken.Chicken;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
+import net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -23,7 +22,7 @@ import net.rk.overpoweredmastery.Config;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import org.jetbrains.annotations.Nullable;
 
-public class ChickenWubEnergyBall extends AbstractHurtingProjectile{
+public class ChickenWubEnergyBall extends AbstractHurtingProjectile {
     int count = 0;
 
     public ChickenWubEnergyBall(double x, double y, double z, Vec3 vector, Level level) {

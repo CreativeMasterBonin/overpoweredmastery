@@ -5,20 +5,19 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.rk.overpoweredmastery.OverpoweredMastery;
-import net.rk.overpoweredmastery.item.OMItems;
 import net.rk.overpoweredmastery.menu.MultiAssemblerMenu;
 
 public class MultiAssemblerScreen extends AbstractContainerScreen<MultiAssemblerMenu> {
     // image size is 176 x - 166 y - NO ADDED WHITE SPACE
 
-    public static final ResourceLocation BACKGROUND_LOCATION =
-            ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"textures/gui/multi_assembler.png");
+    public static final Identifier BACKGROUND_LOCATION =
+            Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"textures/gui/multi_assembler.png");
 
     public MultiAssemblerScreen(MultiAssemblerMenu menu, Inventory playerInventory, Component component) {
         super(menu, playerInventory, Component.translatable("screen.overpoweredmastery.multi_assembler").withStyle(ChatFormatting.WHITE));

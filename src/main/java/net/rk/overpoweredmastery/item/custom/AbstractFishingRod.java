@@ -23,7 +23,7 @@ public abstract class AbstractFishingRod extends FishingRodItem{
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (player.fishing != null) {
-            if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+            if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
                 hurtItem(itemstack,serverLevel,player,hand);
             }
             bobberRetrieve(level,player);

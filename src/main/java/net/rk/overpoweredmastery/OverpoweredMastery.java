@@ -1,16 +1,12 @@
 package net.rk.overpoweredmastery;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.SharedConstants;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ARGB;
-import net.minecraft.util.ExtraCodecs;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Weapon;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
@@ -18,14 +14,15 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.enchantment.*;
-import net.minecraft.world.level.block.Blocks;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.attachment.AttachmentType;
-import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.capabilities.BlockCapability;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import net.neoforged.neoforge.fluids.FluidInteractionRegistry;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
-import net.neoforged.neoforge.registries.RegisterEvent;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.rk.overpoweredmastery.block.OMBlocks;
 import net.rk.overpoweredmastery.datagen.OMEnchantments;
 import net.rk.overpoweredmastery.datagen.OMWorldgen;
@@ -37,9 +34,7 @@ import net.rk.overpoweredmastery.recipe.MultiAssemblerRecipe;
 import net.rk.overpoweredmastery.recipe.MultiAssemblerRecipeDisplay;
 import net.rk.overpoweredmastery.recipe.MultiAssemblerRecipeSerializer;
 import net.rk.overpoweredmastery.resource.OMSoundEvents;
-import org.slf4j.Logger;
-
-import com.mojang.logging.LogUtils;
+import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -55,7 +50,6 @@ import java.util.function.Supplier;
 @Mod(OverpoweredMastery.MODID)
 public class OverpoweredMastery {
     public static final String MODID = "overpoweredmastery";
-    public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
     private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MODID);
     private static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES =
@@ -117,6 +111,8 @@ public class OverpoweredMastery {
         CREATIVE_MODE_TABS.register(modEventBus);
         modEventBus.addListener(this::addCreative);
 
+        modEventBus.addListener(this::registerCapabilities);
+
         modContainer.registerConfig(ModConfig.Type.SERVER, Config.SPEC);
         modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
     }
@@ -130,7 +126,7 @@ public class OverpoweredMastery {
         params.holders().lookup(Registries.ENCHANTMENT).ifPresent(en -> {
             DataComponentPatch opSword = DataComponentPatch.builder()
                     .set(DataComponents.ITEM_NAME,Component.literal("OP Test Sword"))
-                    .set(DataComponents.TOOLTIP_STYLE,ResourceLocation.parse("overpoweredmastery:om_epic"))
+                    .set(DataComponents.TOOLTIP_STYLE, Identifier.parse("overpoweredmastery:om_epic"))
                     .build();
             if(en.get(Enchantments.KNOCKBACK).isPresent()
                     && en.get(Enchantments.FIRE_ASPECT).isPresent()
@@ -145,7 +141,7 @@ public class OverpoweredMastery {
         params.holders().lookup(Registries.ENCHANTMENT).ifPresent(en -> {
             DataComponentPatch opBow = DataComponentPatch.builder()
                     .set(DataComponents.ITEM_NAME,Component.literal("OP Test Bow"))
-                    .set(DataComponents.TOOLTIP_STYLE,ResourceLocation.parse("overpoweredmastery:om_epic"))
+                    .set(DataComponents.TOOLTIP_STYLE,Identifier.parse("overpoweredmastery:om_epic"))
                     .build();
             if(en.get(Enchantments.MULTISHOT).isPresent()
                     && en.get(Enchantments.FLAME).isPresent()
@@ -160,7 +156,7 @@ public class OverpoweredMastery {
         params.holders().lookup(Registries.ENCHANTMENT).ifPresent(en -> {
             DataComponentPatch signLolC = DataComponentPatch.builder()
                     .set(DataComponents.ITEM_NAME,Component.literal("Battle Sign"))
-                    .set(DataComponents.TOOLTIP_STYLE,ResourceLocation.parse("overpoweredmastery:om_epic"))
+                    .set(DataComponents.TOOLTIP_STYLE,Identifier.parse("overpoweredmastery:om_epic"))
                     .set(DataComponents.WEAPON,new Weapon(15,5))
                     .build();
             if(en.get(Enchantments.SHARPNESS).isPresent()
@@ -176,7 +172,7 @@ public class OverpoweredMastery {
         params.holders().lookup(Registries.ENCHANTMENT).ifPresent(en -> {
             DataComponentPatch testSpearLol = DataComponentPatch.builder()
                     .set(DataComponents.ITEM_NAME,Component.literal("OP Testing Spear"))
-                    .set(DataComponents.TOOLTIP_STYLE,ResourceLocation.parse("overpoweredmastery:om_epic"))
+                    .set(DataComponents.TOOLTIP_STYLE,Identifier.parse("overpoweredmastery:om_epic"))
                     .build();
             if(en.get(Enchantments.WIND_BURST).isPresent()
                     && en.get(Enchantments.RIPTIDE).isPresent() && en.get(Enchantments.UNBREAKING).isPresent()){
@@ -187,6 +183,17 @@ public class OverpoweredMastery {
                 event.accept(testSpear);
             }
         });
+    }
+
+    public static final BlockCapability<ResourceHandler<ItemResource>,@Nullable Direction> COMMON_DIRECTIONAL_BLOCK_ITEM_CAPABILITY =
+            BlockCapability.createSided(
+                    // Provide a name to uniquely identify the capability.
+                    Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID, "common_directional_item_handler"),
+                    // Provide the queried type. Here, we want to look up `ResourceHandler<ItemResource>` instances.
+                    ResourceHandler.asClass());
+
+    public void registerCapabilities(RegisterCapabilitiesEvent event){
+
     }
 
     // Add the example block item to the building blocks tab

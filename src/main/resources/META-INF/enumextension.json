@@ -1,33 +1,6 @@
 {
   "entries": [
     {
-      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
-      "name": "overpoweredmastery_wub_arm_pose",
-      "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
-      "parameters": {
-        "class": "net/rk/overpoweredmastery/OverpoweredMasteryClient$WubExtension",
-        "field": "WUB"
-      }
-    },
-    {
-      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
-      "name": "overpoweredmastery_spear_arm_pose",
-      "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
-      "parameters": {
-        "class": "net/rk/overpoweredmastery/OverpoweredMasteryClient$SpearExtension",
-        "field": "SPEAR"
-      }
-    },
-    {
-      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
-      "name": "overpoweredmastery_staff_arm_pose",
-      "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
-      "parameters": {
-        "class": "net/rk/overpoweredmastery/OverpoweredMasteryClient$StaffExtension",
-        "field": "STAFF"
-      }
-    },
-    {
       "enum": "net/minecraft/world/item/Rarity",
       "name": "overpoweredmastery_ultimate",
       "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",

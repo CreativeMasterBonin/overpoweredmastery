@@ -1,8 +1,6 @@
 package net.rk.overpoweredmastery.datagen;
 
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
 import net.neoforged.neoforge.common.data.SoundDefinition;
 import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 import net.rk.overpoweredmastery.OverpoweredMastery;
@@ -16,7 +14,7 @@ public class OMSound extends SoundDefinitionsProvider {
     @Override
     public void registerSounds() {
         // music
-        this.add(OMSoundEvents.RED_WUBS, SoundDefinition.definition().with(
+        this.add(OMSoundEvents.RED_WUBS.get(), SoundDefinition.definition().with(
                 sound("overpoweredmastery:red_wubs")
                         .volume(1.0f)
                         .pitch(1.0f)
@@ -24,7 +22,7 @@ public class OMSound extends SoundDefinitionsProvider {
                         .stream(false)
                         .preload(true)
         ).subtitle("overpoweredmastery.subtitle.red_wubs"));
-        this.add(OMSoundEvents.GREEN_WUBS, SoundDefinition.definition().with(
+        this.add(OMSoundEvents.GREEN_WUBS.get(), SoundDefinition.definition().with(
                 sound("overpoweredmastery:green_wubs")
                         .volume(1.0f)
                         .pitch(1.0f)
@@ -32,7 +30,7 @@ public class OMSound extends SoundDefinitionsProvider {
                         .stream(false)
                         .preload(true)
         ).subtitle("overpoweredmastery.subtitle.green_wubs"));
-        this.add(OMSoundEvents.PURPLE_WUBS, SoundDefinition.definition().with(
+        this.add(OMSoundEvents.PURPLE_WUBS.get(), SoundDefinition.definition().with(
                 sound("overpoweredmastery:purple_wubs")
                         .volume(1.0f)
                         .pitch(1.0f)
@@ -42,7 +40,7 @@ public class OMSound extends SoundDefinitionsProvider {
         ).subtitle("overpoweredmastery.subtitle.purple_wubs"));
 
         // fx
-        this.add(OMSoundEvents.EFFECT, SoundDefinition.definition().with(
+        this.add(OMSoundEvents.EFFECT.get(), SoundDefinition.definition().with(
                 sound("overpoweredmastery:general/effect")
                         .volume(1.0f)
                         .pitch(1.0f)

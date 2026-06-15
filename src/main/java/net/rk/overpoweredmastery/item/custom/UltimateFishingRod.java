@@ -96,11 +96,11 @@ public class UltimateFishingRod extends AbstractFishingRod{
             if(unbreakingLevel > 0){
                 unbreakingLevel = Mth.clamp(unbreakingLevel,0,9);
                 if(serverLevel.getRandom().nextIntBetweenInclusive(0,100) <= unbreakingLevel * 10){
-                    itemStack.hurtAndBreak(i, player, LivingEntity.getSlotForHand(hand));
+                    itemStack.hurtAndBreak(i, player, hand.asEquipmentSlot());
                 }
             }
             else{
-                itemStack.hurtAndBreak(i, player, LivingEntity.getSlotForHand(hand));
+                itemStack.hurtAndBreak(i, player, hand.asEquipmentSlot());
             }
         }
 

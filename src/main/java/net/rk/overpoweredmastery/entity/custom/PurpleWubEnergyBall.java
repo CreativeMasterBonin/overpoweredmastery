@@ -5,21 +5,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BucketPickup;
-import net.minecraft.world.level.block.LiquidBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
@@ -29,10 +21,9 @@ import net.neoforged.neoforge.common.Tags;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
-public class PurpleWubEnergyBall extends AbstractHurtingProjectile{
+public class PurpleWubEnergyBall extends AbstractHurtingProjectile {
     int count = 0;
 
     public PurpleWubEnergyBall(double x, double y, double z, Vec3 vector, Level level) {

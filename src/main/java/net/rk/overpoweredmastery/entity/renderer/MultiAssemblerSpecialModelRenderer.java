@@ -1,30 +1,72 @@
 package net.rk.overpoweredmastery.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.MaterialSet;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.rk.overpoweredmastery.OverpoweredMastery;
 import net.rk.overpoweredmastery.entity.model.MultiAssemblerModel;
+import net.rk.overpoweredmastery.entity.renderer.renderstate.MultiAssemblerRenderState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
-import java.util.Set;
+import java.util.function.Consumer;
 
-public record MultiAssemblerSpecialModelRenderer(Model model) implements NoDataSpecialModelRenderer {
+public record MultiAssemblerSpecialModelRenderer(MaterialSet materials, MultiAssemblerModel model) implements NoDataSpecialModelRenderer {
+    public MultiAssemblerSpecialModelRenderer(MaterialSet materials, MultiAssemblerModel model) {
+        this.materials = materials;
+        this.model = model;
+    }
+
+    @Nullable
     @Override
-    public void render(ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, boolean hasFoilType) {
-        //poseStack.pushPose();
-        VertexConsumer vc = bufferSource.getBuffer(RenderType.entityCutout(MultiAssemblerModel.MULTI_ASSEMBLER_MODEL_LAYER_LOCATION.model()));
-        /*if(displayContext.firstPerson() && !displayContext.leftHand()){
+    public Void extractArgument(ItemStack stack) {
+        return NoDataSpecialModelRenderer.super.extractArgument(stack);
+    }
+
+    @Override
+    public void submit(@Nullable Void argument, ItemDisplayContext displayContext, PoseStack poseStack, SubmitNodeCollector nodeCollector, int packedLight, int packedOverlay, boolean hasFoil, int outlineColor) {
+        NoDataSpecialModelRenderer.super.submit(argument, displayContext, poseStack, nodeCollector, packedLight, packedOverlay, hasFoil, outlineColor);
+    }
+
+    @Override
+    public void getExtents(Consumer<Vector3fc> consumer) {
+        PoseStack posestack = new PoseStack();
+        posestack.translate(0.5F, 0.0F, 0.5F);
+        posestack.scale(-1.0F, -1.0F, 1.0F);
+
+    }
+
+    public static Material multiAssembler = new Material(Sheets.BLOCK_ENTITIES_MAPPER.sheet(),
+            Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"entity/multi_assembler"));
+
+    @Override
+    public void submit(ItemDisplayContext displayContext, PoseStack poseStack, SubmitNodeCollector nodeCollector, int packedLight, int packedOverlay, boolean hasFoil, int outlineColor) {
+        poseStack.pushPose();
+        MultiAssemblerRenderState renderState = new MultiAssemblerRenderState();
+        renderState.isAssembling = true;
+        renderState.ticks = 0;
+        renderState.assemblyTime = 0;
+        renderState.assemblyProgress = 0;
+        renderState.resultStack = new ItemStackRenderState[1];
+        Material RL = multiAssembler;
+        RenderType multiAssemblerModelRT = RL.renderType(RenderTypes::entityCutout);
+
+        if(displayContext.firstPerson() && !displayContext.leftHand()){
             poseStack.translate(1.5D,1.5D,0D);
         }
         else if(displayContext.firstPerson() && displayContext.leftHand()){
@@ -38,28 +80,24 @@ public record MultiAssemblerSpecialModelRenderer(Model model) implements NoDataS
         }
         poseStack.mulPose(Axis.YP.rotationDegrees(45.0f));
         poseStack.mulPose(Axis.XP.rotationDegrees(180.0f));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(-7.0f));*/
-        this.model.renderToBuffer(poseStack,vc,packedLight,OverlayTexture.NO_OVERLAY);
-        //poseStack.popPose();
+        poseStack.mulPose(Axis.ZP.rotationDegrees(-7.0f));
+
+        MultiAssemblerModel.State modelState = new MultiAssemblerModel.State(renderState.ticks);
+
+        TextureAtlasSprite textureatlassprite = this.materials.get(RL);
+        nodeCollector.submitModelPart(model.root(),poseStack,multiAssemblerModelRT,renderState.lightCoords,
+                OverlayTexture.NO_OVERLAY,textureatlassprite);
+        poseStack.popPose();
     }
 
-    @Override
-    public void getExtents(Set<Vector3f> output) {
-        PoseStack posestack = new PoseStack();
-        posestack.translate(0.5F, 0.0F, 0.5F);
-        posestack.scale(-1.0F, -1.0F, 1.0F);
-        this.model.root().getExtentsForGui(posestack,output);
-    }
-
-    public record Unbaked(ResourceLocation texture) implements SpecialModelRenderer.Unbaked{
-        public static final MapCodec<MultiAssemblerSpecialModelRenderer.Unbaked> MAP_CODEC = ResourceLocation.CODEC.fieldOf("texture")
+    public record Unbaked(Identifier texture) implements SpecialModelRenderer.Unbaked{
+        public static final MapCodec<MultiAssemblerSpecialModelRenderer.Unbaked> MAP_CODEC = Identifier.CODEC.fieldOf("texture")
                 .xmap(MultiAssemblerSpecialModelRenderer.Unbaked::new, MultiAssemblerSpecialModelRenderer.Unbaked::texture);
 
-        @Nullable
         @Override
-        public SpecialModelRenderer<?> bake(EntityModelSet modelSet) {
-            return new MultiAssemblerSpecialModelRenderer(
-                    new MultiAssemblerModel(modelSet.bakeLayer(MultiAssemblerModel.MULTI_ASSEMBLER_MODEL_LAYER_LOCATION)));
+        public @NotNull SpecialModelRenderer<?> bake(BakingContext context) {
+            EntityModelSet set = context.entityModelSet();
+            return new MultiAssemblerSpecialModelRenderer(context.materials(),new MultiAssemblerModel(set.bakeLayer(MultiAssemblerModel.MULTI_ASSEMBLER_MODEL_LAYER_LOCATION)));
         }
 
         @Override

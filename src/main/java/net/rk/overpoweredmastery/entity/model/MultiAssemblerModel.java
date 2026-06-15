@@ -5,15 +5,14 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.rk.overpoweredmastery.OverpoweredMastery;
-import net.rk.overpoweredmastery.entity.blockentity.MultiAssemblerBlockEntity;
 
-public class MultiAssemblerModel extends Model{
+public class MultiAssemblerModel extends Model<MultiAssemblerModel.State>{
     public static final ModelLayerLocation MULTI_ASSEMBLER_MODEL_LAYER_LOCATION =
-            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(OverpoweredMastery.MODID,"textures/entity/multi_assembler.png"), "main");
+            new ModelLayerLocation(Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"textures/entity/multi_assembler.png"), "main");
 
     private final ModelPart main;
     private final ModelPart westjoint;
@@ -31,7 +30,7 @@ public class MultiAssemblerModel extends Model{
     private final ModelPart easttool;
 
     public MultiAssemblerModel(ModelPart root) {
-        super(root, RenderType::entityCutout);
+        super(root, RenderTypes::entityCutout);
         this.main = root.getChild("main");
         this.westjoint = this.main.getChild("westjoint");
         this.westarm = this.westjoint.getChild("westarm");
@@ -106,17 +105,17 @@ public class MultiAssemblerModel extends Model{
         return LayerDefinition.create(meshdefinition, 72, 72);
     }
 
-    public void setupAnim(MultiAssemblerBlockEntity be){
-        float f = Mth.sin(be.ticksPassed / 82.0f);
-        float f2 = Mth.sin(be.ticksPassed / 12.0f);
-        float f3 = Mth.sin(be.ticksPassed / 8.0f);
-        float f4 = Mth.sin(be.ticksPassed / 2.0f);
-        float f5 = Mth.sin(be.ticksPassed / 5.0f);
+    public void setupAnim(MultiAssemblerModel.State state){
+        float f = Mth.sin(state.ticks / 82.0f);
+        float f2 = Mth.sin(state.ticks / 12.0f);
+        float f3 = Mth.sin(state.ticks / 8.0f);
+        float f4 = Mth.sin(state.ticks / 2.0f);
+        float f5 = Mth.sin(state.ticks / 5.0f);
         main.xRot = 3.1415f;
         main.y = -1.5f;
         southtool.yRot = 0.0f;
         southtool.xRot = Mth.clamp(f,0.0f,0.75f);
-        southtoolbuffer.yRot = be.ticksPassed / 2.0f;
+        southtoolbuffer.yRot = state.ticks / 2.0f;
         southjoint.xRot = Mth.clamp(f2,0.0f,0.5f);
         southarm.xRot = Mth.clamp(f,0.0f,1.2f);
         southjoint.zRot = Mth.clamp(f,-0.11f,0.11f);
@@ -133,10 +132,10 @@ public class MultiAssemblerModel extends Model{
         eastjoint.zRot = Mth.clamp(f,0.0f,0.2f);
     }
 
-    public void setupAnimOff(MultiAssemblerBlockEntity be){
+    public void setupAnimOff(MultiAssemblerModel.State state){
         main.xRot = 3.1415f;
         main.y = -1.5f;
-        southtool.yRot = be.ticksPassed / 4.0f;
+        southtool.yRot = state.ticks / 4.0f;
         southtool.xRot = 0.0f;
         southtoolbuffer.yRot = 0.0f;
         southjoint.xRot = 0.0f;
@@ -154,4 +153,6 @@ public class MultiAssemblerModel extends Model{
         westjoint.zRot = 0.0f;
         eastjoint.zRot = 0.0f;
     }
+
+    public record State(int ticks){}
 }
