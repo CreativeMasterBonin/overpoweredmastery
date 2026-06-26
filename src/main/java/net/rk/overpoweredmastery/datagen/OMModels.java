@@ -147,6 +147,13 @@ public class OMModels extends ModelProvider {
         itemModels.generateFishingRod(OMItems.ULTIMATE_FISHING_ROD.asItem());
         itemModels.generateFlatItem(OMItems.PENULTIMATE_SWORD_CATALYST.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModels.generateFlatItem(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE.asItem(),ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(OMItems.PENULTIMATE_PICKAXE_CATALYST.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(OMItems.PENULTIMATE_AXE_CATALYST.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(OMItems.PENULTIMATE_SHOVEL_CATALYST.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(OMItems.PENULTIMATE_HOE_CATALYST.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
+
+        itemModels.generateFlatItem(OMItems.PRIMITIVE_STAFF.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(OMItems.ENDERMARINE_STAFF.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
     }
 
     public static Identifier obtainItemModelLocation(DeferredItem<Item> item){

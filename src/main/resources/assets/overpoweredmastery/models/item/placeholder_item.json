@@ -1,4 +1,7 @@
 {
 	"format_version": "1.21.6",
-	"credit": "Made By CreativeMasterBonin"
+	"credit": "Made By CreativeMasterBonin",
+	"textures": {
+		"particle": "overpoweredmastery:item/iron_spear"
+	}
 }

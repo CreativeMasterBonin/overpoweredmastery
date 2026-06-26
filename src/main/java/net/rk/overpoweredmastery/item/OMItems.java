@@ -280,6 +280,28 @@ public class OMItems{
                             false
                     )));
 
+    public static final DeferredItem<Item> PRIMITIVE_STAFF = ITEMS.registerItem("primitive_staff",
+            PrimitiveStaff::new,
+            () -> new Item.Properties().setId(makeResourceKey("primitive_staff"))
+                    .component(DataComponents.BREAK_SOUND, Holder.direct(SoundEvents.WOOD_BREAK))
+                    .component(DataComponents.TOOL,new Tool(
+                            List.of(),
+                            0.1f,
+                            1,
+                            false
+                    )));
+
+    public static final DeferredItem<Item> ENDERMARINE_STAFF = ITEMS.registerItem("endermarine_staff",
+            EndermarineStaff::new,
+            () -> new Item.Properties().setId(makeResourceKey("endermarine_staff"))
+                    .component(DataComponents.BREAK_SOUND, Holder.direct(SoundEvents.STONE_BREAK))
+                    .component(DataComponents.TOOL,new Tool(
+                            List.of(),
+                            0.1f,
+                            1,
+                            false
+                    )));
+
     // ore items
     // blue
     public static final DeferredItem<Item> INERT_BLUE_ESSENCE_ORE = ITEMS.registerItem("inert_blue_essence_ore",
@@ -481,12 +503,12 @@ public class OMItems{
             () -> new Item.Properties().setId(makeResourceKey("placeholder_item")));
 
     public static final DeferredItem<Item> CONCENTRATED_MULTI_ESSENCE = ITEMS.registerItem("concentrated_multi_essence",
-            Item::new,
+            ConcentratedMultiEssence::new,
             () -> new Item.Properties().setId(makeResourceKey("concentrated_multi_essence"))
                     .fireResistant().rarity(Rarity.RARE));
 
     public static final DeferredItem<Item> PENULTIMATE_SWORD_CATALYST = ITEMS.registerItem("penultimate_sword_catalyst",
-            Item::new,
+            PenultimateSwordCatalyst::new,
             () -> new Item.Properties().setId(makeResourceKey("penultimate_sword_catalyst"))
                     .fireResistant().rarity(Rarity.RARE));
 
@@ -494,6 +516,27 @@ public class OMItems{
             Item::new,
             () -> new Item.Properties().setId(makeResourceKey("infused_concentrated_multi_essence"))
                     .fireResistant().rarity(Rarity.EPIC));
+
+
+    public static final DeferredItem<Item> PENULTIMATE_PICKAXE_CATALYST = ITEMS.registerItem("penultimate_pickaxe_catalyst",
+            PenultimatePickaxeCatalyst::new,
+            () -> new Item.Properties().setId(makeResourceKey("penultimate_pickaxe_catalyst"))
+                    .fireResistant().rarity(Rarity.RARE));
+
+    public static final DeferredItem<Item> PENULTIMATE_AXE_CATALYST = ITEMS.registerItem("penultimate_axe_catalyst",
+            PenultimateAxeCatalyst::new,
+            () -> new Item.Properties().setId(makeResourceKey("penultimate_axe_catalyst"))
+                    .fireResistant().rarity(Rarity.RARE));
+
+    public static final DeferredItem<Item> PENULTIMATE_SHOVEL_CATALYST = ITEMS.registerItem("penultimate_shovel_catalyst",
+            PenultimateShovelCatalyst::new,
+            () -> new Item.Properties().setId(makeResourceKey("penultimate_shovel_catalyst"))
+                    .fireResistant().rarity(Rarity.RARE));
+
+    public static final DeferredItem<Item> PENULTIMATE_HOE_CATALYST = ITEMS.registerItem("penultimate_hoe_catalyst",
+            PenultimateHoeCatalyst::new,
+            () -> new Item.Properties().setId(makeResourceKey("penultimate_hoe_catalyst"))
+                    .fireResistant().rarity(Rarity.RARE));
 
     // machines and devices
     public static final DeferredItem<Item> MULTI_ASSEMBLER = ITEMS.registerItem("multi_assembler",

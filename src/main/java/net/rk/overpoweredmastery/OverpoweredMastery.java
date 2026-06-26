@@ -17,7 +17,6 @@ import net.minecraft.world.item.enchantment.*;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.capabilities.BlockCapability;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
@@ -201,7 +200,7 @@ public class OverpoweredMastery {
         if(event.getTabKey() == ALL_TAB.getKey()){
             customItems(event);
             // machines and devices
-            event.accept(OMItems.MULTI_ASSEMBLER);
+            //event.accept(OMItems.MULTI_ASSEMBLER);
             // ores
             event.accept(OMItems.INERT_BLUE_ESSENCE_ORE);
             event.accept(OMItems.INERT_GREEN_ESSENCE_ORE);
@@ -234,6 +233,7 @@ public class OverpoweredMastery {
             // materials
             event.accept(OMItems.STRANGE_STONE);
             event.accept(OMItems.CONCENTRATED_MULTI_ESSENCE);
+            event.accept(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE);
             // tool bindings
             event.accept(OMItems.WOODEN_TOOL_BINDING);
             event.accept(OMItems.METAL_TOOL_BINDING);
@@ -253,13 +253,21 @@ public class OverpoweredMastery {
             event.accept(OMItems.IRON_SPEAR);
             event.accept(OMItems.DIAMOND_SPEAR);
             event.accept(OMItems.NETHERITE_SPEAR);
+            // staffs
+            event.accept(OMItems.PRIMITIVE_STAFF);
+            event.accept(OMItems.ENDERMARINE_STAFF);
             // tier order weapons
             // starter
             event.accept(OMItems.BONE_SWORD);
             event.accept(OMItems.ENDARKENED_CROSSBOW);
             // penultimate
+            event.accept(OMItems.PENULTIMATE_SWORD_CATALYST);
             event.accept(OMItems.PENULTIMATE_SWORD_DARK);
             event.accept(OMItems.PENULTIMATE_SWORD_LIGHT);
+            event.accept(OMItems.PENULTIMATE_PICKAXE_CATALYST);
+            event.accept(OMItems.PENULTIMATE_AXE_CATALYST);
+            event.accept(OMItems.PENULTIMATE_SHOVEL_CATALYST);
+            event.accept(OMItems.PENULTIMATE_HOE_CATALYST);
             // ultimate
             event.accept(OMItems.ULTIMATE_BOW);
             event.accept(OMItems.ULTIMATE_SWORD);

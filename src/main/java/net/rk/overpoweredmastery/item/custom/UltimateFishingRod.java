@@ -20,6 +20,8 @@ import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.ItemAbility;
 import net.rk.overpoweredmastery.datagen.OMEnchantments;
 import net.rk.overpoweredmastery.item.OMItems;
 import net.rk.overpoweredmastery.item.OMRarity;
@@ -126,10 +128,9 @@ public class UltimateFishingRod extends AbstractFishingRod{
                 player.addEffect(new MobEffectInstance(MobEffects.LUCK,80,10,true,false,false));
             }
             FishingHook hook = new FishingHook(player, level, luckValue, lureSpeed);
+            hook.nibble = 2;
             hook.timeUntilHooked = 1;
             hook.timeUntilLured = 0;
-            hook.biting = true;
-            hook.outOfWaterTime = 0;
             if(itemstack.getEnchantmentLevel(OPUtil.getEnchantmentHolderFromKeyStatic(level,Enchantments.FLAME)) > 0){
                 hook.setRemainingFireTicks(200);
                 hook.setGlowingTag(true);
@@ -139,5 +140,10 @@ public class UltimateFishingRod extends AbstractFishingRod{
             }
             Projectile.spawnProjectile(hook, serverlevel, itemstack);
         }
+    }
+
+    @Override
+    public boolean canPerformAction(ItemStack stack, ItemAbility itemAbility) {
+        return ItemAbilities.DEFAULT_FISHING_ROD_ACTIONS.contains(itemAbility);
     }
 }

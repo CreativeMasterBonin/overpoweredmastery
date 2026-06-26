@@ -3,7 +3,7 @@
 	"credit": "Made By CreativeMasterBonin",
 	"textures": {
 		"0": "overpoweredmastery:item/purple_wubs",
-		"1": "block/soul_campfire_fire",
+		"1": "item/cyan_dye",
 		"particle": "overpoweredmastery:item/purple_wubs"
 	},
 	"elements": [
@@ -332,11 +332,13 @@
 			"to": [10, 11, 1],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 0.5]},
 			"faces": {
-				"east": {"uv": [0, 5, 16, 13], "rotation": 90, "texture": "#1"},
-				"west": {"uv": [16, 13, 0, 5], "rotation": 90, "texture": "#1"},
-				"up": {"uv": [0, 5, 16, 13], "texture": "#1"},
-				"down": {"uv": [0, 13, 16, 5], "texture": "#1"}
-			}
+				"east": {"uv": [16, 10, 0, 2], "rotation": 90, "texture": "#1"},
+				"west": {"uv": [16, 10, 0, 2], "rotation": 90, "texture": "#1"},
+				"up": {"uv": [16, 10, 0, 2], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [16, 10, 0, 2], "rotation": 90, "texture": "#1"}
+			},
+			"shade": false,
+			"light_emission": 15
 		}
 	],
 	"display": {

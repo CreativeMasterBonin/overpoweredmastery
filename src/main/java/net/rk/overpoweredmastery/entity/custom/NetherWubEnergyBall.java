@@ -24,6 +24,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.EventHooks;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import org.jetbrains.annotations.Nullable;
@@ -107,7 +108,7 @@ public class NetherWubEnergyBall extends AbstractHurtingProjectile {
             this.level().playSound(null,result.getBlockPos(),
                     SoundEvents.LAVA_POP,
                     SoundSource.PLAYERS,0.45f,0.48f);
-        } else if(blockState.is(BlockTags.FLOWERS) || blockState.is(Blocks.SHORT_GRASS) || blockState.is(Blocks.TALL_GRASS)){
+        } else if(blockState.is(BlockTags.FLOWERS) || blockState.is(Blocks.SHORT_GRASS) || blockState.is(Blocks.TALL_GRASS) || blockState.is(Blocks.BUSH)){
             this.level().setBlock(result.getBlockPos(),Blocks.SHORT_DRY_GRASS.defaultBlockState(),3);
             this.level().playSound(null,result.getBlockPos(),
                     SoundEvents.FIREWORK_ROCKET_TWINKLE,

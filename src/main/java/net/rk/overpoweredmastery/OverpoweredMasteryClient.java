@@ -1,46 +1,26 @@
 package net.rk.overpoweredmastery;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.common.asm.enumextension.EnumProxy;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.IArmPoseTransformer;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterSpecialBlockModelRendererEvent;
 import net.neoforged.neoforge.client.event.RegisterSpecialModelRendererEvent;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
-import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-import net.rk.overpoweredmastery.datagen.OMTags;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import net.rk.overpoweredmastery.entity.blockentity.OMBlockEntities;
 import net.rk.overpoweredmastery.entity.model.MultiAssemblerModel;
 import net.rk.overpoweredmastery.entity.renderer.*;
-import net.rk.overpoweredmastery.item.OMItems;
-import net.rk.overpoweredmastery.item.custom.AbstractSpear;
-import net.rk.overpoweredmastery.item.custom.AbstractStaff;
-import net.rk.overpoweredmastery.item.custom.AbstractWubs;
 import net.rk.overpoweredmastery.menu.OMMenus;
 import net.rk.overpoweredmastery.screen.MultiAssemblerScreen;
-import org.jetbrains.annotations.Nullable;
 
 @Mod(value = OverpoweredMastery.MODID, dist = Dist.CLIENT)
 @EventBusSubscriber(modid = OverpoweredMastery.MODID, value = Dist.CLIENT)

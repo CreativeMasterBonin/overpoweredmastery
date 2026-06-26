@@ -113,7 +113,7 @@ configurations {
 }
 
 dependencies {
-    //implementation "curse.maven:jei-238222:7850285"
+    runtimeOnly("maven.modrinth:u6dRKJwZ:1VVBcNRg")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -161,7 +161,7 @@ tasks.withType(ProcessResources).configureEach {
 //neoForge.ideSyncTask generateModMetadata
 
 // Example configuration to allow publishing using the maven-publish plugin
-publishing {
+/*publishing {
     publications {
         register('mavenJava', MavenPublication) {
             from components.java
@@ -172,7 +172,7 @@ publishing {
             url "file://${project.projectDir}/repo"
         }
     }
-}
+}*/
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation

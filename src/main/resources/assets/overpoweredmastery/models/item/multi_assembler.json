@@ -1,6 +1,9 @@
 {
 	"format_version": "1.21.6",
 	"credit": "Made By CreativeMasterBonin",
+	"textures": {
+		"particle": "overpoweredmastery:block/moving_probable_block"
+	},
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [0, 0, -180],

@@ -1,12 +1,19 @@
 package net.rk.overpoweredmastery.event;
 
+import com.mojang.logging.LogUtils;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityStruckByLightningEvent;
@@ -17,6 +24,7 @@ import net.rk.overpoweredmastery.Config;
 import net.rk.overpoweredmastery.OverpoweredMastery;
 import net.rk.overpoweredmastery.datagen.OMTags;
 import net.rk.overpoweredmastery.item.OMItems;
+import net.rk.overpoweredmastery.item.custom.UltimateFishingRod;
 import net.rk.overpoweredmastery.item.custom.UltimateSword;
 import net.rk.overpoweredmastery.resource.OMSoundEvents;
 import net.rk.overpoweredmastery.util.OPUtil;
@@ -25,8 +33,8 @@ import net.rk.overpoweredmastery.util.OPUtil;
 public class OMWorldEvents{
     @SubscribeEvent
     public static void onBreakBlock(BlockEvent.BreakEvent event){
-        if(!event.isCanceled()){
-            if(!event.getPlayer().isCreative()){
+        if(!event.isCanceled()){ // we let other mods do things and cancel the event first, to prevent a conflict
+            if(!event.getPlayer().isCreative()){ // creative players don't need to obtain strange stones from survival aspects of the game (just use the creative inventory)
                 try{
                     if(event.getLevel() instanceof ServerLevel serverLevel){
                         if(!event.getPlayer().blockActionRestricted(serverLevel, event.getPos(), event.getPlayer().gameMode())){
@@ -70,25 +78,38 @@ public class OMWorldEvents{
 
     @SubscribeEvent
     public static void onLightningStrikeEntity(EntityStruckByLightningEvent event){
-        if(event.getEntity() instanceof ItemEntity itemEntity){
-            if(itemEntity.getItem().is(OMItems.CONCENTRATED_MULTI_ESSENCE)){
-                itemEntity.invulnerableTime = 30;
-                itemEntity.setNoPickUpDelay();
-                itemEntity.setItem(new ItemStack(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE.asItem()));
-                itemEntity.level().playSound(null,itemEntity.getOnPos(),
-                        SoundEvents.MOOSHROOM_CONVERT, SoundSource.NEUTRAL,0.45f,OPUtil.nextFloatBetweenInclusive(0.95f,1.1f));
-                itemEntity.level().playSound(null,itemEntity.getOnPos(),
-                        SoundEvents.ZOMBIE_VILLAGER_CONVERTED, SoundSource.NEUTRAL,0.45f,OPUtil.nextFloatBetweenInclusive(0.95f,1.1f));
-                itemEntity.level().playSound(null,itemEntity.getOnPos().above(1),
-                        OMSoundEvents.EFFECT.get(), SoundSource.NEUTRAL,0.75f,OPUtil.nextFloatBetweenInclusive(0.95f,1.1f));
-                event.setCanceled(true);
+        try{
+            if(event.getEntity() instanceof ItemEntity itemEntity){
+                if(itemEntity.getItem().is(OMItems.CONCENTRATED_MULTI_ESSENCE)){
+                    event.getLightning().setVisualOnly(true);
+
+                    itemEntity.level().playSound(null,itemEntity.getOnPos().above(1),
+                            OMSoundEvents.EFFECT.get(), SoundSource.NEUTRAL,0.75f,OPUtil.nextFloatBetweenInclusive(0.95f,1.1f));
+
+                    Level level = event.getEntity().level();
+                    ItemEntity itemEntity2 = new ItemEntity(level,itemEntity.getX(),itemEntity.getY(),itemEntity.getZ(),itemEntity.getItem(),0,0,0);
+                    itemEntity2.setItem(new ItemStack(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE.asItem(),itemEntity.getItem().copy().getCount()));
+
+                    level.addFreshEntity(itemEntity2);
+                    itemEntity.remove(Entity.RemovalReason.DISCARDED);
+
+                    event.setCanceled(true); // we do not want other mods trying to check after this
+                }
             }
+        }
+        catch (Exception e){
+            String c = "OMWorldEvents has encountered an exception within the onLightningStrikeEntity method: ";
+            LogUtils.getLogger().error("{}{}", c, e.getLocalizedMessage());
         }
     }
 
     @SubscribeEvent
     public static void onFishedItem(ItemFishedEvent event){
+        if(event.getEntity().getItemInHand(event.getEntity().getUsedItemHand()).is(OMItems.ULTIMATE_FISHING_ROD)){
+            Player player = event.getEntity();
+            Item itemInHand = player.getItemInHand(player.getUsedItemHand()).getItem();
 
+        }
     }
 
     @SubscribeEvent

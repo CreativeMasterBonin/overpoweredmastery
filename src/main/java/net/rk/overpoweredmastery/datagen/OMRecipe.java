@@ -265,8 +265,90 @@ public class OMRecipe extends RecipeProvider {
                 .unlockedBy("has_thingy",has(Tags.Items.INGOTS_NETHERITE))
                 .save(this.output,"multi_assembler");
 
-        // multi assembler recipes
-        multiAssembler(
+        shapeless(RecipeCategory.MISC,OMItems.CONCENTRATED_MULTI_ESSENCE,1)
+                .requires(OMTags.INERT_ESSENCES)
+                .requires(OMTags.INERT_ESSENCES)
+                .requires(OMItems.INERT_LIGHT_ESSENCE)
+                .requires(OMItems.INERT_DARK_ESSENCE)
+                .requires(Items.ENDER_PEARL)
+                .unlockedBy("has_thingy",has(Items.ENDER_PEARL))
+                .save(this.output,"concentrated_multi_essence");
+
+        shapeless(RecipeCategory.MISC,OMItems.PENULTIMATE_SWORD_CATALYST,1)
+                .requires(OMTags.INERT_ESSENCES)
+                .requires(OMItems.CONCENTRATED_MULTI_ESSENCE)
+                .requires(OMItems.CONCENTRATED_MULTI_ESSENCE)
+                .requires(OMItems.ESSENCE_ELECTRONIC_CORE)
+                .requires(Items.NETHERITE_SWORD)
+                .unlockedBy("has_thingy",has(OMItems.CONCENTRATED_MULTI_ESSENCE))
+                .save(this.output,"penultimate_sword_catalyst");
+
+        shapeless(RecipeCategory.MISC,OMItems.PENULTIMATE_SWORD_LIGHT,1)
+                .requires(Items.GLOWSTONE)
+                .requires(Items.GLOWSTONE)
+                .requires(Tags.Items.GEMS)
+                .requires(OMItems.PENULTIMATE_SWORD_CATALYST)
+                .requires(Items.TORCHFLOWER)
+                .requires(ItemTags.SAND)
+                .unlockedBy("has_thingy",has(OMItems.PENULTIMATE_SWORD_CATALYST))
+                .save(this.output,"penultimate_sword_light");
+
+        shapeless(RecipeCategory.MISC,OMItems.PENULTIMATE_SWORD_DARK,1)
+                .requires(Items.GILDED_BLACKSTONE)
+                .requires(Items.GILDED_BLACKSTONE)
+                .requires(Tags.Items.RODS)
+                .requires(OMItems.PENULTIMATE_SWORD_CATALYST)
+                .requires(Items.NETHER_STAR)
+                .requires(ItemTags.STONE_CRAFTING_MATERIALS)
+                .unlockedBy("has_thingy",has(OMItems.PENULTIMATE_SWORD_CATALYST))
+                .save(this.output,"penultimate_sword_dark");
+
+        shapeless(RecipeCategory.MISC,OMItems.ULTIMATE_INGOT,1)
+                .requires(OMItems.STRANGE_STONE)
+                .requires(Items.CRYING_OBSIDIAN)
+                .requires(Items.SHULKER_BOX)
+                .requires(Items.NETHERITE_BLOCK)
+                .requires(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE)
+                .requires(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE)
+                .unlockedBy("has_thingy",has(Items.NETHERITE_BLOCK))
+                .save(this.output,"ultimate_ingot");
+
+        shapeless(RecipeCategory.MISC,OMItems.ULTIMATE_SWORD,1)
+                .requires(Tags.Items.DRINKS_OMINOUS)
+                .requires(OMItems.PENULTIMATE_SWORD_LIGHT)
+                .requires(OMItems.PENULTIMATE_SWORD_DARK)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .unlockedBy("has_thingy",has(OMItems.ULTIMATE_INGOT))
+                .save(this.output,"ultimate_sword");
+
+        shaped(RecipeCategory.MISC,OMItems.PRIMITIVE_STAFF)
+                .define('t', Items.BLAZE_ROD)
+                .define('e', OMTags.INERT_ESSENCES)
+                .define('c', Items.BONE_BLOCK)
+                .define('a', Items.AMETHYST_SHARD)
+                .pattern("  c")
+                .pattern("at ")
+                .pattern("ea ")
+                .unlockedBy("has_thingy",has(OMTags.INERT_ESSENCES))
+                .save(this.output,"primitive_staff");
+
+        shaped(RecipeCategory.MISC,OMItems.ENDERMARINE_STAFF)
+                .define('s', OMItems.PRIMITIVE_STAFF)
+                .define('a', Items.PRISMARINE_BRICKS)
+                .define('f', Items.ENDER_PEARL)
+                .pattern("  f")
+                .pattern(" a ")
+                .pattern("s  ")
+                .unlockedBy("has_thingy",has(Items.PRISMARINE_BRICKS))
+                .save(this.output,"endermarine_staff");
+
+        oreSmelting(List.of(Items.STONE_SLAB),RecipeCategory.MISC,
+                OMItems.STRANGE_STONE,
+                1.0f,320,
+                "op_mod_extra_smelting");
+
+        // multi assembler recipes (disabled)
+        /*multiAssembler(
                 Ingredient.of(OMItems.INERT_BLUE_ESSENCE),
                 Ingredient.of(OMItems.INERT_YELLOW_ESSENCE),
                 Ingredient.of(OMItems.INERT_GREEN_ESSENCE),
@@ -355,7 +437,7 @@ public class OMRecipe extends RecipeProvider {
                 900,
                 new ItemStack(OMItems.ULTIMATE_INGOT.asItem(),1),
                 OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE.asItem()
-        );
+        );*/
     }
 
     public void multiAssembler(Ingredient firstEssence,
