@@ -154,6 +154,7 @@ public class OMModels extends ModelProvider {
 
         itemModels.generateFlatItem(OMItems.PRIMITIVE_STAFF.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModels.generateFlatItem(OMItems.ENDERMARINE_STAFF.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(OMItems.ULTIMATE_MACE.asItem(),ModelTemplates.FLAT_HANDHELD_MACE_ITEM);
     }
 
     public static Identifier obtainItemModelLocation(DeferredItem<Item> item){

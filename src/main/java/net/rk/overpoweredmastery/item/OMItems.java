@@ -20,6 +20,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.*;
 import net.minecraft.world.item.enchantment.Enchantable;
+import net.minecraft.world.item.enchantment.Repairable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -267,19 +268,6 @@ public class OMItems{
                     ))
     );
 
-    public static final DeferredItem<Item> ULTIMATE_STAFF = ITEMS.registerItem("ultimate_staff",
-            UltimateStaff::new,
-            () -> new Item.Properties().setId(makeResourceKey("ultimate_staff"))
-                    .component(DataComponents.TOOLTIP_STYLE,
-                            makeTooltipReference("om_ultimate"))
-                    .component(DataComponents.BREAK_SOUND, Holder.direct(SoundEvents.TRIAL_SPAWNER_BREAK))
-                    .component(DataComponents.TOOL,new Tool(
-                            List.of(),
-                            0.1f,
-                            1,
-                            false
-                    )));
-
     public static final DeferredItem<Item> PRIMITIVE_STAFF = ITEMS.registerItem("primitive_staff",
             PrimitiveStaff::new,
             () -> new Item.Properties().setId(makeResourceKey("primitive_staff"))
@@ -453,11 +441,42 @@ public class OMItems{
                     .component(DataComponents.TOOLTIP_STYLE,
                             makeTooltipReference("om_ultimate")));
 
+    public static final DeferredItem<Item> ULTIMATE_PICKAXE = ITEMS.registerItem("ultimate_pickaxe",
+            UltimatePickaxe::new,
+            () -> new Item.Properties().setId(makeResourceKey("ultimate_pickaxe"))
+                    .pickaxe(ToolMaterial.NETHERITE, 2.0f, -2.8f)
+                    .component(DataComponents.TOOLTIP_STYLE,
+                            makeTooltipReference("om_ultimate")));
+
     public static final DeferredItem<Item> ULTIMATE_FISHING_ROD = ITEMS.registerItem("ultimate_fishing_rod",
             UltimateFishingRod::new,
             () -> new Item.Properties().setId(makeResourceKey("ultimate_fishing_rod"))
                     .component(DataComponents.TOOLTIP_STYLE,
                             makeTooltipReference("om_ultimate")));
+    public static final DeferredItem<Item> ULTIMATE_MACE = ITEMS.registerItem("ultimate_mace",
+            UltimateMace::new,
+            () -> new Item.Properties().setId(makeResourceKey("ultimate_mace"))
+                    .component(DataComponents.BREAK_SOUND, Holder.direct(SoundEvents.HEAVY_CORE_BREAK))
+                    .component(DataComponents.TOOLTIP_STYLE,
+                            makeTooltipReference("om_ultimate"))
+                    .attributes(UltimateMace.createAttributes())
+                    .component(DataComponents.TOOL,UltimateMace.createToolProperties())
+                    .component(DataComponents.WEAPON,new Weapon(1,10))
+                    .component(DataComponents.REPAIRABLE,new Repairable(HolderSet.direct(List.of(ULTIMATE_INGOT))))
+    );
+    public static final DeferredItem<Item> ULTIMATE_STAFF = ITEMS.registerItem("ultimate_staff",
+            UltimateStaff::new,
+            () -> new Item.Properties().setId(makeResourceKey("ultimate_staff"))
+                    .component(DataComponents.REPAIRABLE,new Repairable(HolderSet.direct(List.of(ULTIMATE_INGOT))))
+                    .component(DataComponents.TOOLTIP_STYLE,
+                            makeTooltipReference("om_ultimate"))
+                    .component(DataComponents.BREAK_SOUND, Holder.direct(SoundEvents.TRIAL_SPAWNER_BREAK))
+                    .component(DataComponents.TOOL,new Tool(
+                            List.of(),
+                            0.1f,
+                            1,
+                            false
+                    )));
 
 
     // ultra items

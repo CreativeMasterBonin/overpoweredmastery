@@ -20,11 +20,14 @@ import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.rk.overpoweredmastery.block.OMBlocks;
 import net.rk.overpoweredmastery.datagen.OMEnchantments;
 import net.rk.overpoweredmastery.datagen.OMWorldgen;
+import net.rk.overpoweredmastery.datamap.OMDatamaps;
+import net.rk.overpoweredmastery.enchantment.EnchantmentEntityEffectTypes;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import net.rk.overpoweredmastery.entity.blockentity.OMBlockEntities;
 import net.rk.overpoweredmastery.item.OMItems;
@@ -95,6 +98,8 @@ public class OverpoweredMastery {
 
     public OverpoweredMastery(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::onGatherData);
+        modEventBus.addListener(this::registerDatamapTypes);
+        EnchantmentEntityEffectTypes.ENCHANTMENT_ENTITY_EFFECTS.register(modEventBus);
         ATTACHMENT_TYPES.register(modEventBus);
         DATA_COMPONENT_TYPES.register(modEventBus);
         RECIPE_CATEGORIES.register(modEventBus);
@@ -195,8 +200,31 @@ public class OverpoweredMastery {
 
     }
 
+    protected void customOPItems(BuildCreativeModeTabContentsEvent event){
+        CreativeModeTab.ItemDisplayParameters params = event.getParameters();
+
+        ItemStack ultimateMace = new ItemStack(OMItems.ULTIMATE_MACE.asItem());
+        params.holders().lookup(Registries.ENCHANTMENT).ifPresent(en -> {
+            DataComponentPatch testSpearLol = DataComponentPatch.builder()
+                    .set(DataComponents.ITEM_NAME,Component.literal("Max Testing Ultimate Mace"))
+                    .set(DataComponents.TOOLTIP_STYLE,Identifier.parse("overpoweredmastery:om_epic"))
+                    .build();
+            if(en.get(Enchantments.THORNS).isPresent()
+                    && en.get(Enchantments.LOOTING).isPresent() && en.get(Enchantments.UNBREAKING).isPresent()){
+                ultimateMace.enchant(en.get(Enchantments.LOOTING).get(),3);
+                ultimateMace.enchant(en.get(Enchantments.THORNS).get(),10);
+                ultimateMace.enchant(en.get(Enchantments.UNBREAKING).get(),3);
+                ultimateMace.applyComponents(testSpearLol);
+                event.accept(ultimateMace);
+            }
+        });
+    }
+
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        /*if(event.getTabKey() == CreativeModeTabs.OP_BLOCKS){
+            customOPItems(event);
+        }*/
         if(event.getTabKey() == ALL_TAB.getKey()){
             customItems(event);
             // machines and devices
@@ -274,6 +302,7 @@ public class OverpoweredMastery {
             event.accept(OMItems.ULTIMATE_HOE);
             event.accept(OMItems.ULTIMATE_FISHING_ROD);
             event.accept(OMItems.ULTIMATE_STAFF);
+            event.accept(OMItems.ULTIMATE_MACE);
             // ultra (finale tier)
             event.accept(OMItems.ULTRA_SWORD);
             // wubs
@@ -291,5 +320,9 @@ public class OverpoweredMastery {
 
     private void onGatherData(GatherDataEvent.Client event){
         event.createDatapackRegistryObjects(OMWorldgen.WORLD_GEN_BUILDER.add(Registries.ENCHANTMENT,OMEnchantments::bootstrap));
+    }
+
+    private void registerDatamapTypes(RegisterDataMapTypesEvent event){
+        event.register(OMDatamaps.SMELTABLES);
     }
 }

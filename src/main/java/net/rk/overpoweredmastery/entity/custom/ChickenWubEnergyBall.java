@@ -115,6 +115,12 @@ public class ChickenWubEnergyBall extends AbstractHurtingProjectile {
                     zombie.hurtServer(serverLevel,this.damageSources().magic(),Config.CHICKEN_WUBS_DAMAGE_BASE_BABY_ZOMBIE.get());
                 }
             }
+            else{
+                if(this.level() instanceof ServerLevel serverLevel){
+                    zombie.setRemainingFireTicks(5);
+                    zombie.hurtServer(serverLevel,this.damageSources().magic(),1);
+                }
+            }
         }
         else if(result.getEntity() instanceof LivingEntity livingEntity){
             if(this.level() instanceof ServerLevel serverLevel){

@@ -53,6 +53,8 @@ public class OMLang extends LanguageProvider {
         add(OMItems.ULTIMATE_BOW.asItem(),"Ultimate Bow");
         // fishing rods
         add(OMItems.ULTIMATE_FISHING_ROD.asItem(),"Ultimate Fishing Rod");
+
+
         // item and other descs
         addItemDesc(OMItems.ENDARKENED_CROSSBOW.asItem(),"The more health you have, the less rate of fire you have!");
         add("item.wub.generic_desc","Hold right click to continuously fire the musical weapon. Shifting or not holding right click stops playing the weapon.");
@@ -80,6 +82,8 @@ public class OMLang extends LanguageProvider {
         addItemDesc(OMItems.PENULTIMATE_HOE_CATALYST.asItem(),"Used to craft the Penultimate Hoes.");
         addItemDesc(OMItems.ULTRA_INGOT.asItem(),"A step towards overpoweredness...");
         addItemDesc(OMItems.ULTRA_SWORD.asItem(),"Completely Overpowered...");
+        addItemDesc(OMItems.ULTIMATE_MACE.asItem(),"Supports many enchantments, like a RPG tree!");
+        addItemDesc(OMItems.ULTIMATE_PICKAXE.asItem(),"Mining has never been easier, or more rewarding...");
 
         // long spears
         add(OMItems.TEST_SPEAR.asItem(),"Test Long Spear");
@@ -157,6 +161,12 @@ public class OMLang extends LanguageProvider {
         add(OMItems.CONCENTRATED_MULTI_ESSENCE.asItem(),"Concentrated Multi Essence");
         add(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE.asItem(),"Infused Concentrated Multi Essence");
 
+        // pickaxes
+        add(OMItems.ULTIMATE_PICKAXE.asItem(),"Ultimate Pickaxe");
+
+        // maces
+        add(OMItems.ULTIMATE_MACE.asItem(),"Ultimate Mace");
+
         // staffs
         add(OMItems.PRIMITIVE_STAFF.asItem(),"Primitive Staff");
         add(OMItems.ENDERMARINE_STAFF.asItem(),"Endermarine Staff");
@@ -167,6 +177,8 @@ public class OMLang extends LanguageProvider {
         add("enchantment.overpoweredmastery.instarepair.desc","Repairs tools for free randomly... however is quite slow");
         add("enchantment.overpoweredmastery.bypass_denial","Bypass Denial");
         add("enchantment.overpoweredmastery.bypass_denial.desc","Damage that bypasses is denied!");
+        add("enchantment.overpoweredmastery.evocation_master","Evocation Master");
+        add("enchantment.overpoweredmastery.evocation_master.desc","Attacks create Evoker Fangs under foes");
 
 
         add("overpoweredmastery.item.inert_essence.desc","Although useless in this form, some stimulation might make it do something...");

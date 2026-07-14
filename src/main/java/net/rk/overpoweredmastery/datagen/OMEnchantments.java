@@ -2,33 +2,43 @@ package net.rk.overpoweredmastery.datagen;
 
 import net.minecraft.advancements.criterion.DamageSourcePredicate;
 import net.minecraft.advancements.criterion.TagPredicate;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
+import net.minecraft.world.item.enchantment.EnchantmentTarget;
 import net.minecraft.world.item.enchantment.LevelBasedValue;
 import net.minecraft.world.item.enchantment.effects.AddValue;
 import net.minecraft.world.item.enchantment.effects.ChangeItemDamage;
 import net.minecraft.world.item.enchantment.effects.EnchantmentAttributeEffect;
+import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
 import net.minecraft.world.level.storage.loot.predicates.AllOfCondition;
 import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.neoforged.neoforge.common.Tags;
 import net.rk.overpoweredmastery.OverpoweredMastery;
+import net.rk.overpoweredmastery.enchantment.EvocationMasterEffect;
+
+import java.util.Optional;
 
 public class OMEnchantments{
     public static final ResourceKey<Enchantment> INSTAREPAIR = key("instarepair");
     public static final ResourceKey<Enchantment> BYPASS_DENIAL = key("bypass_denial");
+    public static final ResourceKey<Enchantment> EVOCATION_MASTER = key("evocation_master");
 
 
     public static final Identifier INSTAREPAIR_ARMOR_TOUGHNESS_MODIFIER = Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"instarepair_modifier");
@@ -42,6 +52,25 @@ public class OMEnchantments{
         HolderGetter<Item> holdergetter2 = context.lookup(Registries.ITEM);
         //HolderGetter<Block> holdergetter3 = context.lookup(Registries.BLOCK);
         //HolderGetter<EntityType<?>> holdergetter4 = context.lookup(Registries.ENTITY_TYPE);
+
+        registerEnchantment(
+                context,
+                EVOCATION_MASTER,
+                Enchantment.enchantment(Enchantment.definition(
+                        holdergetter2.getOrThrow(OMTags.ULTIMATE_TOOLS),
+                        1,
+                        1,
+                        Enchantment.dynamicCost(10,10),
+                        Enchantment.dynamicCost(20,15),
+                        32,
+                        EquipmentSlotGroup.ANY
+                )
+                )
+                        .exclusiveWith(holdergetter1.getOrThrow(OMTags.SPAWNS_EXTRAS_OR_LANDS_MULTIPLE_HITS))
+                        .withEffect(EnchantmentEffectComponents.POST_ATTACK,
+                        EnchantmentTarget.ATTACKER,EnchantmentTarget.VICTIM,
+                        new EvocationMasterEffect(Optional.empty()))
+        );
 
         registerEnchantment(
                 context,

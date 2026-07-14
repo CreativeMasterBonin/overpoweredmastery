@@ -8,10 +8,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUtils;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.rk.overpoweredmastery.OverpoweredMastery;
@@ -22,6 +19,11 @@ public abstract class AbstractSpear extends Item {
     public static final Identifier BASE_SPEAR_REACH = Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"base_spear_reach");
     public AbstractSpear(Properties properties) {
         super(properties.stacksTo(1));
+    }
+
+    @Override
+    public ItemUseAnimation getUseAnimation(ItemStack stack) {
+        return ItemUseAnimation.SPEAR;
     }
 
     @Override

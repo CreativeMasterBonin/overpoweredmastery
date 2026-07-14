@@ -25,6 +25,7 @@ public class OMItemTag extends ItemTagsProvider {
                 .add(OMItems.ULTIMATE_BOW.asItem())
                 .add(OMItems.ULTIMATE_FISHING_ROD.asItem())
                 .add(OMItems.ULTIMATE_STAFF.asItem())
+                .add(OMItems.ULTIMATE_MACE.asItem())
         ;
         tag(OMTags.ULTRA_TOOLS)
                 .add(OMItems.ULTRA_SWORD.asItem())

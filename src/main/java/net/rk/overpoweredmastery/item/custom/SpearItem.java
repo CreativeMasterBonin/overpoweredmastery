@@ -149,8 +149,8 @@ public class SpearItem extends AbstractSpear{
                 if(stack.getEnchantmentLevel(OPUtil.getEnchantmentHolderFromKeyStatic(entity.level(),Enchantments.UNBREAKING)) > 0){
                     int unbreakingLevel = stack.getEnchantmentLevel(OPUtil.getEnchantmentHolderFromKeyStatic(entity.level(),Enchantments.UNBREAKING));
                     unbreakingLevel = Mth.clamp(unbreakingLevel,1,99);
-                    if((unbreakingLevel * 10) % 100 == 0){
-
+                    if(OPUtil.nextFloatBetweenInclusive((float)unbreakingLevel,Mth.clamp(20.0f * (float)unbreakingLevel,1.57f,2048.57f)) <= 1.57f + (float)unbreakingLevel){
+                        stack.hurtAndBreak(riptideLevel + 1,entity,entity.getUsedItemHand());
                     }
                     else{
                         stack.hurtAndBreak(riptideLevel + 1,entity,entity.getUsedItemHand());
