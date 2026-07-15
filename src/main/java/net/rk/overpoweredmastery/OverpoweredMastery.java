@@ -93,7 +93,7 @@ public class OverpoweredMastery {
     public static final DeferredHolder<CreativeModeTab,CreativeModeTab> ALL_TAB = CREATIVE_MODE_TABS.register("overpoweredmastery_creative_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.overpoweredmastery"))
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
-            .icon(OMItems.ENDARKENED_CROSSBOW::toStack)
+            .icon(OMItems.ULTIMATE_INGOT::toStack)
             .build());
 
     public OverpoweredMastery(IEventBus modEventBus, ModContainer modContainer) {
@@ -222,11 +222,11 @@ public class OverpoweredMastery {
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        /*if(event.getTabKey() == CreativeModeTabs.OP_BLOCKS){
-            customOPItems(event);
-        }*/
-        if(event.getTabKey() == ALL_TAB.getKey()){
+        if(event.getTabKey() == CreativeModeTabs.OP_BLOCKS){
             customItems(event);
+            //customOPItems(event);
+        }
+        if(event.getTabKey() == ALL_TAB.getKey()){
             // machines and devices
             //event.accept(OMItems.MULTI_ASSEMBLER);
             // ores
@@ -297,14 +297,16 @@ public class OverpoweredMastery {
             event.accept(OMItems.PENULTIMATE_SHOVEL_CATALYST);
             event.accept(OMItems.PENULTIMATE_HOE_CATALYST);
             // ultimate
-            event.accept(OMItems.ULTIMATE_BOW);
             event.accept(OMItems.ULTIMATE_SWORD);
+            event.accept(OMItems.ULTIMATE_PICKAXE);
             event.accept(OMItems.ULTIMATE_HOE);
+            event.accept(OMItems.ULTIMATE_BOW);
             event.accept(OMItems.ULTIMATE_FISHING_ROD);
-            event.accept(OMItems.ULTIMATE_STAFF);
             event.accept(OMItems.ULTIMATE_MACE);
+            event.accept(OMItems.ULTIMATE_STAFF);
             // ultra (finale tier)
             event.accept(OMItems.ULTRA_SWORD);
+            event.accept(OMItems.ULTRA_PICKAXE);
             // wubs
             event.accept(OMItems.RED_WUBS);
             event.accept(OMItems.NETHER_WUBS);

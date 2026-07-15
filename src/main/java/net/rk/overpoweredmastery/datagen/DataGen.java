@@ -8,6 +8,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.rk.overpoweredmastery.OverpoweredMastery;
+import net.rk.overpoweredmastery.datamap.OMDatamaps;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +21,7 @@ public class DataGen{
         DataGenerator gen = event.getGenerator();
         PackOutput packOutput = gen.getPackOutput();
 
+        gen.addProvider(true,new OMSmeltables(packOutput,event.getLookupProvider()));
         gen.addProvider(true,new OMEnchantmentTags(packOutput,event.getLookupProvider()));
         gen.addProvider(true,new OMSound(packOutput));
         gen.addProvider(true,new OMLang(packOutput));

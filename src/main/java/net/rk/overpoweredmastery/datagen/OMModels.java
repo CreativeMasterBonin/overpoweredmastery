@@ -155,6 +155,7 @@ public class OMModels extends ModelProvider {
         itemModels.generateFlatItem(OMItems.PRIMITIVE_STAFF.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModels.generateFlatItem(OMItems.ENDERMARINE_STAFF.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModels.generateFlatItem(OMItems.ULTIMATE_MACE.asItem(),ModelTemplates.FLAT_HANDHELD_MACE_ITEM);
+        itemModels.generateFlatItem(OMItems.ULTIMATE_PICKAXE.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
     }
 
     public static Identifier obtainItemModelLocation(DeferredItem<Item> item){
@@ -177,6 +178,7 @@ public class OMModels extends ModelProvider {
     protected Stream<? extends Holder<Item>> getKnownItems() {
         return OMItems.ITEMS.getEntries().stream().filter((x)->
                 !x.is(OMItems.ULTRA_SWORD) &&
+                !x.is(OMItems.ULTRA_PICKAXE) &&
                 !(x.value() instanceof InertEssence) &&
                 !(x.value() instanceof AbstractWubs)
                 && !(x.value() instanceof AbstractSpear)

@@ -29,13 +29,25 @@ import net.rk.overpoweredmastery.OverpoweredMastery;
 import net.rk.overpoweredmastery.block.OMBlocks;
 import net.rk.overpoweredmastery.datagen.OMTags;
 import net.rk.overpoweredmastery.item.custom.*;
+import net.rk.overpoweredmastery.util.OPUtil;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
 public class OMItems{
+    // register
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(OverpoweredMastery.MODID);
+
+    // tool materials
+    public static final ToolMaterial ULTIMATE = new ToolMaterial(
+            OMTags.INCORRECT_FOR_ULTIMATE, OPUtil.ULTIMATE_SHARED_DURABILITY, 12.0f, 9.0f, 32,OMTags.ULTIMATE_MATERIALS
+    );
+    public static final ToolMaterial ULTRA = new ToolMaterial(
+            OMTags.INCORRECT_FOR_ULTRA,OPUtil.ULTRA_SHARED_DURABILITY,16.0f,1.0f,999,OMTags.ULTRA_MATERIALS
+    );
+
+    // items
 
     public static final DeferredItem<Item> ENDARKENED_CROSSBOW = ITEMS.registerItem("endarkened_crossbow",
             EndarkenedCrossbow::new,() -> new Item.Properties().setId(makeResourceKey("endarkened_crossbow"))
@@ -444,7 +456,8 @@ public class OMItems{
     public static final DeferredItem<Item> ULTIMATE_PICKAXE = ITEMS.registerItem("ultimate_pickaxe",
             UltimatePickaxe::new,
             () -> new Item.Properties().setId(makeResourceKey("ultimate_pickaxe"))
-                    .pickaxe(ToolMaterial.NETHERITE, 2.0f, -2.8f)
+                    .pickaxe(ULTIMATE,2.0f,-1.3f)
+                    .rarity(OMRarity.ULTIMATE.getValue())
                     .component(DataComponents.TOOLTIP_STYLE,
                             makeTooltipReference("om_ultimate")));
 
@@ -496,6 +509,8 @@ public class OMItems{
                                     new AttributeModifier(Item.BASE_ATTACK_SPEED_ID,99.0f,AttributeModifier.Operation.ADD_VALUE),
                                     EquipmentSlotGroup.HAND)
                             .build())
+                    .component(DataComponents.TOOLTIP_STYLE,
+                            makeTooltipReference("om_ultra"))
                     .component(DataComponents.WEAPON,new Weapon(1,60))
                     .component(DataComponents.BREAK_SOUND, Holder.direct(SoundEvents.TRIAL_SPAWNER_AMBIENT_OMINOUS))
                     .component(DataComponents.ENCHANTABLE,new Enchantable(120))
@@ -516,6 +531,30 @@ public class OMItems{
                             false
                     ))
     );
+
+    public static final DeferredItem<Item> ULTRA_PICKAXE = ITEMS.registerItem("ultra_pickaxe",
+            UltraPickaxe::new,
+            () -> new Item.Properties().setId(makeResourceKey("ultra_pickaxe"))
+                    .attributes(ItemAttributeModifiers.builder()
+                            .add(Attributes.ATTACK_DAMAGE,
+                                    new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID,20.0f,AttributeModifier.Operation.ADD_VALUE),
+                                    EquipmentSlotGroup.HAND)
+                            .add(Attributes.ATTACK_SPEED,
+                                    new AttributeModifier(Item.BASE_ATTACK_SPEED_ID,-4.0f,AttributeModifier.Operation.ADD_VALUE),
+                                    EquipmentSlotGroup.HAND)
+                            .add(Attributes.BLOCK_INTERACTION_RANGE,
+                                    new AttributeModifier(Identifier.parse("overpoweredmastery:ultra_pickaxe_block_interaction_range"),
+                                            3.0f,AttributeModifier.Operation.ADD_VALUE),
+                                    EquipmentSlotGroup.HAND, ItemAttributeModifiers.Display.hidden())
+                            .build())
+                    .pickaxe(ULTRA,4.0f,3.0f)
+                    .component(DataComponents.BREAK_SOUND, Holder.direct(SoundEvents.TRIAL_SPAWNER_AMBIENT_OMINOUS))
+                    .rarity(OMRarity.ULTRA.getValue())
+                    .component(DataComponents.TOOLTIP_STYLE,
+                            makeTooltipReference("om_ultra")));
+
+
+
 
     public static final DeferredItem<Item> PLACEHOLDER_ITEM = ITEMS.registerItem("placeholder_item",
             PlaceholderItem::new,
@@ -563,9 +602,17 @@ public class OMItems{
                     properties.setId(makeResourceKey("multi_assembler"))
                             .rarity(Rarity.EPIC).fireResistant()));
 
-
-
-
+    public static Tool customTool(TagKey<Block> incorrectDrops, TagKey<Block> mineBlocks,float mineSpeed, float defaultMineSpeed, int usesUsedPerBlock, boolean destroyBlocksInCreative, float attackDamage, float attackSpeed, int disableBlockingForSeconds) {
+        HolderGetter<Block> holderGetter = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);
+        return new Tool(
+                List.of(
+                        Tool.Rule.minesAndDrops(holderGetter.getOrThrow(mineBlocks),mineSpeed)
+                ),
+                defaultMineSpeed,
+                usesUsedPerBlock,
+                destroyBlocksInCreative
+        );
+    }
 
     public static Tool spearTool(TagKey<Block> incorrectDrops, TagKey<Block> mineBlocks, float mineSpeed, float defaultMineSpeed, int usesUsedPerBlock, boolean destroyBlocksInCreative){
         HolderGetter<Block> holdergetter = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);

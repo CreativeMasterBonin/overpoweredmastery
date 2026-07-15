@@ -1,5 +1,7 @@
 package net.rk.overpoweredmastery;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
@@ -9,12 +11,11 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.client.event.RegisterSpecialBlockModelRendererEvent;
-import net.neoforged.neoforge.client.event.RegisterSpecialModelRendererEvent;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.neoforged.neoforge.client.settings.KeyConflictContext;
+import net.neoforged.neoforge.client.settings.KeyModifier;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import net.rk.overpoweredmastery.entity.blockentity.OMBlockEntities;
 import net.rk.overpoweredmastery.entity.model.MultiAssemblerModel;
@@ -30,6 +31,22 @@ public class OverpoweredMasteryClient{
         //eventBus.addListener(this::setupClientExtensions);
     }
 
+    public static KeyMapping.Category OM_KEYMAPPING_CATEGORY = new KeyMapping.Category(
+            Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"general_keys")
+    );
+
+    public static KeyMapping DESCRIPTION_KEY_MAPPING = new KeyMapping("key_mapping.overpoweredmastery.show_description",
+            KeyConflictContext.GUI,
+            KeyModifier.NONE,
+            InputConstants.Type.KEYSYM,
+            InputConstants.KEY_RBRACKET,
+            OM_KEYMAPPING_CATEGORY);
+
+    @SubscribeEvent
+    public static void registerKeyMappings(RegisterKeyMappingsEvent event){
+        event.register(DESCRIPTION_KEY_MAPPING);
+    }
+
     @SubscribeEvent
     public static void setupSpecialRenderers(RegisterSpecialModelRendererEvent event){
         event.register(Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"multi_assembler"),
@@ -37,9 +54,7 @@ public class OverpoweredMasteryClient{
     }
 
     @SubscribeEvent
-    public static void setupSpecialBlockRenderers(RegisterSpecialBlockModelRendererEvent event){
-
-    }
+    public static void setupSpecialBlockRenderers(RegisterSpecialBlockModelRendererEvent event){}
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event){

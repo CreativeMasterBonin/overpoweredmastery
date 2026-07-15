@@ -11,6 +11,7 @@ public class OPUtil {
     public static final int ULTRA_COLOR = 13162472;
     public static final int ULTIMATE_COLOR = 8737009;
     public static final int ULTIMATE_SHARED_DURABILITY = 9999;
+    public static final int ULTRA_SHARED_DURABILITY = 99999;
     public static final int PRIMITIVE_STAFF_DURABILITY = 250;
     public static final int ENDERMARINE_STAFF_DURABILITY = 325;
 
@@ -27,4 +28,17 @@ public class OPUtil {
         Random random = new Random();
         return random.nextDouble(max - min + 1) + min;
     }
+
+    /*
+    TEMPLATE - for desc key logic usage
+
+    if(ClientActionHandler.keyMappingPressed(OverpoweredMasteryClient.DESCRIPTION_KEY_MAPPING)){
+            tooltipAdder.accept(Component.translatable("item.overpoweredmastery.???.desc.detail")
+                    .withStyle(ChatFormatting.GRAY));
+        }
+        else{
+            tooltipAdder.accept(Component.translatable("item.overpoweredmastery.press_desc_key",Component.translatable(OverpoweredMasteryClient.DESCRIPTION_KEY_MAPPING.getKey().getName()))
+                    .withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+        }
+     */
 }

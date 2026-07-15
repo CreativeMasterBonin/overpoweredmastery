@@ -247,6 +247,13 @@ public class OMBlockTag extends BlockTagsProvider {
                 .add(Blocks.HONEYCOMB_BLOCK)
                 .add(OMBlocks.SELECTION_BLOCK.get())
                 .add(OMBlocks.MULTI_ASSEMBLER.get())
+                .addTag(Tags.Blocks.RELOCATION_NOT_SUPPORTED)
+                .addTag(Tags.Blocks.ROPES)
+                .addTag(Tags.Blocks.BUDDING_BLOCKS)
+                .addTag(Tags.Blocks.CHESTS)
+                .addTag(Tags.Blocks.CHESTS_ENDER)
+                .addTag(Tags.Blocks.CHESTS_TRAPPED)
+                .addTag(Tags.Blocks.HIDDEN_FROM_RECIPE_VIEWERS)
         ;
         tag(OMTags.PROBABLE_CANNOT_REPLACE)
                 .add(Blocks.BEDROCK)
@@ -275,6 +282,7 @@ public class OMBlockTag extends BlockTagsProvider {
                 .add(OMBlocks.SELECTION_BLOCK.get())
                 .add(OMBlocks.MULTI_ASSEMBLER.get())
                 .add(OMBlocks.MOVING_PROBABLE_BLOCK.get())
+                .addTag(Tags.Blocks.HIDDEN_FROM_RECIPE_VIEWERS)
         ;
         tag(OMTags.CORRECT_FOR_SPEAR)
                 .addTag(BlockTags.SWORD_EFFICIENT)
@@ -399,6 +407,42 @@ public class OMBlockTag extends BlockTagsProvider {
                 .add(OMBlocks.DEEPSLATE_INERT_AURORAN_ESSENCE_ORE.get())
                 .add(OMBlocks.DEEPSLATE_INERT_DARK_ESSENCE_ORE.get())
                 .add(OMBlocks.MULTI_ASSEMBLER.get())
+        ;
+        tag(Tags.Blocks.NEEDS_GOLD_TOOL)
+                .add(OMBlocks.MULTI_ASSEMBLER.get())
+        ;
+        tag(Tags.Blocks.NEEDS_WOOD_TOOL)
+                .add(OMBlocks.MULTI_ASSEMBLER.get())
+        ;
+        tag(Tags.Blocks.NEEDS_NETHERITE_TOOL)
+                .add(OMBlocks.MULTI_ASSEMBLER.get())
+        ;
+        tag(OMTags.ULTIMATE_TIER_CAN_MINE)
+                .addTag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .addTag(BlockTags.NEEDS_DIAMOND_TOOL)
+                .addTag(BlockTags.NEEDS_IRON_TOOL)
+                .addTag(BlockTags.NEEDS_STONE_TOOL)
+                .addTag(BlockTags.INCORRECT_FOR_COPPER_TOOL)
+                .addTag(BlockTags.INCORRECT_FOR_GOLD_TOOL)
+                .addTag(BlockTags.INCORRECT_FOR_DIAMOND_TOOL)
+                .addTag(BlockTags.INCORRECT_FOR_STONE_TOOL)
+                .addTag(BlockTags.INCORRECT_FOR_NETHERITE_TOOL)
+                .addTag(BlockTags.INCORRECT_FOR_WOODEN_TOOL)
+                .addTag(BlockTags.INCORRECT_FOR_IRON_TOOL)
+                .addOptionalTag(Tags.Blocks.NEEDS_NETHERITE_TOOL)
+                .addOptionalTag(Tags.Blocks.NEEDS_GOLD_TOOL)
+                .addOptionalTag(Tags.Blocks.NEEDS_WOOD_TOOL)
+        ;
+        tag(OMTags.ULTRA_TIER_CAN_MINE)
+                .addTag(OMTags.ULTIMATE_TIER_CAN_MINE)
+                .add(Blocks.REINFORCED_DEEPSLATE)
+                .add(Blocks.TRIAL_SPAWNER)
+        ;
+        tag(OMTags.INCORRECT_FOR_ULTIMATE)
+                .add(Blocks.BEDROCK)
+        ;
+        tag(OMTags.INCORRECT_FOR_ULTRA)
+                .add(Blocks.BEDROCK)
         ;
     }
 }

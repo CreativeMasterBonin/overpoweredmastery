@@ -21,6 +21,7 @@ public class OMItemTag extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         tag(OMTags.ULTIMATE_TOOLS)
                 .add(OMItems.ULTIMATE_SWORD.asItem())
+                .add(OMItems.ULTIMATE_PICKAXE.asItem())
                 .add(OMItems.ULTIMATE_HOE.asItem())
                 .add(OMItems.ULTIMATE_BOW.asItem())
                 .add(OMItems.ULTIMATE_FISHING_ROD.asItem())
@@ -29,6 +30,7 @@ public class OMItemTag extends ItemTagsProvider {
         ;
         tag(OMTags.ULTRA_TOOLS)
                 .add(OMItems.ULTRA_SWORD.asItem())
+                .add(OMItems.ULTRA_PICKAXE.asItem())
         ;
         tag(OMTags.MUSIC_DISC_WUBS)
                 .add(OMItems.RED_WUBS.asItem())
@@ -48,11 +50,21 @@ public class OMItemTag extends ItemTagsProvider {
                 .add(OMItems.DIAMOND_SPEAR.asItem())
                 .add(OMItems.NETHERITE_SPEAR.asItem())
         ;
+        tag(ItemTags.SPEARS)
+                .addTag(OMTags.SPEARS)
+        ;
+        tag(ItemTags.PICKAXES)
+                .add(OMItems.ULTIMATE_PICKAXE.asItem(),OMItems.ULTRA_PICKAXE.asItem())
+        ;
+        tag(ItemTags.FIRE_ASPECT_ENCHANTABLE)
+                .add(OMItems.ULTIMATE_PICKAXE.asItem(),OMItems.ULTRA_PICKAXE.asItem())
+        ;
         tag(ItemTags.CROSSBOW_ENCHANTABLE)
                 .add(OMItems.ENDARKENED_CROSSBOW.asItem())
         ;
         tag(ItemTags.BOW_ENCHANTABLE)
                 .add(OMItems.ENDARKENED_CROSSBOW.asItem())
+                .add(OMItems.ULTIMATE_BOW.asItem())
         ;
         tag(Tags.Items.TOOLS_BOW)
                 .add(OMItems.ULTIMATE_BOW.asItem())
@@ -85,6 +97,11 @@ public class OMItemTag extends ItemTagsProvider {
                 .addTag(ItemTags.CHEST_ARMOR)
                 .addTag(ItemTags.LEG_ARMOR)
                 .addTag(ItemTags.FOOT_ARMOR)
+                .addTag(ItemTags.SWORDS)
+                .addTag(ItemTags.PICKAXES)
+                .addTag(ItemTags.AXES)
+                .addTag(ItemTags.SHOVELS)
+                .addTag(ItemTags.HOES)
                 .addTag(OMTags.ULTIMATE_TOOLS)
                 .addTag(OMTags.ULTRA_TOOLS)
         ;
@@ -119,6 +136,12 @@ public class OMItemTag extends ItemTagsProvider {
                 .add(OMItems.INERT_LIGHT_ESSENCE.asItem())
                 .add(OMItems.INERT_AURORAN_ESSENCE.asItem())
                 .add(OMItems.INERT_DARK_ESSENCE.asItem())
+        ;
+        tag(OMTags.ULTIMATE_MATERIALS)
+                .add(OMItems.ULTIMATE_INGOT.asItem())
+        ;
+        tag(OMTags.ULTRA_MATERIALS)
+                .add(OMItems.ULTRA_INGOT.asItem())
         ;
     }
 }

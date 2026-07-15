@@ -1,5 +1,6 @@
 package net.rk.overpoweredmastery.item.custom;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -22,7 +23,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.rk.overpoweredmastery.OverpoweredMasteryClient;
 import net.rk.overpoweredmastery.datagen.OMTags;
+import net.rk.overpoweredmastery.util.ClientActionHandler;
 
 import java.util.function.Consumer;
 
@@ -35,6 +38,14 @@ public class PenultimateSwordLight extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
         tooltipAdder.accept(Component.translatable("item.overpoweredmastery.penultimate_sword_light.desc")
                 .withColor(16764416));
+        if(ClientActionHandler.keyMappingPressed(OverpoweredMasteryClient.DESCRIPTION_KEY_MAPPING)){
+            tooltipAdder.accept(Component.translatable("item.overpoweredmastery.penultimate_sword_light.desc.detail")
+                    .withStyle(ChatFormatting.GRAY));
+        }
+        else{
+            tooltipAdder.accept(Component.translatable("item.overpoweredmastery.press_desc_key",Component.translatable(OverpoweredMasteryClient.DESCRIPTION_KEY_MAPPING.getKey().getName()))
+                    .withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+        }
     }
 
     @Override

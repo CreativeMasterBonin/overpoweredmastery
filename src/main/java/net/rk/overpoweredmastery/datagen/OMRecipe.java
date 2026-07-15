@@ -283,7 +283,7 @@ public class OMRecipe extends RecipeProvider {
                 .unlockedBy("has_thingy",has(OMItems.CONCENTRATED_MULTI_ESSENCE))
                 .save(this.output,"penultimate_sword_catalyst");
 
-        shapeless(RecipeCategory.MISC,OMItems.PENULTIMATE_SWORD_LIGHT,1)
+        shapeless(RecipeCategory.COMBAT,OMItems.PENULTIMATE_SWORD_LIGHT,1)
                 .requires(Items.GLOWSTONE)
                 .requires(Items.GLOWSTONE)
                 .requires(Tags.Items.GEMS)
@@ -293,7 +293,7 @@ public class OMRecipe extends RecipeProvider {
                 .unlockedBy("has_thingy",has(OMItems.PENULTIMATE_SWORD_CATALYST))
                 .save(this.output,"penultimate_sword_light");
 
-        shapeless(RecipeCategory.MISC,OMItems.PENULTIMATE_SWORD_DARK,1)
+        shapeless(RecipeCategory.COMBAT,OMItems.PENULTIMATE_SWORD_DARK,1)
                 .requires(Items.GILDED_BLACKSTONE)
                 .requires(Items.GILDED_BLACKSTONE)
                 .requires(Tags.Items.RODS)
@@ -313,7 +313,7 @@ public class OMRecipe extends RecipeProvider {
                 .unlockedBy("has_thingy",has(Items.NETHERITE_BLOCK))
                 .save(this.output,"ultimate_ingot");
 
-        shapeless(RecipeCategory.MISC,OMItems.ULTIMATE_SWORD,1)
+        shapeless(RecipeCategory.COMBAT,OMItems.ULTIMATE_SWORD,1)
                 .requires(Tags.Items.DRINKS_OMINOUS)
                 .requires(OMItems.PENULTIMATE_SWORD_LIGHT)
                 .requires(OMItems.PENULTIMATE_SWORD_DARK)
@@ -321,7 +321,7 @@ public class OMRecipe extends RecipeProvider {
                 .unlockedBy("has_thingy",has(OMItems.ULTIMATE_INGOT))
                 .save(this.output,"ultimate_sword");
 
-        shaped(RecipeCategory.MISC,OMItems.PRIMITIVE_STAFF)
+        shaped(RecipeCategory.COMBAT,OMItems.PRIMITIVE_STAFF)
                 .define('t', Items.BLAZE_ROD)
                 .define('e', OMTags.INERT_ESSENCES)
                 .define('c', Items.BONE_BLOCK)
@@ -332,7 +332,7 @@ public class OMRecipe extends RecipeProvider {
                 .unlockedBy("has_thingy",has(OMTags.INERT_ESSENCES))
                 .save(this.output,"primitive_staff");
 
-        shaped(RecipeCategory.MISC,OMItems.ENDERMARINE_STAFF)
+        shaped(RecipeCategory.COMBAT,OMItems.ENDERMARINE_STAFF)
                 .define('s', OMItems.PRIMITIVE_STAFF)
                 .define('a', Items.PRISMARINE_BRICKS)
                 .define('f', Items.ENDER_PEARL)
@@ -346,6 +346,16 @@ public class OMRecipe extends RecipeProvider {
                 OMItems.STRANGE_STONE,
                 1.0f,320,
                 "op_mod_extra_smelting");
+
+        shaped(RecipeCategory.COMBAT,OMItems.ULTRA_SWORD)
+                .define('u',OMItems.ULTIMATE_SWORD)
+                .define('i',OMItems.ULTRA_INGOT)
+                .define('s',Items.END_ROD)
+                .pattern(" i ")
+                .pattern(" u ")
+                .pattern(" s ")
+                .unlockedBy("has_thingy",has(OMItems.ULTRA_INGOT))
+                .save(this.output,"ultra_sword");
 
         // multi assembler recipes (disabled)
         /*multiAssembler(

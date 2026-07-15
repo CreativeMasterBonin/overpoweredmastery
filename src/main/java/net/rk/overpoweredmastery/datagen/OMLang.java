@@ -23,13 +23,16 @@ public class OMLang extends LanguageProvider {
         // screens and menus
         add("screen.overpoweredmastery.multi_assembler","Multi Assembler");
 
+        // keymappings
+        add("key_mapping.overpoweredmastery.show_description","Show Description");
+        // keymapping categories
+        add("key.category.overpoweredmastery.general_keys","Overpowered Mastery");
+
         // blocks
         add(OMBlocks.MOVING_PROBABLE_BLOCK.get(),"Moving Probable Block");
         add(OMBlocks.SELECTION_BLOCK.get(),"Selection Block");
-
         // items
         add(OMItems.ENDARKENED_CROSSBOW.asItem(),"Endarkened Crossbow");
-
         // music disc something with the ending 'er' in it
         add(OMItems.RED_WUBS.asItem(),"Music Disc Blaster (Red Stage)");
         add(OMItems.GREEN_WUBS.asItem(),"Music Disc Shooter (Green Stage)");
@@ -47,15 +50,25 @@ public class OMLang extends LanguageProvider {
         add(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),"Penultimate Sword (Light Phase)");
         add(OMItems.ULTRA_SWORD.asItem(),"Ultra Sword");
         add(OMItems.ULTIMATE_SWORD.asItem(),"Ultimate Sword");
+        // pickaxes
+        add(OMItems.ULTIMATE_PICKAXE.asItem(),"Ultimate Pickaxe");
+        add(OMItems.ULTRA_PICKAXE.asItem(),"Ultra Pickaxe");
         // hoes
         add(OMItems.ULTIMATE_HOE.asItem(),"Ultimate Hoe");
         // bows
         add(OMItems.ULTIMATE_BOW.asItem(),"Ultimate Bow");
         // fishing rods
         add(OMItems.ULTIMATE_FISHING_ROD.asItem(),"Ultimate Fishing Rod");
+        // maces
+        add(OMItems.ULTIMATE_MACE.asItem(),"Ultimate Mace");
+        // staffs
+        add(OMItems.PRIMITIVE_STAFF.asItem(),"Primitive Staff");
+        add(OMItems.ENDERMARINE_STAFF.asItem(),"Endermarine Staff");
+        add(OMItems.ULTIMATE_STAFF.asItem(),"Ultimate Staff");
 
 
         // item and other descs
+        add("item.overpoweredmastery.press_desc_key","Press %s to see details");
         addItemDesc(OMItems.ENDARKENED_CROSSBOW.asItem(),"The more health you have, the less rate of fire you have!");
         add("item.wub.generic_desc","Hold right click to continuously fire the musical weapon. Shifting or not holding right click stops playing the weapon.");
         addItemDesc(OMItems.RED_WUBS.asItem(),"Raiders get mad and take extra damage! Blows up small areas too!");
@@ -65,8 +78,10 @@ public class OMLang extends LanguageProvider {
         addItemDesc(OMItems.NETHER_WUBS.asItem(),"Bring the heat and drop the beat on the pigs!");
         addItemDesc(OMItems.TRIAL_WUBS.asItem(),"Test your enemies with the power of music!");
         addItemDesc(OMItems.OXIDIZED_TRIAl_WUBS.asItem(),"Now oxidized, the power of music is slow, but hits hard!");
-        addItemDesc(OMItems.PENULTIMATE_SWORD_DARK.asItem(),"The Penultimate Sword has taken a void-like appearance. It takes away the darkest of effects... yet introduces a hint of trouble");
-        addItemDesc(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),"The Penultimate Sword has taken a light-like appearance. It is strong, and provides amazing abilities");
+        addItemDesc(OMItems.PENULTIMATE_SWORD_DARK.asItem(),"Has a void-like appearance. It takes away the darkest of effects... yet introduces a hint of trouble");
+        add("item.overpoweredmastery.penultimate_sword_dark.desc.detail","Animals and players are especially treated to ill effects...");
+        addItemDesc(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),"Has a light-like appearance. It is strong, and provides amazing abilities");
+        add("item.overpoweredmastery.penultimate_sword_light.desc.detail","Blocks can fly in the air, and interacting on mobs give you resistance, including other players");
         addItemDesc(OMItems.REDSTONE_BASE_COMPONENT.asItem(),"The power of redstone and the strange stone used to craft it unlocks usability outside of it's limits");
         addItemDesc(OMItems.AURORAN_PROCESSOR.asItem(),"Ancient Auroran technology makes this processor like no other");
         addItemDesc(OMItems.ESSENCE_ELECTRONIC_CORE.asItem(),"The essences emanate their power into the auroran processor and have become a magical core");
@@ -74,6 +89,8 @@ public class OMLang extends LanguageProvider {
         addItemDesc(OMItems.ULTIMATE_SWORD.asItem(),"This blade combines the best of both Penultimate swords, and more!");
         addItemDesc(OMItems.ULTIMATE_HOE.asItem(),"When shifting, tool tills and hydrates a 3x3 area, otherwise applies a bonemeal effect to plants!");
         addItemDesc(OMItems.ULTIMATE_FISHING_ROD.asItem(),"Fishing yields instant results. When the bobber hits the water, pull it in!");
+        addItemDesc(OMItems.ULTIMATE_MACE.asItem(),"Supports many enchantments, like a RPG tree!");
+        addItemDesc(OMItems.ULTIMATE_PICKAXE.asItem(),"Mining has never been easier, or more rewarding...");
         addItemDesc(OMItems.PENULTIMATE_SWORD_CATALYST.asItem(),"Used to craft the Penultimate Swords.");
         addItemDesc(OMItems.CONCENTRATED_MULTI_ESSENCE.asItem(),"Concentrated, but needs some lightning; any way to make it will do.");
         addItemDesc(OMItems.PENULTIMATE_PICKAXE_CATALYST.asItem(),"Used to craft the Penultimate Pickaxes.");
@@ -81,9 +98,8 @@ public class OMLang extends LanguageProvider {
         addItemDesc(OMItems.PENULTIMATE_SHOVEL_CATALYST.asItem(),"Used to craft the Penultimate Shovels.");
         addItemDesc(OMItems.PENULTIMATE_HOE_CATALYST.asItem(),"Used to craft the Penultimate Hoes.");
         addItemDesc(OMItems.ULTRA_INGOT.asItem(),"A step towards overpoweredness...");
-        addItemDesc(OMItems.ULTRA_SWORD.asItem(),"Completely Overpowered...");
-        addItemDesc(OMItems.ULTIMATE_MACE.asItem(),"Supports many enchantments, like a RPG tree!");
-        addItemDesc(OMItems.ULTIMATE_PICKAXE.asItem(),"Mining has never been easier, or more rewarding...");
+        add("item.overpoweredmastery.ultra.desc","Completely overpowered...");
+        add("item.overpoweredmastery.ultra.desc.detail","Combines effects of the ingredients used to craft it, including all tier abilities");
 
         // long spears
         add(OMItems.TEST_SPEAR.asItem(),"Test Long Spear");
@@ -160,17 +176,6 @@ public class OMLang extends LanguageProvider {
         add(OMItems.ULTRA_INGOT.asItem(),"Ultra Ingot");
         add(OMItems.CONCENTRATED_MULTI_ESSENCE.asItem(),"Concentrated Multi Essence");
         add(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE.asItem(),"Infused Concentrated Multi Essence");
-
-        // pickaxes
-        add(OMItems.ULTIMATE_PICKAXE.asItem(),"Ultimate Pickaxe");
-
-        // maces
-        add(OMItems.ULTIMATE_MACE.asItem(),"Ultimate Mace");
-
-        // staffs
-        add(OMItems.PRIMITIVE_STAFF.asItem(),"Primitive Staff");
-        add(OMItems.ENDERMARINE_STAFF.asItem(),"Endermarine Staff");
-        add(OMItems.ULTIMATE_STAFF.asItem(),"Ultimate Staff");
 
         // enchantments
         add("enchantment.overpoweredmastery.instarepair","Instarepair");
