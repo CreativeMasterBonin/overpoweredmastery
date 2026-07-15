@@ -596,6 +596,17 @@ public class OMItems{
             () -> new Item.Properties().setId(makeResourceKey("penultimate_hoe_catalyst"))
                     .fireResistant().rarity(Rarity.RARE));
 
+
+    // ultra catalysts
+    public static final DeferredItem<Item> ULTRA_CATALYST_TEMPLATE = ITEMS.registerItem("ultra_catalyst_template",
+            properties -> new CatalystTemplate(new Item.Properties().setId(makeResourceKey("ultra_catalyst_template"))
+                    .fireResistant().rarity(Rarity.EPIC),OPUtil.MAKES_ULTRA_TOOLS,OPUtil.ULTRA_COLOR){
+                @Override
+                public Item getItem() {
+                    return OMItems.ULTRA_INGOT.asItem();
+                }
+            });
+
     // machines and devices
     public static final DeferredItem<Item> MULTI_ASSEMBLER = ITEMS.registerItem("multi_assembler",
             properties -> new BlockItem(OMBlocks.MULTI_ASSEMBLER.get(),

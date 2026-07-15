@@ -119,6 +119,7 @@ dependencies {
     runtimeOnly("curse.maven:variants-and-ventures-981139:8190715")
     runtimeOnly("curse.maven:yacl-667299:7437853") // needed for friends and foes/variants and ventures
     runtimeOnly("curse.maven:resourceful-lib-570073:7312675") // needed for friends and foes/variants and ventures
+    runtimeOnly("maven.modrinth:uEfK2CXF:xZmaYads") // just enough resources (for JEI)
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

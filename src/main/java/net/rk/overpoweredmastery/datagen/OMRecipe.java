@@ -7,12 +7,14 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.SmithingTransformRecipeBuilder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
 import net.rk.overpoweredmastery.item.OMItems;
 
@@ -347,107 +349,52 @@ public class OMRecipe extends RecipeProvider {
                 1.0f,320,
                 "op_mod_extra_smelting");
 
-        shaped(RecipeCategory.COMBAT,OMItems.ULTRA_SWORD)
-                .define('u',OMItems.ULTIMATE_SWORD)
-                .define('i',OMItems.ULTRA_INGOT)
-                .define('s',Items.END_ROD)
-                .pattern(" i ")
-                .pattern(" u ")
-                .pattern(" s ")
-                .unlockedBy("has_thingy",has(OMItems.ULTRA_INGOT))
-                .save(this.output,"ultra_sword");
+        // smithing general
+        customSmithing(OMItems.ULTIMATE_SWORD.asItem(),
+                OMItems.ULTRA_CATALYST_TEMPLATE.asItem(),
+                OMItems.ULTRA_INGOT.asItem(),
+                RecipeCategory.COMBAT,
+                OMItems.ULTRA_SWORD.asItem());
+        customSmithing(OMItems.ULTIMATE_PICKAXE.asItem(),
+                OMItems.ULTRA_CATALYST_TEMPLATE.asItem(),
+                OMItems.ULTRA_INGOT.asItem(),
+                RecipeCategory.COMBAT,
+                OMItems.ULTRA_PICKAXE.asItem());
+        // smithing template duplication
+        copySmithingTemplateCustom(OMItems.ULTRA_CATALYST_TEMPLATE.asItem(),OMItems.ULTRA_INGOT.asItem(),Items.NETHER_STAR);
+    }
 
-        // multi assembler recipes (disabled)
-        /*multiAssembler(
-                Ingredient.of(OMItems.INERT_BLUE_ESSENCE),
-                Ingredient.of(OMItems.INERT_YELLOW_ESSENCE),
-                Ingredient.of(OMItems.INERT_GREEN_ESSENCE),
-                Ingredient.of(OMItems.INERT_RED_ESSENCE),
-                Ingredient.of(OMItems.AURORAN_PROCESSOR),
-                Ingredient.of(Items.IRON_INGOT),
-                Ingredient.of(Items.IRON_INGOT),
-                2,
-                new ItemStack(OMItems.ESSENCE_ELECTRONIC_CORE.asItem(),2),
-                OMItems.AURORAN_PROCESSOR.asItem()
-        );
 
-        multiAssembler(
-                Ingredient.of(items.getOrThrow(OMTags.INERT_ESSENCES)),
-                Ingredient.of(items.getOrThrow(OMTags.INERT_ESSENCES)),
-                Ingredient.of(items.getOrThrow(OMTags.INERT_ESSENCES)),
-                Ingredient.of(items.getOrThrow(OMTags.INERT_ESSENCES)),
-                Ingredient.of(items.getOrThrow(OMTags.INERT_ESSENCES)),
-                Ingredient.of(items.getOrThrow(Tags.Items.DYES)),
-                Ingredient.of(Items.ENDER_PEARL),
-                80,
-                new ItemStack(OMItems.CONCENTRATED_MULTI_ESSENCE.asItem(),1),
-                Items.ENDER_PEARL.asItem()
-        );
+    public void customSmithing(Item ingredientItem, Item smithingTemplate, TagKey<Item> upgradeMaterials, RecipeCategory category, Item resultItem) {
+        SmithingTransformRecipeBuilder.smithing(Ingredient.of(smithingTemplate),
+                Ingredient.of(ingredientItem),this.tag(upgradeMaterials), category, resultItem)
+                .unlocks("has_materials",this.has(upgradeMaterials))
+                .save(this.output, getItemName(resultItem) + "_smithing");
+    }
 
-        multiAssembler(
-                Ingredient.of(OMItems.CONCENTRATED_MULTI_ESSENCE),
-                Ingredient.of(OMItems.CONCENTRATED_MULTI_ESSENCE),
-                Ingredient.of(OMItems.INERT_DARK_ESSENCE),
-                Ingredient.of(OMItems.INERT_LIGHT_ESSENCE),
-                Ingredient.of(OMItems.INERT_AURORAN_ESSENCE),
-                Ingredient.of(Items.NETHERITE_SWORD),
-                Ingredient.of(Items.IRON_INGOT),
-                320,
-                new ItemStack(OMItems.PENULTIMATE_SWORD_CATALYST.asItem(),1),
-                OMItems.CONCENTRATED_MULTI_ESSENCE.asItem()
-        );
+    public void customSmithing(Item ingredientItem, Item smithingTemplate, Item upgradeMaterial, RecipeCategory category, Item resultItem) {
+        SmithingTransformRecipeBuilder.smithing(Ingredient.of(smithingTemplate),
+                        Ingredient.of(ingredientItem),Ingredient.of(upgradeMaterial), category, resultItem)
+                .unlocks("has_material",this.has(upgradeMaterial))
+                .save(this.output, getItemName(resultItem) + "_smithing");
+    }
 
-        multiAssembler(
-                Ingredient.of(Items.GLOWSTONE),
-                Ingredient.of(Items.GLOWSTONE),
-                Ingredient.of(Items.GLOWSTONE),
-                Ingredient.of(OMItems.INERT_LIGHT_ESSENCE),
-                Ingredient.of(OMItems.INERT_LIGHT_ESSENCE),
-                Ingredient.of(OMItems.PENULTIMATE_SWORD_CATALYST),
-                Ingredient.of(Items.TORCHFLOWER),
-                720,
-                new ItemStack(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),1),
-                OMItems.PENULTIMATE_SWORD_CATALYST.asItem()
-        );
-
-        multiAssembler(
-                Ingredient.of(Items.GILDED_BLACKSTONE),
-                Ingredient.of(Items.GILDED_BLACKSTONE),
-                Ingredient.of(Items.GILDED_BLACKSTONE),
-                Ingredient.of(OMItems.INERT_DARK_ESSENCE),
-                Ingredient.of(OMItems.INERT_DARK_ESSENCE),
-                Ingredient.of(OMItems.PENULTIMATE_SWORD_CATALYST),
-                Ingredient.of(Items.NETHER_STAR),
-                720,
-                new ItemStack(OMItems.PENULTIMATE_SWORD_DARK.asItem(),1),
-                OMItems.PENULTIMATE_SWORD_CATALYST.asItem()
-        );
-
-        multiAssembler(
-                Ingredient.of(Items.NETHERITE_BLOCK),
-                Ingredient.of(Items.SHULKER_BOX),
-                Ingredient.of(Items.OMINOUS_BOTTLE),
-                Ingredient.of(OMItems.CONCENTRATED_MULTI_ESSENCE),
-                Ingredient.of(OMItems.PENULTIMATE_SWORD_LIGHT),
-                Ingredient.of(OMItems.PENULTIMATE_SWORD_DARK),
-                Ingredient.of(OMItems.ULTIMATE_INGOT),
-                1200,
-                new ItemStack(OMItems.ULTIMATE_SWORD.asItem(),1),
-                OMItems.CONCENTRATED_MULTI_ESSENCE.asItem()
-        );
-
-        multiAssembler(
-                Ingredient.of(OMItems.STRANGE_STONE),
-                Ingredient.of(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE),
-                Ingredient.of(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE),
-                Ingredient.of(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE),
-                Ingredient.of(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE),
-                Ingredient.of(Items.NETHERITE_INGOT),
-                Ingredient.of(Items.NETHERITE_INGOT),
-                900,
-                new ItemStack(OMItems.ULTIMATE_INGOT.asItem(),1),
-                OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE.asItem()
-        );*/
+    /**
+     * Makes a recipe that allows copying a smithing template into two items, for duplication and preservation of templates found
+     * @param template The item that is used in a smithing table with a material (goes at the top-middle slot of a crafting table)
+     * @param baseItem The main material in the center of a crafting table
+     * @param surroundingItem The surrounding material in a crafting table
+     */
+    public void copySmithingTemplateCustom(ItemLike template, ItemLike baseItem, ItemLike surroundingItem) {
+        this.shaped(RecipeCategory.MISC, template, 2)
+                .define('S', surroundingItem)
+                .define('B', baseItem)
+                .define('T', template)
+                .pattern("STS")
+                .pattern("SBS")
+                .pattern("SSS")
+                .unlockedBy(getHasName(template), this.has(template))
+                .save(this.output);
     }
 
     public void multiAssembler(Ingredient firstEssence,

@@ -31,7 +31,7 @@ public class OMLang extends LanguageProvider {
         // blocks
         add(OMBlocks.MOVING_PROBABLE_BLOCK.get(),"Moving Probable Block");
         add(OMBlocks.SELECTION_BLOCK.get(),"Selection Block");
-        // items
+        // crossbows
         add(OMItems.ENDARKENED_CROSSBOW.asItem(),"Endarkened Crossbow");
         // music disc something with the ending 'er' in it
         add(OMItems.RED_WUBS.asItem(),"Music Disc Blaster (Red Stage)");
@@ -41,7 +41,7 @@ public class OMLang extends LanguageProvider {
         add(OMItems.NETHER_WUBS.asItem(),"Music Disc Melter (Nether Stage)");
         add(OMItems.TRIAL_WUBS.asItem(),"Music Disc Tester (Trial Stage)");
         add(OMItems.OXIDIZED_TRIAl_WUBS.asItem(),"Music Disc Oxidizer (Oxidized Stage)");
-        // others
+        // block items
         add(OMItems.MOVING_PROBABLE_BLOCK_ITEM.asItem(),"Moving Probable Block");
         add(OMItems.MULTI_ASSEMBLER.asItem(),"Multi-Assembler");
         // swords
@@ -170,6 +170,9 @@ public class OMLang extends LanguageProvider {
         add(OMItems.PENULTIMATE_SHOVEL_CATALYST.asItem(),"Penultimate Shovel Catalyst");
         add(OMItems.PENULTIMATE_HOE_CATALYST.asItem(),"Penultimate Hoe Catalyst");
 
+        // smithing templates
+        add(OMItems.ULTRA_CATALYST_TEMPLATE.asItem(),"Ultra Catalyst Template");
+
         // misc items
         add(OMItems.STRANGE_STONE.asItem(),"Strange Stone");
         add(OMItems.ULTIMATE_INGOT.asItem(),"Ultimate Ingot");
@@ -186,6 +189,10 @@ public class OMLang extends LanguageProvider {
         add("enchantment.overpoweredmastery.evocation_master.desc","Attacks create Evoker Fangs under foes");
 
 
+        add("item.catalyst_template.overpoweredmastery.can_make","Can make %s");
+        add("item.catalyst_template.overpoweredmastery.makes_type.ultra_tools","Ultra Tools");
+        add("item.catalyst_template.overpoweredmastery.makes_type.ultimate_tools","Ultimate Tools");
+        add("item.overpoweredmastery.catalyst_template.requires_item_base","Requires %s in Smithing Table");
         add("overpoweredmastery.item.inert_essence.desc","Although useless in this form, some stimulation might make it do something...");
         // subtitles accurately called: "captions"
         add("overpoweredmastery.subtitle.red_wubs","Red Wubs Burn");

@@ -25,6 +25,7 @@ import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.rk.overpoweredmastery.block.OMBlocks;
 import net.rk.overpoweredmastery.datagen.OMEnchantments;
+import net.rk.overpoweredmastery.datagen.OMGlobalLootModifier;
 import net.rk.overpoweredmastery.datagen.OMWorldgen;
 import net.rk.overpoweredmastery.datamap.OMDatamaps;
 import net.rk.overpoweredmastery.enchantment.EnchantmentEntityEffectTypes;
@@ -322,6 +323,7 @@ public class OverpoweredMastery {
 
     private void onGatherData(GatherDataEvent.Client event){
         event.createDatapackRegistryObjects(OMWorldgen.WORLD_GEN_BUILDER.add(Registries.ENCHANTMENT,OMEnchantments::bootstrap));
+        event.createProvider(OMGlobalLootModifier::new);
     }
 
     private void registerDatamapTypes(RegisterDataMapTypesEvent event){
