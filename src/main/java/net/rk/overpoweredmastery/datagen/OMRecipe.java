@@ -349,6 +349,42 @@ public class OMRecipe extends RecipeProvider {
                 1.0f,320,
                 "op_mod_extra_smelting");
 
+
+        shapeless(RecipeCategory.MISC,OMItems.PENULTIMATE_PICKAXE_CATALYST,1)
+                .requires(OMTags.INERT_ESSENCES)
+                .requires(OMItems.CONCENTRATED_MULTI_ESSENCE)
+                .requires(OMItems.CONCENTRATED_MULTI_ESSENCE)
+                .requires(OMItems.ESSENCE_ELECTRONIC_CORE)
+                .requires(Items.NETHERITE_PICKAXE)
+                .unlockedBy("has_thingy",has(OMItems.CONCENTRATED_MULTI_ESSENCE))
+                .save(this.output,"penultimate_pickaxe_catalyst");
+        shapeless(RecipeCategory.MISC,OMItems.PENULTIMATE_SHOVEL_CATALYST,1)
+                .requires(OMTags.INERT_ESSENCES)
+                .requires(OMItems.CONCENTRATED_MULTI_ESSENCE)
+                .requires(OMItems.CONCENTRATED_MULTI_ESSENCE)
+                .requires(OMItems.ESSENCE_ELECTRONIC_CORE)
+                .requires(Items.NETHERITE_SHOVEL)
+                .unlockedBy("has_thingy",has(OMItems.CONCENTRATED_MULTI_ESSENCE))
+                .save(this.output,"penultimate_shovel_catalyst");
+        shapeless(RecipeCategory.MISC,OMItems.PENULTIMATE_AXE_CATALYST,1)
+                .requires(OMTags.INERT_ESSENCES)
+                .requires(OMItems.CONCENTRATED_MULTI_ESSENCE)
+                .requires(OMItems.CONCENTRATED_MULTI_ESSENCE)
+                .requires(OMItems.ESSENCE_ELECTRONIC_CORE)
+                .requires(Items.NETHERITE_AXE)
+                .unlockedBy("has_thingy",has(OMItems.CONCENTRATED_MULTI_ESSENCE))
+                .save(this.output,"penultimate_axe_catalyst");
+        shapeless(RecipeCategory.MISC,OMItems.PENULTIMATE_HOE_CATALYST,1)
+                .requires(OMTags.INERT_ESSENCES)
+                .requires(OMItems.CONCENTRATED_MULTI_ESSENCE)
+                .requires(OMItems.CONCENTRATED_MULTI_ESSENCE)
+                .requires(OMItems.ESSENCE_ELECTRONIC_CORE)
+                .requires(Items.NETHERITE_HOE)
+                .unlockedBy("has_thingy",has(OMItems.CONCENTRATED_MULTI_ESSENCE))
+                .save(this.output,"penultimate_hoe_catalyst");
+
+
+
         // smithing general
         customSmithing(OMItems.ULTIMATE_SWORD.asItem(),
                 OMItems.ULTRA_CATALYST_TEMPLATE.asItem(),

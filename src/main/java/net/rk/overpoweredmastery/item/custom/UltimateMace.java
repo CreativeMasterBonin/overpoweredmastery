@@ -1,7 +1,6 @@
 package net.rk.overpoweredmastery.item.custom;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -28,7 +27,6 @@ import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
 import net.rk.overpoweredmastery.datagen.OMEnchantments;
@@ -42,6 +40,7 @@ import java.util.function.Consumer;
 public class UltimateMace extends MaceItem {
     public UltimateMace(Properties properties) {
         super(properties.rarity(OMRarity.ULTIMATE.getValue())
+                .fireResistant()
                 .enchantable(30)
                 .durability(500 + OPUtil.ULTIMATE_SHARED_DURABILITY)
         );

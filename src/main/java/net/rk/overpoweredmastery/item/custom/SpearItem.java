@@ -117,6 +117,51 @@ public class SpearItem extends AbstractSpear{
                         .build()));
     }
 
+    public SpearItem(Properties properties,
+                     ResourceKey id,
+                     int damage,
+                     float speed,
+                     Weapon weapon,
+                     Holder<SoundEvent> breakSound,
+                     Enchantable enchantable,
+                     Tool tool,
+                     int usesTillBreak,
+                     TagKey<Item> repairTag,
+                     Holder<SoundEvent> useSound,
+                     Holder<SoundEvent> attackSound,
+                     Holder<SoundEvent> hitSound,
+                     float damageMultiplier,
+                     float delay,
+                     float dismountMaxDuration,
+                     float dismountMinSpeed,
+                     float knockbackMaxDuration,
+                     float knockbackMinSpeed,
+                     float damageMaxDuration,
+                     float damageMinSpeed) {
+        super(properties
+                .setId(id)
+                .component(DataComponents.WEAPON,weapon)
+                .component(DataComponents.BREAK_SOUND,breakSound)
+                .component(DataComponents.ENCHANTABLE,enchantable)
+                .component(DataComponents.TOOL,tool)
+                .repairable(repairTag)
+                .durability(usesTillBreak)
+                .attributes(ItemAttributeModifiers.builder()
+                        .add(Attributes.ENTITY_INTERACTION_RANGE,
+                                new AttributeModifier(BASE_SPEAR_REACH,
+                                        3.25f,
+                                        AttributeModifier.Operation.ADD_VALUE),
+                                EquipmentSlotGroup.HAND)
+                        .add(Attributes.ATTACK_DAMAGE,
+                                new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID,damage,AttributeModifier.Operation.ADD_VALUE),
+                                EquipmentSlotGroup.HAND)
+                        .add(Attributes.ATTACK_SPEED,
+                                new AttributeModifier(Item.BASE_ATTACK_SPEED_ID,speed,AttributeModifier.Operation.ADD_VALUE),
+                                EquipmentSlotGroup.HAND)
+                        .build()),useSound,attackSound,hitSound,
+                damageMultiplier,delay,dismountMaxDuration,dismountMinSpeed,knockbackMaxDuration,knockbackMinSpeed,damageMaxDuration,damageMinSpeed);
+    }
+
     @Override
     public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment){
         if(enchantment.is(OMTags.SPEAR_SUPPORTED) || enchantment.is(OMEnchantments.INSTAREPAIR) || enchantment.is(Enchantments.MENDING) || enchantment.is(Tags.Enchantments.INCREASE_ENTITY_DROPS) || enchantment.is(Tags.Enchantments.WEAPON_DAMAGE_ENHANCEMENTS)){

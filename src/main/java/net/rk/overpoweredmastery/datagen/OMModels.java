@@ -182,6 +182,7 @@ public class OMModels extends ModelProvider {
                 !x.is(OMItems.ULTRA_PICKAXE) &&
                 !(x.value() instanceof InertEssence) &&
                 !(x.value() instanceof AbstractWubs)
+                        && !(x.is(OMItems.ULTIMATE_SPEAR))
                 && !(x.value() instanceof AbstractSpear)
         );
     }

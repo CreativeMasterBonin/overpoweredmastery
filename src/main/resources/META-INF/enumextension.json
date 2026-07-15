@@ -17,15 +17,6 @@
         "class": "net/rk/overpoweredmastery/item/OMRarity",
         "field": "ULTRA"
       }
-    },
-    {
-      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
-      "name": "overpoweredmastery_long_spear_armpose",
-      "constructor": "(ZZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
-      "parameters": {
-        "class": "net/rk/overpoweredmastery/OMEnumExtensions",
-        "field": "OM_LONG_SPEAR"
-      }
     }
   ]
 }

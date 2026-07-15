@@ -101,6 +101,9 @@ public class OMLang extends LanguageProvider {
         add("item.overpoweredmastery.ultra.desc","Completely overpowered...");
         add("item.overpoweredmastery.ultra.desc.detail","Combines effects of the ingredients used to craft it, including all tier abilities");
 
+        // spears
+        add(OMItems.ULTIMATE_SPEAR.asItem(),"Ultimate Spear");
+
         // long spears
         add(OMItems.TEST_SPEAR.asItem(),"Test Long Spear");
         add(OMItems.WOODEN_SPEAR.asItem(),"Wooden Long Spear");
@@ -109,6 +112,7 @@ public class OMLang extends LanguageProvider {
         add(OMItems.IRON_SPEAR.asItem(),"Iron Long Spear");
         add(OMItems.DIAMOND_SPEAR.asItem(),"Diamond Long Spear");
         add(OMItems.NETHERITE_SPEAR.asItem(),"Netherite Long Spear");
+        add(OMItems.ULTIMATE_LONG_SPEAR.asItem(),"Ultimate Long Spear");
         // binding
         add(OMItems.WOODEN_TOOL_BINDING.asItem(),"Wooden Tool Binding");
         add(OMItems.METAL_TOOL_BINDING.asItem(),"Metal Tool Binding");

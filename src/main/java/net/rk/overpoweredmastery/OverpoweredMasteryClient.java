@@ -41,8 +41,19 @@ import net.rk.overpoweredmastery.screen.MultiAssemblerScreen;
 public class OverpoweredMasteryClient{
     public OverpoweredMasteryClient(IEventBus eventBus, ModContainer container) {
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-        eventBus.addListener(this::setupClientExtensions);
+        //eventBus.addListener(this::setupClientExtensions);
     }
+    /*
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "overpoweredmastery_long_spear_armpose",
+      "constructor": "(ZZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "net/rk/overpoweredmastery/OMEnumExtensions",
+        "field": "OM_LONG_SPEAR"
+      }
+    }
+     */
 
     public static KeyMapping.Category OM_KEYMAPPING_CATEGORY = new KeyMapping.Category(
             Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"general_keys")
@@ -102,7 +113,8 @@ public class OverpoweredMasteryClient{
                 OMItems.GOLD_SPEAR,
                 OMItems.IRON_SPEAR,
                 OMItems.DIAMOND_SPEAR,
-                OMItems.NETHERITE_SPEAR);
+                OMItems.NETHERITE_SPEAR,
+                OMItems.ULTIMATE_LONG_SPEAR);
     }
 
     public static final IClientItemExtensions LONG_SPEAR_EXTENSION = new IClientItemExtensions() {
@@ -116,7 +128,7 @@ public class OverpoweredMasteryClient{
 
         @Override
         public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
-            if(player.getMainHandItem().getItem() instanceof AbstractSpear | player.getOffhandItem().getItem() instanceof AbstractSpear){
+            if(player.getMainHandItem().getItem() instanceof AbstractSpear || player.getOffhandItem().getItem() instanceof AbstractSpear){
                 if(arm == HumanoidArm.RIGHT){
                     if(player.swinging || player.swingTime > 0){
                         poseStack.mulPose(Axis.XN.rotationDegrees(-1.35f));

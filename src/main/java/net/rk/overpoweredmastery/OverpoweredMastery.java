@@ -227,6 +227,9 @@ public class OverpoweredMastery {
             customItems(event);
             //customOPItems(event);
         }
+        if(event.getTabKey() == CreativeModeTabs.COMBAT){
+
+        }
         if(event.getTabKey() == ALL_TAB.getKey()){
             // machines and devices
             //event.accept(OMItems.MULTI_ASSEMBLER);
@@ -272,16 +275,19 @@ public class OverpoweredMastery {
             event.accept(OMItems.REDSTONE_BASE_COMPONENT);
             event.accept(OMItems.AURORAN_PROCESSOR);
             event.accept(OMItems.ESSENCE_ELECTRONIC_CORE);
+            // smithing templates
+            event.accept(OMItems.ULTRA_CATALYST_TEMPLATE);
             // ingots
             event.accept(OMItems.ULTIMATE_INGOT);
             event.accept(OMItems.ULTRA_INGOT);
-            // spears
+            // long spears
             event.accept(OMItems.WOODEN_SPEAR);
             event.accept(OMItems.STONE_SPEAR);
             event.accept(OMItems.GOLD_SPEAR);
             event.accept(OMItems.IRON_SPEAR);
             event.accept(OMItems.DIAMOND_SPEAR);
             event.accept(OMItems.NETHERITE_SPEAR);
+            event.accept(OMItems.ULTIMATE_LONG_SPEAR);
             // staffs
             event.accept(OMItems.PRIMITIVE_STAFF);
             event.accept(OMItems.ENDERMARINE_STAFF);
@@ -294,11 +300,20 @@ public class OverpoweredMastery {
             event.accept(OMItems.PENULTIMATE_SWORD_DARK);
             event.accept(OMItems.PENULTIMATE_SWORD_LIGHT);
             event.accept(OMItems.PENULTIMATE_PICKAXE_CATALYST);
+            //event.accept(OMItems.PENULTIMATE_PICKAXE_DARK);
+            //event.accept(OMItems.PENULTIMATE_PICKAXE_LIGHT);
             event.accept(OMItems.PENULTIMATE_AXE_CATALYST);
+            //event.accept(OMItems.PENULTIMATE_AXE_DARK);
+            //event.accept(OMItems.PENULTIMATE_AXE_LIGHT);
             event.accept(OMItems.PENULTIMATE_SHOVEL_CATALYST);
+            //event.accept(OMItems.PENULTIMATE_SHOVEL_DARK);
+            //event.accept(OMItems.PENULTIMATE_SHOVEL_LIGHT);
             event.accept(OMItems.PENULTIMATE_HOE_CATALYST);
+            //event.accept(OMItems.PENULTIMATE_HOE_DARK);
+            //event.accept(OMItems.PENULTIMATE_HOE_LIGHT);
             // ultimate
             event.accept(OMItems.ULTIMATE_SWORD);
+            event.accept(OMItems.ULTIMATE_SPEAR);
             event.accept(OMItems.ULTIMATE_PICKAXE);
             event.accept(OMItems.ULTIMATE_HOE);
             event.accept(OMItems.ULTIMATE_BOW);

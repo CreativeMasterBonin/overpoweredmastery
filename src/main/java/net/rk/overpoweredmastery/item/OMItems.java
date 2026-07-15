@@ -114,13 +114,32 @@ public class OMItems{
 
 
     public static final DeferredItem<Item> WOODEN_SPEAR = ITEMS.registerItem("wooden_spear",
-            properties -> new SpearItem(new Item.Properties(),makeResourceKey("wooden_spear"),1,1.1f,
-                    new Weapon(2,0),Holder.direct(SoundEvents.WOOD_BREAK),
+            properties -> new SpearItem(
+                    new Item.Properties(),
+                    makeResourceKey("wooden_spear"),
+                    1,
+                    1.1f,
+                    new Weapon(2,0),
+                    Holder.direct(SoundEvents.WOOD_BREAK),
                     new Enchantable(15),
                     spearTool(BlockTags.INCORRECT_FOR_WOODEN_TOOL,OMTags.CORRECT_FOR_SPEAR,
                             10.0f,1.25f,
                             2,false),
-                    59, ItemTags.WOODEN_TOOL_MATERIALS));
+                    59,
+                    ItemTags.WOODEN_TOOL_MATERIALS,
+                    SoundEvents.SPEAR_WOOD_USE,
+                    SoundEvents.SPEAR_WOOD_ATTACK,
+                    SoundEvents.SPEAR_WOOD_HIT,
+                    0.7F,
+                    0.5F,
+                    10.0F,
+                    15.0F,
+                    10.0F,
+                    5.1F,
+                    30.0F,
+                    5.25F
+            )
+    );
 
     public static final DeferredItem<Item> STONE_SPEAR = ITEMS.registerItem("stone_spear",
             properties -> new SpearItem(new Item.Properties(),makeResourceKey("stone_spear"),2,1.25f,
@@ -129,7 +148,20 @@ public class OMItems{
                     spearTool(BlockTags.INCORRECT_FOR_STONE_TOOL,OMTags.CORRECT_FOR_SPEAR,
                             12.0f,1.35f,
                             2,false),
-                    131, ItemTags.STONE_TOOL_MATERIALS));
+                    131, ItemTags.STONE_TOOL_MATERIALS,
+                    SoundEvents.SPEAR_USE,
+                    SoundEvents.SPEAR_ATTACK,
+                    SoundEvents.SPEAR_HIT,
+                    0.5F,
+                    0.7F,
+                    10.0F,
+                    15.0F,
+                    10.0F,
+                    5.1F,
+                    25.0F,
+                    4.6F
+            )
+    );
 
     public static final DeferredItem<Item> GOLD_SPEAR = ITEMS.registerItem("gold_spear",
             properties -> new SpearItem(new Item.Properties(),makeResourceKey("gold_spear"),1,2.25f,
@@ -138,7 +170,20 @@ public class OMItems{
                     spearTool(BlockTags.INCORRECT_FOR_GOLD_TOOL,OMTags.CORRECT_FOR_SPEAR,
                             20.0f,2.0f,
                             4,false),
-                    32, ItemTags.GOLD_TOOL_MATERIALS));
+                    32, ItemTags.GOLD_TOOL_MATERIALS,
+                    SoundEvents.SPEAR_USE,
+                    SoundEvents.SPEAR_ATTACK,
+                    SoundEvents.SPEAR_HIT,
+                    0.5F,
+                    1.25F,
+                    10.0F,
+                    15.0F,
+                    10.0F,
+                    5.1F,
+                    20.0F,
+                    4.6F
+            )
+    );
 
     public static final DeferredItem<Item> IRON_SPEAR = ITEMS.registerItem("iron_spear",
             properties -> new SpearItem(new Item.Properties(),makeResourceKey("iron_spear"),2,1.1f,
@@ -147,7 +192,20 @@ public class OMItems{
                     spearTool(BlockTags.INCORRECT_FOR_IRON_TOOL,OMTags.CORRECT_FOR_SPEAR,
                             14.0f,1.4f,
                             1,false),
-                    250, ItemTags.IRON_TOOL_MATERIALS));
+                    250, ItemTags.IRON_TOOL_MATERIALS,
+                    SoundEvents.SPEAR_USE,
+                    SoundEvents.SPEAR_ATTACK,
+                    SoundEvents.SPEAR_HIT,
+                    2.0F,
+                    2.5F,
+                    7.0F,
+                    14.0F,
+                    10.0F,
+                    4.7F,
+                    15.0F,
+                    2.5F
+            )
+    );
 
     public static final DeferredItem<Item> DIAMOND_SPEAR = ITEMS.registerItem("diamond_spear",
             properties -> new SpearItem(new Item.Properties(),makeResourceKey("diamond_spear"),3,1.1f,
@@ -156,16 +214,42 @@ public class OMItems{
                     spearTool(BlockTags.INCORRECT_FOR_DIAMOND_TOOL,OMTags.CORRECT_FOR_SPEAR,
                             20.0f,1.7f,
                             1,false),
-                    1561, ItemTags.DIAMOND_TOOL_MATERIALS));
+                    1561, ItemTags.DIAMOND_TOOL_MATERIALS,
+                    SoundEvents.SPEAR_USE,
+                    SoundEvents.SPEAR_ATTACK,
+                    SoundEvents.SPEAR_HIT,
+                    3.0F,
+                    3.25F,
+                    20.0F,
+                    5.0F,
+                    10.0F,
+                    2.0F,
+                    12.0F,
+                    2.5F
+            )
+    );
 
     public static final DeferredItem<Item> NETHERITE_SPEAR = ITEMS.registerItem("netherite_spear",
-            properties -> new SpearItem(new Item.Properties(),makeResourceKey("netherite_spear"),4,1.35f,
+            properties -> new SpearItem(new Item.Properties().fireResistant(),makeResourceKey("netherite_spear"),4,1.35f,
                     new Weapon(4,5),Holder.direct(SoundEvents.NETHERITE_BLOCK_BREAK),
                     new Enchantable(15),
                     spearTool(BlockTags.INCORRECT_FOR_NETHERITE_TOOL,OMTags.CORRECT_FOR_SPEAR,
                             30.0f,2.0f,
                             1,false),
-                    2031,ItemTags.NETHERITE_TOOL_MATERIALS));
+                    2031,ItemTags.NETHERITE_TOOL_MATERIALS,
+                    SoundEvents.SPEAR_USE,
+                    SoundEvents.SPEAR_ATTACK,
+                    SoundEvents.SPEAR_HIT,
+                    3.5F,
+                    3.25F,
+                    25.0F,
+                    5.0F,
+                    10.0F,
+                    1.0F,
+                    9.0F,
+                    2.2F
+            )
+    );
 
     public static final DeferredItem<Item> WOODEN_TOOL_BINDING = ITEMS.registerItem("wooden_tool_binding",
             Item::new, () -> new Item.Properties().setId(makeResourceKey("wooden_tool_binding")));
@@ -174,7 +258,7 @@ public class OMItems{
     public static final DeferredItem<Item> DIAMOND_TOOL_BINDING = ITEMS.registerItem("diamond_tool_binding",
             Item::new, () -> new Item.Properties().setId(makeResourceKey("diamond_tool_binding")));
     public static final DeferredItem<Item> NETHERITE_TOOL_BINDING = ITEMS.registerItem("netherite_tool_binding",
-            Item::new, () -> new Item.Properties().setId(makeResourceKey("netherite_tool_binding")));
+            Item::new, () -> new Item.Properties().fireResistant().setId(makeResourceKey("netherite_tool_binding")));
 
 
 
@@ -491,6 +575,42 @@ public class OMItems{
                             false
                     )));
 
+    // same as op mod's long spears
+    public static final DeferredItem<Item> ULTIMATE_LONG_SPEAR = ITEMS.registerItem("ultimate_long_spear",
+            properties -> new SpearItem(new Item.Properties().fireResistant(),makeResourceKey("ultimate_long_spear"),4,1.35f,
+                    new Weapon(4,5),Holder.direct(SoundEvents.NETHERITE_BLOCK_BREAK),
+                    new Enchantable(15),
+                    spearTool(BlockTags.INCORRECT_FOR_NETHERITE_TOOL,OMTags.CORRECT_FOR_SPEAR,
+                            30.0f,2.0f,
+                            1,false),
+                    2031,ItemTags.NETHERITE_TOOL_MATERIALS,
+                    SoundEvents.SPEAR_USE,
+                    SoundEvents.SPEAR_ATTACK,
+                    SoundEvents.SPEAR_HIT,
+                    3.5F,
+                    3.25F,
+                    25.0F,
+                    5.0F,
+                    10.0F,
+                    1.0F,
+                    9.0F,
+                    2.2F
+            )
+    );
+    // like a vanilla spear, but ULTIMATE tier
+    public static final DeferredItem<Item> ULTIMATE_SPEAR = ITEMS.registerItem("ultimate_spear",
+            properties -> new ItemWithResourceKey(new Item.Properties().fireResistant().spear(ULTIMATE,
+                            2.05f,
+                            5.1f,
+                            0.17f,
+                            15.0f,
+                            3.0f,
+                            15.25f,
+                            2.5f,
+                            15.75f,
+                            2.0f)
+                    .fireResistant(),makeResourceKey("ultimate_spear")));
+
 
     // ultra items
     public static final DeferredItem<Item> ULTRA_INGOT = ITEMS.registerItem("ultra_ingot",
@@ -500,7 +620,7 @@ public class OMItems{
 
     public static final DeferredItem<Item> ULTRA_SWORD = ITEMS.registerItem("ultra_sword",
             UltraSword::new,
-            () -> new Item.Properties().setId(makeResourceKey("ultra_sword"))
+            () -> new Item.Properties().fireResistant().setId(makeResourceKey("ultra_sword"))
                     .attributes(ItemAttributeModifiers.builder()
                             .add(Attributes.ATTACK_DAMAGE,
                                     new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID,99999.0f,AttributeModifier.Operation.ADD_VALUE),
