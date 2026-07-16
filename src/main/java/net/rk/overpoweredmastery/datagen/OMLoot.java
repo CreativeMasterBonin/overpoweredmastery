@@ -40,6 +40,8 @@ public class OMLoot extends BlockLootSubProvider {
         this.add(OMBlocks.DEEPSLATE_INERT_DARK_ESSENCE_ORE.get(),block -> this.createOreDrop(block,OMItems.INERT_DARK_ESSENCE.asItem()));
 
         this.add(OMBlocks.MULTI_ASSEMBLER.get(),this.createSingleItemTable(OMItems.MULTI_ASSEMBLER.get()));
+        this.dropSelf(OMBlocks.ULTIMATE_BLOCK.get());
+        this.dropSelf(OMBlocks.ULTRA_BLOCK.get());
     }
 
     @Override

@@ -7,8 +7,11 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.rk.overpoweredmastery.OverpoweredMastery;
@@ -133,6 +136,22 @@ public class OMBlocks{
                     140,5,140,true,properties),() -> BlockBehaviour.Properties.of()
                     .setId(makeResourceKey("deepslate_inert_dark_essence_ore"))); // dark (literal and virtually)
 
+    public static final DeferredBlock<Block> ULTIMATE_BLOCK = BLOCKS.registerBlock("ultimate_block",
+            properties -> new Block(BlockBehaviour.Properties.of().setId(makeResourceKey("ultimate_block"))
+                    .sound(SoundType.NETHERITE_BLOCK)
+                    .mapColor(MapColor.COLOR_PURPLE)
+                    .pushReaction(PushReaction.BLOCK)
+                    .destroyTime(65.0f).explosionResistance(2500f)
+                    .requiresCorrectToolForDrops()
+            ));
+    public static final DeferredBlock<Block> ULTRA_BLOCK = BLOCKS.registerBlock("ultra_block",
+            properties -> new Block(BlockBehaviour.Properties.of().setId(makeResourceKey("ultra_block"))
+                    .sound(SoundType.HEAVY_CORE)
+                    .mapColor(MapColor.SNOW)
+                    .pushReaction(PushReaction.BLOCK)
+                    .destroyTime(100.0f).explosionResistance(10000f)
+                    .requiresCorrectToolForDrops()
+            ));
 
 
     public static ResourceKey<Block> makeResourceKey(String name){

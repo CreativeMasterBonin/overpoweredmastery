@@ -69,6 +69,8 @@ public class OMModels extends ModelProvider {
         genItem = itemModels;
         itemModels.generateCrossbow(OMItems.ENDARKENED_CROSSBOW.asItem());
         blockModels.createTrivialCube(OMBlocks.MOVING_PROBABLE_BLOCK.get());
+        blockModels.createTrivialCube(OMBlocks.ULTIMATE_BLOCK.get());
+        blockModels.createTrivialCube(OMBlocks.ULTRA_BLOCK.get());
 
         // deepslate essence ores
         BASE_BLOCK_WITH_EMISSIVE_OVERLAY_TEMPLATE.create(OMBlocks.DEEPSLATE_INERT_BLUE_ESSENCE_ORE.get(),

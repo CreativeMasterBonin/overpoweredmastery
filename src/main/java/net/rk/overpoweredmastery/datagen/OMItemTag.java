@@ -88,6 +88,8 @@ public class OMItemTag extends ItemTagsProvider {
         ;
         tag(ItemTags.DURABILITY_ENCHANTABLE)
                 .addTag(OMTags.SPEARS)
+                .addTag(OMTags.ULTIMATE_TOOLS)
+                .addTag(OMTags.ULTRA_TOOLS)
         ;
         tag(OMTags.CAN_HAVE_INSTAREPAIR_ENCHANTMENT)
                 .addTag(OMTags.MUSIC_DISC_WUBS)
@@ -142,6 +144,33 @@ public class OMItemTag extends ItemTagsProvider {
         ;
         tag(OMTags.ULTRA_MATERIALS)
                 .add(OMItems.ULTRA_INGOT.asItem())
+        ;
+        tag(ItemTags.BEACON_PAYMENT_ITEMS)
+                .add(OMItems.ULTIMATE_INGOT.asItem())
+                .add(OMItems.ULTRA_INGOT.asItem())
+        ;
+        tag(ItemTags.DROWNED_PREFERRED_WEAPONS)
+                .add(OMItems.ULTIMATE_SPEAR.asItem())
+                .add(OMItems.ULTIMATE_LONG_SPEAR.asItem())
+        ;
+        tag(ItemTags.PILLAGER_PREFERRED_WEAPONS)
+                .add(OMItems.ENDARKENED_CROSSBOW.asItem())
+        ;
+        tag(ItemTags.SKELETON_PREFERRED_WEAPONS)
+                .add(OMItems.ULTIMATE_BOW.asItem())
+        ;
+        tag(ItemTags.PIGLIN_PREFERRED_WEAPONS)
+                .add(OMItems.ULTIMATE_SWORD.asItem())
+                .add(OMItems.ENDARKENED_CROSSBOW.asItem())
+        ;
+        tag(ItemTags.PIGLIN_REPELLENTS)
+                .add(OMItems.PENULTIMATE_SWORD_LIGHT.asItem())
+        ;
+        tag(ItemTags.IGNORED_BY_PIGLIN_BABIES)
+                .add(OMItems.ULTIMATE_INGOT.asItem())
+                .add(OMItems.ULTRA_INGOT.asItem())
+                .add(OMItems.ULTIMATE_BLOCK.asItem())
+                .add(OMItems.ULTRA_BLOCK.asItem())
         ;
     }
 }

@@ -16,6 +16,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
+import net.rk.overpoweredmastery.block.OMBlocks;
 import net.rk.overpoweredmastery.item.OMItems;
 
 import java.util.List;
@@ -383,6 +384,40 @@ public class OMRecipe extends RecipeProvider {
                 .unlockedBy("has_thingy",has(OMItems.CONCENTRATED_MULTI_ESSENCE))
                 .save(this.output,"penultimate_hoe_catalyst");
 
+        shapeless(RecipeCategory.BUILDING_BLOCKS, OMBlocks.ULTIMATE_BLOCK.asItem(),1)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .unlockedBy("has_thingy",has(OMItems.ULTIMATE_INGOT))
+                .save(this.output,"ultimate_block");
+        shapeless(RecipeCategory.BUILDING_BLOCKS, OMBlocks.ULTRA_BLOCK.asItem(),1)
+                .requires(OMItems.ULTRA_INGOT)
+                .requires(OMItems.ULTRA_INGOT)
+                .requires(OMItems.ULTRA_INGOT)
+                .requires(OMItems.ULTRA_INGOT)
+                .requires(OMItems.ULTRA_INGOT)
+                .requires(OMItems.ULTRA_INGOT)
+                .requires(OMItems.ULTRA_INGOT)
+                .requires(OMItems.ULTRA_INGOT)
+                .requires(OMItems.ULTRA_INGOT)
+                .unlockedBy("has_thingy",has(OMItems.ULTRA_INGOT))
+                .save(this.output,"ultra_block");
+
+        shapeless(RecipeCategory.MISC,OMItems.ULTIMATE_INGOT.asItem(),9)
+                .requires(OMBlocks.ULTIMATE_BLOCK.asItem())
+                .unlockedBy("has_thingy",has(OMBlocks.ULTIMATE_BLOCK.asItem()))
+                .save(this.output,"ultimate_ingots_from_block");
+
+        shapeless(RecipeCategory.MISC,OMItems.ULTRA_INGOT.asItem(),9)
+                .requires(OMBlocks.ULTRA_BLOCK.asItem())
+                .unlockedBy("has_thingy",has(OMBlocks.ULTRA_BLOCK.asItem()))
+                .save(this.output,"ultra_ingots_from_block");
 
 
         // smithing general

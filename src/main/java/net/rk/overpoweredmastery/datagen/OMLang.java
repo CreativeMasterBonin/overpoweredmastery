@@ -31,6 +31,10 @@ public class OMLang extends LanguageProvider {
         // blocks
         add(OMBlocks.MOVING_PROBABLE_BLOCK.get(),"Moving Probable Block");
         add(OMBlocks.SELECTION_BLOCK.get(),"Selection Block");
+        add(OMBlocks.ULTIMATE_BLOCK.get(),"Ultimate Block");
+        add(OMBlocks.ULTRA_BLOCK.get(),"Ultra Block");
+        add(OMItems.ULTIMATE_BLOCK.get(),"Ultimate Block");
+        add(OMItems.ULTRA_BLOCK.get(),"Ultra Block");
         // crossbows
         add(OMItems.ENDARKENED_CROSSBOW.asItem(),"Endarkened Crossbow");
         // music disc something with the ending 'er' in it

@@ -277,9 +277,11 @@ public class OverpoweredMastery {
             event.accept(OMItems.ESSENCE_ELECTRONIC_CORE);
             // smithing templates
             event.accept(OMItems.ULTRA_CATALYST_TEMPLATE);
-            // ingots
+            // ingots and storage blocks
             event.accept(OMItems.ULTIMATE_INGOT);
+            event.accept(OMItems.ULTIMATE_BLOCK);
             event.accept(OMItems.ULTRA_INGOT);
+            event.accept(OMItems.ULTRA_BLOCK);
             // long spears
             event.accept(OMItems.WOODEN_SPEAR);
             event.accept(OMItems.STONE_SPEAR);
