@@ -102,7 +102,7 @@ public class UltimateBow extends BowItem {
     }
 
     @Override
-    protected void shootProjectile(LivingEntity livingEntity, Projectile projectile, int i1, float f1, float f2, float f3, @Nullable LivingEntity target) {
+    public void shootProjectile(LivingEntity livingEntity, Projectile projectile, int i1, float f1, float f2, float f3, @Nullable LivingEntity target) {
         if(projectile instanceof AbstractArrow abstractArrow){
             projectile.setRemainingFireTicks(20);
             abstractArrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;

@@ -1,13 +1,14 @@
 package net.rk.overpoweredmastery.entity.custom;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.SpecialDates;
@@ -23,21 +24,24 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.monster.CrossbowAttackMob;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.entity.npc.villager.Villager;
-import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
 import net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.vehicle.VehicleEntity;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.component.ChargedProjectiles;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -53,13 +57,18 @@ import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import net.rk.overpoweredmastery.util.OPUtil;
 import org.jspecify.annotations.Nullable;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, RangedAttackMob, CrossbowAttackMob {
+public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, RangedAttackMob, CrossbowAttackMob, InventoryCarrier, AttachmentsSupportedEntity {
     public boolean isUnhappy = false;
     public boolean breakDoors = false;
     public boolean chargingCrossbow = false;
+    public boolean isUsingWubItem = false;
     public SimpleContainer fraudInventory = new SimpleContainer(4);
+    public static Set<Item> itemsThatClearPotionEffects = Set.of(Items.MILK_BUCKET);
 
     public final RangedBowAttackGoal fraudUseBowGoal = new RangedBowAttackGoal<>(this, 1.0, 20, 15.0F);
     public final MeleeAttackGoal meleeGoal = new MeleeAttackGoal(this,1.19f,false){
@@ -76,8 +85,27 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
     };
     public final RangedCrossbowAttackGoal fraudRangedCrossbowGoal = new RangedCrossbowAttackGoal(this, 1.12f, 12.0f);
 
+    /**
+     * If desired the net.rk.overpoweredmastery.entity.custom.Fraud#itemsThatClearPotionEffects can be given a new Set of items using this method
+     * @param items The new Set that will replace the current one
+     */
+    public void setPotionClearingItem(Set<Item> items){
+        itemsThatClearPotionEffects = items;
+    }
+
+    /**
+     * Returns the current net.rk.overpoweredmastery.entity.custom.Fraud#itemsThatClearPotionEffects Set
+     * @return The current Set of Items that the Fraud checks for potion clearing items
+     */
+    public Set<Item> getPotionClearingItems(){
+        return itemsThatClearPotionEffects;
+    }
+
     public Fraud(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
+        this.getNavigation().setCanFloat(true);
+        this.getNavigation().setCanOpenDoors(true);
+        // this must be set on the server-side
         if(level instanceof ServerLevel){
             this.registerGoals();
             this.reassignWeaponGoals();
@@ -122,7 +150,10 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
         this(OMEntityTypes.FRAUD.get(),level);
     }
 
-
+    @Override
+    public void pickUpItem(ServerLevel level, ItemEntity entity) {
+        InventoryCarrier.pickUpItem(level,this,this,entity);
+    }
 
     @Override
     public int getBaseExperienceReward(ServerLevel serverLevel) {
@@ -204,6 +235,7 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
         this.setItemSlot(EquipmentSlot.FEET,new ItemStack(Items.NETHERITE_BOOTS));
     }
 
+    // frauds use anything that is useful for survival or just to steal it for personal gain
     @Override
     public boolean wantsToPickUp(ServerLevel level, ItemStack stack) {
         return stack.is(ItemTags.SWORDS)
@@ -216,7 +248,10 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
                 stack.is(ItemTags.CHEST_ARMOR) ||
                 stack.is(ItemTags.LEG_ARMOR) ||
                 stack.is(ItemTags.FOOT_ARMOR) ||
-                stack.is(OMTags.MUSIC_DISC_WUBS);
+                stack.is(Items.MILK_BUCKET) ||
+                stack.is(Tags.Items.SEEDS) ||
+                stack.is(OMTags.MUSIC_DISC_WUBS)
+                || stack.has(DataComponents.FOOD);
     }
 
     @Override
@@ -258,6 +293,9 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
             this.setItemSlot(EquipmentSlot.HEAD,
                     new ItemStack(Items.SPRUCE_LEAVES,1));
         }
+        else if(this.getItemBySlot(EquipmentSlot.HEAD).isEmpty() && SpecialDates.dayNow() == SpecialDates.NEW_YEAR && randomsource.nextFloat() < 0.15f){
+            this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(randomsource.nextFloat() < 0.1f ? Blocks.FIRE_CORAL_FAN : Blocks.CAMPFIRE));
+        }
 
         return data;
     }
@@ -295,7 +333,7 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
                 this.goalSelector.addGoal(3,this.fraudRangedCrossbowGoal);
             }
             else {
-                this.goalSelector.addGoal(3, this.meleeGoal);
+                this.goalSelector.addGoal(3,this.meleeGoal);
             }
         }
     }
@@ -308,13 +346,23 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
 
         // frauds can use potions like players can, but they can selectively pick the best effects out of the batch using strange magic
         if(this.level() instanceof ServerLevel serverLevel){
+            ItemStack itemInHand = this.getItemInHand(InteractionHand.MAIN_HAND);
+
+            // itemstack iterating checks
+            for(ItemStack itemStack : getInventory().getItems()){
+                if(!itemStack.isEmpty()){
+                    if(itemStack.is(Items.MILK_BUCKET)){
+
+                    }
+                }
+            }
+
             if(this.hurtTime > 0 || this.hurtDuration > 0 || this.attackAnim > 0.0f){
                 this.isUnhappy = true;
             }
             else{
                 this.isUnhappy = false;
             }
-            ItemStack itemInHand = this.getItemInHand(InteractionHand.MAIN_HAND);
 
             // play a sound as if drinking the potion
             if(itemInHand.get(DataComponents.POTION_CONTENTS) != null && tickCount % 18 == 0){
@@ -335,9 +383,52 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
                 serverLevel.playSound(this,getX(),getY(),getZ(),SoundEvents.GLASS_BREAK, SoundSource.NEUTRAL,
                         0.75f, OPUtil.nextFloatBetweenInclusive(0.95f,1.2f));
             }
+
+            // poisoned or withered check
+            if(this.hasEffect(MobEffects.POISON) || this.hasEffect(MobEffects.WITHER)){
+                SimpleContainer container = getInventory();
+                boolean actuallyDrankItem = false;
+
+                // if the Fraud has any items that fit the potion clearing condition, then find and use them
+                if(container.hasAnyOf(itemsThatClearPotionEffects)){
+                    // make a list of the items in our inventory
+                    NonNullList<ItemStack> stackList = container.getItems();
+                    // loop through our stacks and see if any are valid
+                    for(ItemStack stack : stackList){
+                        if(itemsThatClearPotionEffects.contains(stack.getItem())){
+                            this.getActiveEffects().clear();
+                            stack.shrink(1);
+                            serverLevel.playSound(this, getOnPos(),
+                                    SoundEvents.GENERIC_DRINK.value(),
+                                    SoundSource.NEUTRAL,
+                                    0.75f,OPUtil.nextFloatBetweenInclusive(0.92f,1.07f));
+                            actuallyDrankItem = true;
+                            break;
+                        }
+                    }
+                }
+
+                // if we had a potion clearing drink, play a confirmation sound
+                if(actuallyDrankItem){
+                    serverLevel.playSound(this,getOnPos(),SoundEvents.WANDERING_TRADER_YES,
+                            SoundSource.NEUTRAL);
+                }
+            }
         }
 
         fraudEntityFiller.pop();
+    }
+
+    public static final DropChances dropEquipmentChances = new DropChances(
+            Map.of(EquipmentSlot.HEAD,0.0f,
+                    EquipmentSlot.BODY,0.0f,
+                    EquipmentSlot.LEGS,0.0f,
+                    EquipmentSlot.FEET,0.0f,
+                    EquipmentSlot.MAINHAND,0.0f,EquipmentSlot.OFFHAND,0.0f));
+
+    @Override
+    public DropChances getDropChances() {
+        return dropEquipmentChances;
     }
 
     @Override
@@ -458,6 +549,24 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
         }
     }
 
+    public Projectile createCustomProjectile(Level level, LivingEntity shooter, ItemStack weapon, ItemStack ammo, boolean isCrit){
+        Item ammoItem = ammo.getItem();
+        ArrowItem arrowItemType;
+        if (ammoItem instanceof ArrowItem arrowitem1) {
+            arrowItemType = arrowitem1;
+        } else {
+            arrowItemType = (ArrowItem)Items.ARROW;
+        }
+
+        ArrowItem arrowitem = arrowItemType;
+        AbstractArrow abstractarrow = arrowitem.createArrow(level, ammo, shooter, weapon);
+        if (isCrit) {
+            abstractarrow.setCritArrow(true);
+        }
+
+        return abstractarrow;
+    }
+
     @Override
     public void performCrossbowAttack(LivingEntity user, float velocity) {
         ItemStack itemstack = user.getItemInHand(user.getUsedItemHand());
@@ -465,11 +574,52 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
 
         itemstack = new ItemStack(Items.CROSSBOW);
         itemstack.set(DataComponents.CHARGED_PROJECTILES,ChargedProjectiles.of(List.of(
-                new ItemStack(Items.ARROW),new ItemStack(Items.FIREWORK_ROCKET)
+                new ItemStack(Items.ARROW)
         )));
 
-        if (stack instanceof CrossbowItem crossbowitem) {
-            crossbowitem.performShooting(user.level(), user, user.getUsedItemHand(), itemstack, velocity, (float)(14 - user.level().getDifficulty().getId() * 4), this.getTarget());
+        if (user.level() instanceof ServerLevel serverLevel) {
+            ItemStack weapon = user.getItemInHand(InteractionHand.MAIN_HAND);
+            LivingEntity shooter = user;
+            List<ItemStack> projectileItems = List.of(new ItemStack(Items.ARROW),new ItemStack(Items.ARROW),new ItemStack(Items.ARROW));
+
+            float f = EnchantmentHelper.processProjectileSpread(serverLevel, weapon, shooter, 0.0F);
+            float f1 = projectileItems.size() == 1 ? 0.0F : 2.0F * f / (float)(projectileItems.size() - 1);
+            float f2 = (float)((projectileItems.size() - 1) % 2) * f1 / 2.0F;
+            float f3 = 1.0F;
+
+            for(int i = 0; i < projectileItems.size(); ++i) {
+                ItemStack itemInList = projectileItems.get(i);
+                if (!itemstack.isEmpty()) {
+                    float f4 = f2 + f3 * (float)((i + 1) / 2) * f1;
+                    f3 = -f3;
+                    int j = i;
+
+                    // crossbows don't exactly work without non-static methods, so this replaces a check to make a 'fake arrow'
+                    AbstractArrow replacementFakeArrow = new Arrow(user.level(), this, new ItemStack(Items.ARROW),user.getItemBySlot(EquipmentSlot.MAINHAND));
+
+                    replacementFakeArrow.setRemainingFireTicks(20);
+                    replacementFakeArrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+
+                    double d0 = user.getX() - this.getX();
+                    double d1 = user.getEyeY() - 1.0f;
+                    double d2 = user.getZ() - this.getZ();
+                    double d3 = Math.sqrt(d0 * d0 + d2 * d2) * 0.2f;
+
+                    itemstack = new ItemStack(Items.ARROW);
+
+                    Projectile.spawnProjectile(
+                            replacementFakeArrow,
+                            serverLevel,
+                            itemstack,
+                            projectileToShoot -> projectileToShoot.shoot(d0, d1 + d3 - projectileToShoot.getY(), d2,
+                                    2.25f, 0.2f)
+                    );
+
+                    if (weapon.isEmpty()) {
+                        break;
+                    }
+                }
+            }
         }
 
         this.onCrossbowAttackPerformed();
@@ -531,18 +681,35 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
     }
 
     @Override
-    protected void addAdditionalSaveData(ValueOutput output) {
+    public void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
         output.putBoolean("unhappy",this.isUnhappy);
         output.putBoolean("charging_crossbow",this.chargingCrossbow);
+
+        // save items to disk
+        ValueOutput.TypedOutputList<ItemStackWithSlot> typedoutputlist = output.list("Items", ItemStackWithSlot.CODEC);
+        for(int i = 0; i < this.getInventory().getContainerSize(); ++i) {
+            ItemStack itemstack = this.getInventory().getItem(i);
+            if (!itemstack.isEmpty()) {
+                typedoutputlist.add(new ItemStackWithSlot(i, itemstack));
+            }
+        }
     }
 
     @Override
-    protected void readAdditionalSaveData(ValueInput input) {
+    public void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         this.isUnhappy = input.getBooleanOr("unhappy",false);
         this.chargingCrossbow = input.getBooleanOr("charging_crossbow",false);
         this.reassignWeaponGoals();
+        // get saved items from disk
+        Iterator itemIterators = input.listOrEmpty("Items", ItemStackWithSlot.CODEC).iterator();
+        while(itemIterators.hasNext()) {
+            ItemStackWithSlot itemstackwithslot = (ItemStackWithSlot)itemIterators.next();
+            if (itemstackwithslot.isValidInContainer(this.getInventory().getContainerSize())) {
+                this.getInventory().setItem(itemstackwithslot.slot(), itemstackwithslot.stack());
+            }
+        }
     }
 
     public boolean isChargingCrossbow() {
@@ -557,5 +724,10 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
     @Override
     public void onCrossbowAttackPerformed() {
         this.noActionTime = 0;
+    }
+
+    @Override
+    public SimpleContainer getInventory() {
+        return fraudInventory;
     }
 }

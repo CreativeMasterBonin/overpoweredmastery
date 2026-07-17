@@ -97,6 +97,10 @@ public class OverpoweredMastery {
             "using_wub_item", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL.fieldOf("using_wub_item")).build()
     );
 
+    public static final Supplier<AttachmentType<Boolean>> USING_CROSSBOW_UNPERSISTENT = ATTACHMENT_TYPES.register(
+            "using_crossbow_unpersistent", () -> AttachmentType.builder(() -> false).build()
+    );
+
     public static final DeferredHolder<CreativeModeTab,CreativeModeTab> ALL_TAB = CREATIVE_MODE_TABS.register("overpoweredmastery_creative_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.overpoweredmastery"))
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
