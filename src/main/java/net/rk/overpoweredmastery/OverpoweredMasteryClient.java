@@ -6,7 +6,9 @@ import com.mojang.math.Axis;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.MaterialMapper;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.resources.model.AtlasManager;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -55,6 +57,10 @@ public class OverpoweredMasteryClient{
     }
      */
 
+    public static final Identifier MULTI_ASSEMBLER_ATLAS_ID = Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"multi_assembler");
+    public static final Identifier MULTI_ASSEMBLER_SHEET = Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"textures/block_entity/multi_assembler.png");
+    public static final MaterialMapper MULTI_ASSEMBLER_MAPPER = new MaterialMapper(MULTI_ASSEMBLER_SHEET,"block_entity/multi_assembler");
+
     public static KeyMapping.Category OM_KEYMAPPING_CATEGORY = new KeyMapping.Category(
             Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"general_keys")
     );
@@ -65,6 +71,11 @@ public class OverpoweredMasteryClient{
             InputConstants.Type.KEYSYM,
             InputConstants.KEY_RBRACKET,
             OM_KEYMAPPING_CATEGORY);
+
+    @SubscribeEvent
+    public static void registerAtlases(RegisterTextureAtlasesEvent event){
+        event.register(new AtlasManager.AtlasConfig(MULTI_ASSEMBLER_SHEET,MULTI_ASSEMBLER_ATLAS_ID,false));
+    }
 
     @SubscribeEvent
     public static void registerKeyMappings(RegisterKeyMappingsEvent event){
@@ -98,6 +109,7 @@ public class OverpoweredMasteryClient{
         event.registerEntityRenderer(OMEntityTypes.CHICKEN_WUB_ENERGY_BALL.get(),ChickenWubEnergyBallRenderer::new);
         event.registerEntityRenderer(OMEntityTypes.NETHER_WUB_ENERGY_BALL.get(),NetherWubEnergyBallRenderer::new);
         event.registerEntityRenderer(OMEntityTypes.TRIAL_WUB_ENERGY_BALL.get(),TrialWubEnergyBallRenderer::new);
+        event.registerEntityRenderer(OMEntityTypes.FRAUD.get(),FraudRenderer::new);
     }
 
     @SubscribeEvent

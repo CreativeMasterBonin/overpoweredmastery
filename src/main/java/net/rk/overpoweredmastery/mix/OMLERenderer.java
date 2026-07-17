@@ -2,11 +2,16 @@ package net.rk.overpoweredmastery.mix;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.object.cart.MinecartModel;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.entity.state.MinecartRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
@@ -45,6 +50,7 @@ public abstract class OMLERenderer{
                 poseStack.mulPose(Axis.XP.rotationDegrees(ClientConfig.MINECART_HAX_X_ROTATION.get().floatValue()));
                 poseStack.mulPose(Axis.YP.rotationDegrees(ClientConfig.MINECART_HAX_Y_ROTATION.get().floatValue()));
                 poseStack.mulPose(Axis.ZP.rotationDegrees(ClientConfig.MINECART_HAX_Z_ROTATION.get().floatValue()));
+
                 model.renderToBuffer(poseStack,
                         refBufferSource.getBuffer(RenderTypes.entityCutout(Identifier.withDefaultNamespace("textures/entity/minecart.png"))),
                         16777215, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(1.0f, 1.0f, 1.0f, 1.0f));

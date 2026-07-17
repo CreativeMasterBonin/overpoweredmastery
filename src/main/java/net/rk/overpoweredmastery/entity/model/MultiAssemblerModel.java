@@ -12,7 +12,7 @@ import net.rk.overpoweredmastery.OverpoweredMastery;
 
 public class MultiAssemblerModel extends Model<MultiAssemblerModel.State>{
     public static final ModelLayerLocation MULTI_ASSEMBLER_MODEL_LAYER_LOCATION =
-            new ModelLayerLocation(Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"textures/entity/multi_assembler.png"), "main");
+            new ModelLayerLocation(Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"textures/block_entity/multi_assembler.png"),"main");
 
     private final ModelPart main;
     private final ModelPart westjoint;

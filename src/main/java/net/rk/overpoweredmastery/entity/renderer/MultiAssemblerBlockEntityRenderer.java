@@ -2,7 +2,6 @@ package net.rk.overpoweredmastery.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
-import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -18,6 +17,8 @@ import net.minecraft.client.resources.model.MaterialSet;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.phys.Vec3;
+import net.rk.overpoweredmastery.OverpoweredMastery;
+import net.rk.overpoweredmastery.OverpoweredMasteryClient;
 import net.rk.overpoweredmastery.entity.blockentity.MultiAssemblerBlockEntity;
 import net.rk.overpoweredmastery.entity.model.MultiAssemblerModel;
 import net.rk.overpoweredmastery.entity.renderer.renderstate.MultiAssemblerRenderState;
@@ -28,7 +29,8 @@ public class MultiAssemblerBlockEntityRenderer implements BlockEntityRenderer<Mu
     public final ItemModelResolver resolver;
     public final MaterialSet materials;
 
-    public static final Material RL = Sheets.BLOCK_ENTITIES_MAPPER.apply(MultiAssemblerModel.MULTI_ASSEMBLER_MODEL_LAYER_LOCATION.model());
+    public static final Material multiAssemblerMaterial = OverpoweredMasteryClient.MULTI_ASSEMBLER_MAPPER
+            .apply(Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"multi_assembler"));
 
     public MultiAssemblerBlockEntityRenderer(BlockEntityRendererProvider.Context context){
         this.materials = context.materials();
@@ -71,17 +73,18 @@ public class MultiAssemblerBlockEntityRenderer implements BlockEntityRenderer<Mu
                 poseStack.translate(0.5D,0.1D,0.5D);// 0.44 and 0.2
 
                 MultiAssemblerModel.State modelState = new MultiAssemblerModel.State(renderState.ticks);
-                RenderType multiAssemblerModelRT = RenderTypes.entitySolid(Identifier.parse(MultiAssemblerModel.MULTI_ASSEMBLER_MODEL_LAYER_LOCATION.layer()));
+
+                RenderType renderType = multiAssemblerMaterial.renderType(RenderTypes::entityCutout);
 
                 if(renderState.isAssembling){
                     this.model.setupAnim(modelState);
                 }
-                else{
+                else {
                     this.model.setupAnimOff(modelState);
                 }
 
-                nodeCollector.submitModel(this.model,modelState,poseStack,multiAssemblerModelRT,renderState.lightCoords,
-                        OverlayTexture.NO_OVERLAY,-1,this.materials.get(RL),0,renderState.breakProgress);
+                nodeCollector.submitModel(this.model,modelState,poseStack,renderType,renderState.lightCoords,
+                        OverlayTexture.NO_OVERLAY,-1,this.materials.get(multiAssemblerMaterial),0,renderState.breakProgress);
             }
             catch (Exception e){
                 LogUtils.getLogger().error(e.getMessage());

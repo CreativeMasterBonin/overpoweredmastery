@@ -59,6 +59,16 @@ public class OMEntityTypes{
                     .noLootTable()
                     .fireImmune());
 
+    public static final DeferredHolder<EntityType<?>,EntityType<Fraud>> FRAUD = register("fraud",
+            () -> EntityType.Builder.<Fraud>of(Fraud::new,MobCategory.MISC)
+                    .sized(0.6F, 1.95F)
+                    .eyeHeight(1.74F)
+                    .passengerAttachments(2.0125F)
+                    .ridingOffset(-0.7F)
+                    .clientTrackingRange(8)
+                    .notInPeaceful()
+                    .noLootTable());
+
     public static <T extends Entity> DeferredHolder<EntityType<?>, EntityType<T>> register(String name, Supplier<EntityType.Builder<T>> builder) {
         return ENTITY_TYPES.register(name, () -> builder.get().build(
                 ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,name))));

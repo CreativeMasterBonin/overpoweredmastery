@@ -18,6 +18,13 @@ public class OMBlockTag extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        tag(OMTags.FRAUD_WANTS_TO_GO_TO)
+                .addTag(BlockTags.BEDS)
+                .addTag(BlockTags.ANVIL)
+                .add(Blocks.CAKE)
+                .addTag(BlockTags.CROPS)
+                .addTag(Tags.Blocks.VILLAGER_JOB_SITES)
+        ;
         tag(BlockTags.BEACON_BASE_BLOCKS)
                 .add(OMBlocks.ULTIMATE_BLOCK.get())
                 .add(OMBlocks.ULTRA_BLOCK.get())

@@ -7,6 +7,8 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Weapon;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
@@ -14,11 +16,13 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.enchantment.*;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 import net.neoforged.neoforge.transfer.ResourceHandler;
@@ -31,6 +35,7 @@ import net.rk.overpoweredmastery.datamap.OMDatamaps;
 import net.rk.overpoweredmastery.enchantment.EnchantmentEntityEffectTypes;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import net.rk.overpoweredmastery.entity.blockentity.OMBlockEntities;
+import net.rk.overpoweredmastery.entity.custom.Fraud;
 import net.rk.overpoweredmastery.item.OMItems;
 import net.rk.overpoweredmastery.menu.OMMenus;
 import net.rk.overpoweredmastery.recipe.MultiAssemblerRecipe;
@@ -47,6 +52,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.w3c.dom.Attr;
 
 import java.util.function.Supplier;
 
@@ -117,9 +123,14 @@ public class OverpoweredMastery {
         modEventBus.addListener(this::addCreative);
 
         modEventBus.addListener(this::registerCapabilities);
+        modEventBus.addListener(this::createDefaultAttributes);
 
         modContainer.registerConfig(ModConfig.Type.SERVER, Config.SPEC);
         modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
+    }
+
+    public void createDefaultAttributes(EntityAttributeCreationEvent event){
+        event.put(OMEntityTypes.FRAUD.get(), Fraud.createAttributes());
     }
 
     protected void customItems(BuildCreativeModeTabContentsEvent event){
