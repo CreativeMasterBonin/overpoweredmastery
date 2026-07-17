@@ -7,14 +7,13 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.SpecialDates;
 import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -25,21 +24,24 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.entity.monster.CrossbowAttackMob;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.RangedAttackMob;
-import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
 import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile;
-import net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball;
 import net.minecraft.world.entity.vehicle.VehicleEntity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.component.ChargedProjectiles;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -51,17 +53,34 @@ import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import net.rk.overpoweredmastery.util.OPUtil;
 import org.jspecify.annotations.Nullable;
 
-public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, RangedAttackMob {
+import java.util.List;
+
+public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, RangedAttackMob, CrossbowAttackMob {
     public boolean isUnhappy = false;
     public boolean breakDoors = false;
+    public boolean chargingCrossbow = false;
     public SimpleContainer fraudInventory = new SimpleContainer(4);
 
-    private final RangedBowAttackGoal fraudUseBowGoal = new RangedBowAttackGoal<>(this, 1.0, 20, 15.0F);
+    public final RangedBowAttackGoal fraudUseBowGoal = new RangedBowAttackGoal<>(this, 1.0, 20, 15.0F);
+    public final MeleeAttackGoal meleeGoal = new MeleeAttackGoal(this,1.19f,false){
+        @Override
+        public void start() {
+            super.start();
+            Fraud.this.setAggressive(true);
+        }
+        @Override
+        public void stop() {
+            super.stop();
+            Fraud.this.setAggressive(false);
+        }
+    };
+    public final RangedCrossbowAttackGoal fraudRangedCrossbowGoal = new RangedCrossbowAttackGoal(this, 1.12f, 12.0f);
 
     public Fraud(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
         if(level instanceof ServerLevel){
             this.registerGoals();
+            this.reassignWeaponGoals();
         }
     }
 
@@ -193,7 +212,11 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
                 stack.is(Items.POTION) ||
                 stack.is(ItemTags.BOW_ENCHANTABLE) || stack.is(ItemTags.CROSSBOW_ENCHANTABLE) ||
                 stack.is(ItemTags.MACE_ENCHANTABLE) || stack.is(ItemTags.TRIDENT_ENCHANTABLE) ||
-                stack.is(ItemTags.HEAD_ARMOR) || stack.is(ItemTags.CHEST_ARMOR) || stack.is(ItemTags.LEG_ARMOR) || stack.is(ItemTags.FOOT_ARMOR);
+                stack.is(ItemTags.HEAD_ARMOR) ||
+                stack.is(ItemTags.CHEST_ARMOR) ||
+                stack.is(ItemTags.LEG_ARMOR) ||
+                stack.is(ItemTags.FOOT_ARMOR) ||
+                stack.is(OMTags.MUSIC_DISC_WUBS);
     }
 
     @Override
@@ -213,6 +236,67 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
         }
         else{
             super.playStepSound(pos,state);
+        }
+    }
+
+    @Override
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level,difficulty,spawnReason,spawnGroupData);
+        // the fraud may have armor on with enchants, who knows where he got it from...
+        RandomSource randomsource = level.getRandom();
+        this.populateDefaultEquipmentSlots(randomsource, difficulty);
+        this.populateDefaultEquipmentEnchantments(level, randomsource, difficulty);
+
+        this.reassignWeaponGoals();
+
+        if (this.getItemBySlot(EquipmentSlot.HEAD).isEmpty() && SpecialDates.isHalloween() && randomsource.nextFloat() < 0.25f) {
+            this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(randomsource.nextFloat() < 0.1f ? Blocks.JACK_O_LANTERN : Blocks.CARVED_PUMPKIN));
+            this.setDropChance(EquipmentSlot.HEAD, 0.0f);
+        }
+        else if(this.getItemBySlot(EquipmentSlot.HEAD).isEmpty()
+                && SpecialDates.dayNow() == SpecialDates.CHRISTMAS && randomsource.nextFloat() < 0.25f){
+            this.setItemSlot(EquipmentSlot.HEAD,
+                    new ItemStack(Items.SPRUCE_LEAVES,1));
+        }
+
+        return data;
+    }
+
+    public void reassignWeaponGoals() {
+        if (this.level() != null && !this.level().isClientSide()) {
+            this.goalSelector.removeGoal(this.meleeGoal);
+            this.goalSelector.removeGoal(this.fraudUseBowGoal);
+            ItemStack itemstack = this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, (item) -> {
+                return item instanceof BowItem;
+            }));
+            ItemStack itemStackCrossbow = this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this,(item -> {
+                return item instanceof CrossbowItem;
+            })));
+            if (itemstack.getItem() instanceof BowItem) {
+                int interval = 1;
+                switch(this.level().getDifficulty()){
+                    case EASY -> {
+                        interval = 20;
+                    }
+                    case NORMAL -> {
+                        interval = 17;
+                    }
+                    case HARD -> {
+                        interval = 12;
+                    }
+                    default -> {
+                        interval = 15;
+                    }
+                }
+                this.fraudUseBowGoal.setMinAttackInterval(interval);
+                this.goalSelector.addGoal(3, this.fraudUseBowGoal);
+            }
+            else if(itemStackCrossbow.getItem() instanceof CrossbowItem){
+                this.goalSelector.addGoal(3,this.fraudRangedCrossbowGoal);
+            }
+            else {
+                this.goalSelector.addGoal(3, this.meleeGoal);
+            }
         }
     }
 
@@ -269,35 +353,20 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
     @Override
     public void registerGoals(){
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new RangedAttackGoal(this, 2.35f, 17, 7.0f));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this,1.19f,false){
-            @Override
-            public void start() {
-                super.start();
-                Fraud.this.setAggressive(true);
-            }
-            @Override
-            public void stop() {
-                super.stop();
-                Fraud.this.setAggressive(false);
-            }
-        });
-        this.goalSelector.addGoal(1,new PanicGoal(this,1.5f));
-        this.goalSelector.addGoal(1,new AvoidEntityGoal<>(this, WanderingTrader.class,
-                16.0f,0.95f,1.25f));
+        this.goalSelector.addGoal(10, new WaterAvoidingRandomStrollGoal(this, 1.02f));
 
-        this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 1.22f, 64.0f));
-        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(2, new MoveBackToVillageGoal(this, 1.31f, false));
+        //this.goalSelector.addGoal(3, new RangedAttackGoal(this, 2.35f, 17, 32.0f));
+
+        this.goalSelector.addGoal(3, new MoveTowardsTargetGoal(this, 1.22f, 64.0f));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(15, new MoveBackToVillageGoal(this, 1.31f, false));
 
         this.goalSelector.addGoal(10,new LookAtPlayerGoal(this, Player.class,6.0f));
         this.goalSelector.addGoal(10,new LookAtPlayerGoal(this, Villager.class,6.0f));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.1f,
-                stack -> stack.is(ItemTags.BEACON_PAYMENT_ITEMS), false));
 
-        this.goalSelector.addGoal(5,new RandomStrollGoal(this,0.95f));
-        this.goalSelector.addGoal(2,new MoveThroughVillageGoal(this, 1.0f, true, 4,this::canBreakDoors));
-        this.goalSelector.addGoal(2,new OpenDoorGoal(this,true));
+        this.goalSelector.addGoal(12,new RandomStrollGoal(this,0.95f));
+
+        this.goalSelector.addGoal(12,new OpenDoorGoal(this,true));
 
         this.goalSelector.addGoal(12, new MoveToBlockGoal(this,1.0f,14,4) {
             @Override
@@ -323,7 +392,7 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
                     }
                     return true;
                 })));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, 20, true, true, (livingEntity, serverLevel) -> {
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Mob.class, 20, true, true, (livingEntity, serverLevel) -> {
             return livingEntity instanceof Enemy;
         }));
     }
@@ -348,9 +417,66 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
         return HumanoidArm.RIGHT;
     }
 
+    // from AbstractSkeleton
+    public AbstractArrow getArrow(ItemStack pickupItemStack, float velocity, @Nullable ItemStack weapon){
+        return ProjectileUtil.getMobArrow(this, pickupItemStack, velocity, weapon);
+    }
+
+    // from AbstractSkeleton
     @Override
-    public void performRangedAttack(LivingEntity livingEntity, float v) {
-        if(this.level() instanceof ServerLevel serverLevel){
+    public void performRangedAttack(LivingEntity target, float distanceFactor) {
+        boolean isBow = getItemInHand(InteractionHand.MAIN_HAND).is(Tags.Items.TOOLS_BOW) || getItemInHand(InteractionHand.OFF_HAND).is(Tags.Items.TOOLS_BOW);
+        boolean isCrossbow = getItemInHand(InteractionHand.MAIN_HAND).is(Tags.Items.TOOLS_CROSSBOW) || getItemInHand(InteractionHand.OFF_HAND).is(Tags.Items.TOOLS_CROSSBOW);
+        if(isBow){
+            ItemStack weapon = this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, (item) -> {
+                return item instanceof BowItem;
+            }));
+            ItemStack itemstack1 = new ItemStack(Items.ARROW);
+
+            AbstractArrow abstractarrow = this.getArrow(itemstack1, distanceFactor, weapon);
+            Item weaponItem = weapon.getItem();
+            if (weaponItem instanceof ProjectileWeaponItem projectileWeaponItem) {
+                abstractarrow = projectileWeaponItem.customArrow(abstractarrow, itemstack1, weapon);
+            }
+
+            double d0 = target.getX() - this.getX();
+            double d1 = target.getY(0.3333333333333333) - abstractarrow.getY();
+            double d2 = target.getZ() - this.getZ();
+            double d3 = Math.sqrt(d0 * d0 + d2 * d2);
+            Level var15 = this.level();
+            if (var15 instanceof ServerLevel serverlevel) {
+                Projectile.spawnProjectileUsingShoot(abstractarrow, serverlevel, itemstack1, d0, d1 + d3 * 0.20000000298023224, d2, 1.6F, (float)(14 - serverlevel.getDifficulty().getId() * 4));
+            }
+
+            this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        }
+        else if(isCrossbow){
+            this.performCrossbowAttack(target,distanceFactor);
+        }
+        else{
+
+        }
+    }
+
+    @Override
+    public void performCrossbowAttack(LivingEntity user, float velocity) {
+        ItemStack itemstack = user.getItemInHand(user.getUsedItemHand());
+        Item stack = itemstack.getItem();
+
+        itemstack = new ItemStack(Items.CROSSBOW);
+        itemstack.set(DataComponents.CHARGED_PROJECTILES,ChargedProjectiles.of(List.of(
+                new ItemStack(Items.ARROW),new ItemStack(Items.FIREWORK_ROCKET)
+        )));
+
+        if (stack instanceof CrossbowItem crossbowitem) {
+            crossbowitem.performShooting(user.level(), user, user.getUsedItemHand(), itemstack, velocity, (float)(14 - user.level().getDifficulty().getId() * 4), this.getTarget());
+        }
+
+        this.onCrossbowAttackPerformed();
+    }
+
+    /*
+    if(this.level() instanceof ServerLevel serverLevel){
             ItemStack itemInMainHand = livingEntity.getItemInHand(InteractionHand.MAIN_HAND);
             livingEntity.startUsingItem(InteractionHand.MAIN_HAND);
 
@@ -381,17 +507,55 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
                 this.playSound(SoundEvents.SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
             }
         }
+     */
+
+    @Override
+    public void onEquipItem(EquipmentSlot slot, ItemStack oldItem, ItemStack newItem) {
+        super.onEquipItem(slot, oldItem, newItem);
+        if(!level().isClientSide()){
+            this.reassignWeaponGoals();
+        }
+    }
+
+    @Override
+    public boolean canUseSlot(EquipmentSlot slot) {
+        return slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
+    }
+
+    @Override
+    public boolean canUseNonMeleeWeapon(ItemStack stack) {
+        return stack.is(Tags.Items.SKELETON_USABLE_BOWS) ||
+                stack.is(Tags.Items.PIGLIN_USABLE_CROSSBOWS) ||
+                stack.is(Tags.Items.PILLAGER_USABLE_CROSSBOWS)
+                || stack.is(OMTags.MUSIC_DISC_WUBS);
     }
 
     @Override
     protected void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
         output.putBoolean("unhappy",this.isUnhappy);
+        output.putBoolean("charging_crossbow",this.chargingCrossbow);
     }
 
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         this.isUnhappy = input.getBooleanOr("unhappy",false);
+        this.chargingCrossbow = input.getBooleanOr("charging_crossbow",false);
+        this.reassignWeaponGoals();
+    }
+
+    public boolean isChargingCrossbow() {
+        return chargingCrossbow;
+    }
+
+    @Override
+    public void setChargingCrossbow(boolean b) {
+        this.chargingCrossbow = b;
+    }
+
+    @Override
+    public void onCrossbowAttackPerformed() {
+        this.noActionTime = 0;
     }
 }
