@@ -1,9 +1,11 @@
 package net.rk.overpoweredmastery.entity.custom;
 
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -24,6 +26,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.frog.FrogAi;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.monster.CrossbowAttackMob;
@@ -32,21 +36,30 @@ import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.entity.projectile.arrow.Arrow;
 import net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.vehicle.VehicleEntity;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.component.ChargedProjectiles;
+import net.minecraft.world.item.component.FireworkExplosion;
+import net.minecraft.world.item.component.Fireworks;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
+import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.common.NeoForgeMod;
@@ -54,6 +67,7 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.rk.overpoweredmastery.datagen.OMTags;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
+import net.rk.overpoweredmastery.item.OMItems;
 import net.rk.overpoweredmastery.util.OPUtil;
 import org.jspecify.annotations.Nullable;
 
@@ -69,6 +83,9 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
     public boolean isUsingWubItem = false;
     public SimpleContainer fraudInventory = new SimpleContainer(4);
     public static Set<Item> itemsThatClearPotionEffects = Set.of(Items.MILK_BUCKET);
+    // befriending a Fraud causes them to stop attacking the player and focus on their own tasks
+    public boolean isBefriended = false;
+    public boolean isBadFaction = false;
 
     public final RangedBowAttackGoal fraudUseBowGoal = new RangedBowAttackGoal<>(this, 1.0, 20, 15.0F);
     public final MeleeAttackGoal meleeGoal = new MeleeAttackGoal(this,1.19f,false){
@@ -105,6 +122,18 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
         super(entityType, level);
         this.getNavigation().setCanFloat(true);
         this.getNavigation().setCanOpenDoors(true);
+        this.isBefriended = false;
+        // dangers
+        this.setPathfindingMalus(PathType.LAVA,8.0f);
+        this.setPathfindingMalus(PathType.DANGER_FIRE,6.0f);
+        this.setPathfindingMalus(PathType.DANGER_POWDER_SNOW,10.0f);
+        this.setPathfindingMalus(PathType.DANGER_OTHER,8.0f);
+        // damages
+        this.setPathfindingMalus(PathType.DAMAGE_CAUTIOUS,-1.0f);
+        this.setPathfindingMalus(PathType.DAMAGE_FIRE,-1.0f);
+        this.setPathfindingMalus(PathType.DAMAGE_OTHER,-1.0f);
+        // other
+        this.setPathfindingMalus(PathType.STICKY_HONEY,4.0f);
         // this must be set on the server-side
         if(level instanceof ServerLevel){
             this.registerGoals();
@@ -112,8 +141,9 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
         }
     }
 
+    // 1.0.5 - allow mixins for default attributes to run as well as its own custom values
     public static AttributeSupplier createAttributes() {
-        return AttributeSupplier.builder()
+        return LivingEntity.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH,20.0f)
                 .add(Attributes.FOLLOW_RANGE,36.0f)
                 .add(Attributes.MOVEMENT_SPEED,0.231f)
@@ -140,10 +170,9 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
                 .add(Attributes.ATTACK_KNOCKBACK,0.75f)
                 .add(Attributes.CAMERA_DISTANCE)
                 .add(Attributes.KNOCKBACK_RESISTANCE,0.25f)
-                .add(Attributes.TEMPT_RANGE,16.0f)
-                .add(net.neoforged.neoforge.common.NeoForgeMod.SWIM_SPEED)
-                .add(net.neoforged.neoforge.common.NeoForgeMod.NAMETAG_DISTANCE)
-                .build();
+                .add(Attributes.TEMPT_RANGE,32.0f)
+                .add(NeoForgeMod.SWIM_SPEED)
+                .add(NeoForgeMod.NAMETAG_DISTANCE).build();
     }
 
     public Fraud(Level level){
@@ -172,6 +201,14 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
     @Override
     public boolean shouldShowName() {
         return false;
+    }
+
+    public void setBefriended(boolean befriended) {
+        this.isBefriended = befriended;
+    }
+
+    public boolean isBefriended() {
+        return this.isBefriended;
     }
 
     @Override
@@ -216,6 +253,50 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
     }
 
     @Override
+    public boolean canUsePortal(boolean allowPassengers) {
+        boolean isDifficultMode = false;
+        if(this.level() instanceof ServerLevel serverLevel){
+            isDifficultMode = (serverLevel.getDifficulty() == Difficulty.HARD || serverLevel.getDifficulty() == Difficulty.NORMAL);
+        }
+
+        if(isDifficultMode){
+            // frauds in a more difficult mode do not care for armor or weapons, they want to use portals anyway
+            return super.canUsePortal(allowPassengers);
+        }
+        else{
+            // Frauds do not want to use portals unless they have armor and a weapon of some sort (plus standard entity rules)
+            return super.canUsePortal(allowPassengers)
+                    && (!equipment.get(EquipmentSlot.HEAD).isEmpty() || !equipment.get(EquipmentSlot.BODY).isEmpty() || !equipment.get(EquipmentSlot.LEGS).isEmpty() || !equipment.get(EquipmentSlot.FEET).isEmpty())
+                    && !equipment.get(EquipmentSlot.MAINHAND).isEmpty();
+        }
+    }
+
+    public void serverEquipArmorAudioVisualFlair(ItemStack armor){
+        if(this.level() instanceof ServerLevel serverLevel){
+            if(armor.has(DataComponents.EQUIPPABLE)){
+                Equippable equippable = armor.get(DataComponents.EQUIPPABLE);
+                if(equippable != null){
+                    if(equippable.equipSound() != null){
+                        Holder<SoundEvent> equipSoundHolder = equippable.equipSound();
+                        serverLevel.playSound(this,getX(),getY(),getZ(),
+                                equipSoundHolder.value(),SoundSource.NEUTRAL,
+                                0.95f,OPUtil.nextFloatBetweenInclusive(0.95f,1.0f));
+                        serverLevel.sendParticles(ParticleTypes.POOF,
+                                getX(),getY(),getZ(),10,
+                                0D,0D,0D,0.1D);
+                    }
+                }
+            }
+        }
+    }
+
+    public void serverPlayEquipWeaponSound(ServerLevel serverLevel){
+        serverLevel.playSound(this,getX(),getY(),getZ(),
+                SoundEvents.IRON_HIT,SoundSource.NEUTRAL,
+                0.95f,OPUtil.nextFloatBetweenInclusive(0.87f,0.92f));
+    }
+
+    @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand){
         this.setAggressive(true);
         return InteractionResult.PASS;
@@ -224,15 +305,227 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
     @Override
     public void thunderHit(ServerLevel level, LightningBolt lightning) {
         level.explode(this,getX(),getY(),getZ(),5.0f, Level.ExplosionInteraction.MOB);
+        // lightning makes Frauds drop their inventory completely
+        for(ItemStack stackInInventory : this.getInventory().getItems()){
+            level.addFreshEntity(new ItemEntity(level,getX(),getY(),getZ(),stackInInventory));
+        }
         this.discard();
+    }
+
+    public EquipmentSlot obtainSlotFromItem(ItemStack stack){
+        Equippable equippable = stack.get(DataComponents.EQUIPPABLE);
+        if(equippable != null)
+            return equippable.slot();
+        else
+            return null;
     }
 
     @Override
     public void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
-        this.setItemSlot(EquipmentSlot.HEAD,new ItemStack(Items.NETHERITE_HELMET));
-        this.setItemSlot(EquipmentSlot.CHEST,new ItemStack(Items.NETHERITE_CHESTPLATE));
-        this.setItemSlot(EquipmentSlot.LEGS,new ItemStack(Items.NETHERITE_LEGGINGS));
-        this.setItemSlot(EquipmentSlot.FEET,new ItemStack(Items.NETHERITE_BOOTS));
+        boolean alreadyGotRareItem = false;
+        if(random.nextIntBetweenInclusive(0,120000) <= 1){
+            this.setItemSlot(EquipmentSlot.HEAD,new ItemStack(Items.NETHERITE_HELMET));
+            this.setItemSlot(EquipmentSlot.CHEST,new ItemStack(Items.NETHERITE_CHESTPLATE));
+            this.setItemSlot(EquipmentSlot.LEGS,new ItemStack(Items.NETHERITE_LEGGINGS));
+            this.setItemSlot(EquipmentSlot.FEET,new ItemStack(Items.NETHERITE_BOOTS));
+            alreadyGotRareItem = true;
+        }
+        if(random.nextIntBetweenInclusive(0,12000) <= 1){
+            if(random.nextIntBetweenInclusive(0,5300) <= 1){
+                this.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.CROSSBOW));
+                alreadyGotRareItem = true;
+            }
+            else{
+                this.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.BOW));
+                alreadyGotRareItem = true;
+            }
+        }
+        if(random.nextIntBetweenInclusive(0,3200) <= 1){
+            this.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.NETHERITE_SWORD));
+            alreadyGotRareItem = true;
+        }
+
+        if(!alreadyGotRareItem){
+            super.populateDefaultEquipmentSlots(random,difficulty);
+        }
+    }
+
+    public void checkForBetterEquipment(){
+        // get the current main hand equipment item
+        ItemStack mainHandSlot = equipment.get(EquipmentSlot.MAINHAND);
+
+        // check if main hand equipment slot has a damageable item (and not just a regular item or none at all)
+        boolean mainHandSlotHasExistingDamage = mainHandSlot.has(DataComponents.MAX_DAMAGE) && mainHandSlot.has(DataComponents.DAMAGE);
+
+        // main find item and use/swap logic loop
+        for(ItemStack stack : fraudInventory.getItems()){
+            if(this.level() instanceof ServerLevel serverLevel){
+                // potions are high priority, as they may be good
+                if(stack.is(Items.POTION)){
+                    if(stack.has(DataComponents.POTION_CONTENTS)){
+                        // play a sound as if drinking the potion
+                        if(stack.get(DataComponents.POTION_CONTENTS) != null){
+                            PotionContents contents = stack.get(DataComponents.POTION_CONTENTS);
+                            if(contents != null) {
+                                for(MobEffectInstance effectInstance : contents.getAllEffects()){
+                                    if(!this.hasEffect(effectInstance.getEffect()) && effectInstance.getEffect().value().isBeneficial()){
+                                        this.addEffect(effectInstance);
+                                        serverLevel.playSound(this,getX(),getY(),getZ(),SoundEvents.HONEY_DRINK, SoundSource.NEUTRAL,
+                                                0.57f, OPUtil.nextFloatBetweenInclusive(0.98f,1.0f));
+                                    }
+                                }
+                            }
+                            stack.shrink(1);
+                            serverLevel.playSound(this,getX(),getY(),getZ(),SoundEvents.GLASS_BREAK, SoundSource.NEUTRAL,
+                                    0.75f, OPUtil.nextFloatBetweenInclusive(0.95f,1.2f));
+                            fraudInventory.setChanged();
+                            break;
+                        }
+                    }
+                } // got food? eat it and restore health
+                else if(stack.has(DataComponents.FOOD)){
+                    if(this.getHealth() < this.getMaxHealth()){
+                        FoodProperties food = stack.get(DataComponents.FOOD);
+                        int nutritionPoints = food.nutrition();
+                        float saturation = food.saturation();
+
+                        stack.shrink(1);
+                        fraudInventory.setChanged();
+                        this.setHealth(Mth.clamp(this.getHealth() + (nutritionPoints * saturation),0,this.getMaxHealth()));
+
+                        serverLevel.playSound(this,getX(),getY(),getZ(),
+                                SoundEvents.GENERIC_EAT,SoundSource.NEUTRAL,
+                                0.97f,OPUtil.nextFloatBetweenInclusive(0.95f,1.0f));
+
+                        serverLevel.playSound(this,getX(),getY(),getZ(),
+                                SoundEvents.PLAYER_BURP,SoundSource.NEUTRAL,
+                                0.97f,OPUtil.nextFloatBetweenInclusive(0.95f,1.0f));
+                        break;
+                    }
+                }
+            }
+
+            boolean itemHasRequiredArmorData = stack.has(DataComponents.EQUIPPABLE) && stack.has(DataComponents.MAX_DAMAGE) && stack.has(DataComponents.DAMAGE);
+
+            if(this.level() instanceof ServerLevel serverLevel){
+                // obtain slot type then assign item if is better than what we have currently
+                if(itemHasRequiredArmorData){
+                    if(obtainSlotFromItem(stack) != null){
+                        if(equipment.get(obtainSlotFromItem(stack)).isEmpty()){
+                            equipment.set(obtainSlotFromItem(stack),stack.copy());
+                            stack.shrink(1);
+                            fraudInventory.setChanged();
+                            serverEquipArmorAudioVisualFlair(stack);
+                            break;
+                        }
+                        else{
+                            boolean betterDamageValue = stack.getDamageValue() > equipment.get(obtainSlotFromItem(stack)).getDamageValue();
+                            boolean betterMaxDamageValue = stack.getMaxDamage() > equipment.get(obtainSlotFromItem(stack)).getMaxStackSize();
+
+                            if(betterDamageValue){
+                                equipment.set(obtainSlotFromItem(stack),stack.copy());
+                                stack.shrink(1);
+                                fraudInventory.setChanged();
+                                serverEquipArmorAudioVisualFlair(stack);
+                                break;
+                            }
+                            else if(betterMaxDamageValue){
+                                equipment.set(obtainSlotFromItem(stack),stack.copy());
+                                stack.shrink(1);
+                                fraudInventory.setChanged();
+                                serverEquipArmorAudioVisualFlair(stack);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            boolean itemHasRequiredWeaponData =
+                    stack.has(DataComponents.WEAPON)
+                            && stack.has(DataComponents.MAX_DAMAGE)
+                            && stack.has(DataComponents.DAMAGE);
+
+            // check if a main hand item can be equipped (server-side)
+            if(this.level() instanceof ServerLevel serverLevel){
+                // do not allow non-weapons in the main hand of a Fraud
+                if(itemHasRequiredWeaponData){
+                    // is the stack we are checking better than our current weapon?
+                    if(stack.getDamageValue() > mainHandSlot.getDamageValue() || stack.getMaxDamage() > mainHandSlot.getMaxDamage()){
+                        equipment.set(EquipmentSlot.MAINHAND,stack.copy());
+                        stack.shrink(1);
+                        fraudInventory.setChanged();
+                        serverPlayEquipWeaponSound(serverLevel);
+                        reassignWeaponGoals();
+                        break;
+                    }
+                }
+                // main hand slot
+                if(mainHandSlot.isEmpty()){
+                    if(stack.getItem() instanceof BowItem || stack.getItem() instanceof CrossbowItem){
+                        equipment.set(EquipmentSlot.MAINHAND,stack.copy());
+                        stack.shrink(1);
+                        fraudInventory.setChanged();
+                        serverPlayEquipWeaponSound(serverLevel);
+                        reassignWeaponGoals();
+                        break;
+                    }
+                    else if(itemHasRequiredWeaponData){
+                        equipment.set(EquipmentSlot.MAINHAND,stack.copy());
+                        stack.shrink(1);
+                        fraudInventory.setChanged();
+                        serverPlayEquipWeaponSound(serverLevel);
+                        reassignWeaponGoals();
+                        break;
+                    }
+                }
+            }
+
+            // if we have an item that matches an entry, try to remove mob effects that are not good (slowness, weakness, poison, etc.)
+            if(itemsThatClearPotionEffects.contains(stack.getItem())){
+                boolean foundBadEffect = false;
+                List<MobEffectInstance> effectInstances = getActiveEffects().stream().toList();
+                if(effectInstances.isEmpty()){
+                    break;
+                }
+
+                for(MobEffectInstance instance : effectInstances){
+                    if(!instance.getEffect().value().isBeneficial()){
+                        this.removeEffect(instance.getEffect());
+                        foundBadEffect = true;
+                        // show particles for players if removing an ill effect
+                        if(this.level() instanceof ServerLevel serverLevel){
+                            serverLevel.sendParticles(ParticleTypes.TRIAL_SPAWNER_DETECTED_PLAYER,
+                                    getX(),getY(),getZ(),7,
+                                    0D,0.5D,0D,0.01D);
+                        }
+                    }
+                }
+                if(foundBadEffect) {
+                    if (this.level() instanceof ServerLevel serverLevel) {
+                        stack.shrink(1);
+                        fraudInventory.setChanged();
+                        serverLevel.playSound(this, getOnPos(),
+                                SoundEvents.WANDERING_TRADER_REAPPEARED, SoundSource.NEUTRAL,
+                                0.95f, OPUtil.nextFloatBetweenInclusive(0.75f, 0.95f));
+                        reassignWeaponGoals();
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onAttack() {
+        if(this.level() instanceof ServerLevel serverLevel){
+            if(equipment.get(EquipmentSlot.MAINHAND).isEmpty()){
+                return;
+            }
+            else{
+                equipment.get(EquipmentSlot.MAINHAND).hurtAndBreak(1,this,EquipmentSlot.MAINHAND);
+            }
+        }
     }
 
     // frauds use anything that is useful for survival or just to steal it for personal gain
@@ -320,20 +613,20 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
                         interval = 17;
                     }
                     case HARD -> {
-                        interval = 12;
+                        interval = 10;
                     }
                     default -> {
-                        interval = 15;
+                        interval = 9;
                     }
                 }
                 this.fraudUseBowGoal.setMinAttackInterval(interval);
-                this.goalSelector.addGoal(3, this.fraudUseBowGoal);
+                this.goalSelector.addGoal(1, this.fraudUseBowGoal);
             }
             else if(itemStackCrossbow.getItem() instanceof CrossbowItem){
-                this.goalSelector.addGoal(3,this.fraudRangedCrossbowGoal);
+                this.goalSelector.addGoal(1,this.fraudRangedCrossbowGoal);
             }
             else {
-                this.goalSelector.addGoal(3,this.meleeGoal);
+                this.goalSelector.addGoal(1,this.meleeGoal);
             }
         }
     }
@@ -348,13 +641,9 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
         if(this.level() instanceof ServerLevel serverLevel){
             ItemStack itemInHand = this.getItemInHand(InteractionHand.MAIN_HAND);
 
-            // itemstack iterating checks
-            for(ItemStack itemStack : getInventory().getItems()){
-                if(!itemStack.isEmpty()){
-                    if(itemStack.is(Items.MILK_BUCKET)){
-
-                    }
-                }
+            // frauds check items they have
+            if(serverLevel.getGameTime() % 97L == 0 && serverLevel.tickRateManager().runsNormally()){
+                checkForBetterEquipment();
             }
 
             if(this.hurtTime > 0 || this.hurtDuration > 0 || this.attackAnim > 0.0f){
@@ -364,28 +653,8 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
                 this.isUnhappy = false;
             }
 
-            // play a sound as if drinking the potion
-            if(itemInHand.get(DataComponents.POTION_CONTENTS) != null && tickCount % 18 == 0){
-                serverLevel.playSound(this,getX(),getY(),getZ(),SoundEvents.HONEY_DRINK, SoundSource.NEUTRAL,
-                        0.57f, OPUtil.nextFloatBetweenInclusive(0.98f,1.0f));
-            }
-            // actually perform the selective potion action
-            if(itemInHand.get(DataComponents.POTION_CONTENTS) != null && tickCount % 57 == 0){
-                PotionContents contents = itemInHand.get(DataComponents.POTION_CONTENTS);
-                if(contents != null) {
-                    for(MobEffectInstance effectInstance : contents.getAllEffects()){
-                        if(!this.hasEffect(effectInstance.getEffect()) && effectInstance.getEffect().value().isBeneficial()){
-                            this.addEffect(effectInstance);
-                        }
-                    }
-                }
-                itemInHand.shrink(1);
-                serverLevel.playSound(this,getX(),getY(),getZ(),SoundEvents.GLASS_BREAK, SoundSource.NEUTRAL,
-                        0.75f, OPUtil.nextFloatBetweenInclusive(0.95f,1.2f));
-            }
-
             // poisoned or withered check
-            if(this.hasEffect(MobEffects.POISON) || this.hasEffect(MobEffects.WITHER)){
+            /*if(this.hasEffect(MobEffects.POISON) || this.hasEffect(MobEffects.WITHER)){
                 SimpleContainer container = getInventory();
                 boolean actuallyDrankItem = false;
 
@@ -413,7 +682,7 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
                     serverLevel.playSound(this,getOnPos(),SoundEvents.WANDERING_TRADER_YES,
                             SoundSource.NEUTRAL);
                 }
-            }
+            }*/
         }
 
         fraudEntityFiller.pop();
@@ -444,22 +713,22 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
     @Override
     public void registerGoals(){
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(10, new WaterAvoidingRandomStrollGoal(this, 1.02f));
+        this.goalSelector.addGoal(15, new WaterAvoidingRandomStrollGoal(this, 1.02f));
 
-        //this.goalSelector.addGoal(3, new RangedAttackGoal(this, 2.35f, 17, 32.0f));
-
-        this.goalSelector.addGoal(3, new MoveTowardsTargetGoal(this, 1.22f, 64.0f));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 1.22f, 64.0f));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(15, new MoveBackToVillageGoal(this, 1.31f, false));
 
-        this.goalSelector.addGoal(10,new LookAtPlayerGoal(this, Player.class,6.0f));
-        this.goalSelector.addGoal(10,new LookAtPlayerGoal(this, Villager.class,6.0f));
+        this.goalSelector.addGoal(14,new LookAtPlayerGoal(this, Player.class,6.0f));
+        this.goalSelector.addGoal(14,new LookAtPlayerGoal(this, Villager.class,6.0f));
 
-        this.goalSelector.addGoal(12,new RandomStrollGoal(this,0.95f));
+        this.goalSelector.addGoal(3,new LeapAtTargetGoal(this,1.0f));
 
-        this.goalSelector.addGoal(12,new OpenDoorGoal(this,true));
+        this.goalSelector.addGoal(17,new RandomStrollGoal(this,0.95f));
 
-        this.goalSelector.addGoal(12, new MoveToBlockGoal(this,1.0f,14,4) {
+        this.goalSelector.addGoal(15,new OpenDoorGoal(this,true));
+
+        this.goalSelector.addGoal(10, new MoveToBlockGoal(this,1.0f,14,4) {
             @Override
             public boolean isValidTarget(LevelReader levelReader, BlockPos blockPos) {
                 return levelReader.getBlockState(blockPos).is(OMTags.FRAUD_WANTS_TO_GO_TO);
@@ -476,15 +745,30 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
                 AbstractHurtingProjectile.class
         ));
         // not exactly the nicest guy, but if you are down he will ignore you, or if you are on the same team
-        this.targetSelector.addGoal(12, new NearestAttackableTargetGoal<>(this,Player.class,120,true,true,
+        this.targetSelector.addGoal(20, new NearestAttackableTargetGoal<>(this,Player.class,120,true,true,
                 ((livingEntity, serverLevel) -> {
-                    if((livingEntity.getHealth() <= livingEntity.getMaxHealth() / 2) || livingEntity.isFreezing() || livingEntity.isOnFire() || livingEntity.isInvulnerable() || livingEntity.isInvisible()){
-                        return false;
+                    if(this.isBadFaction){
+                        return true;
                     }
-                    return true;
+                    else{
+                        if(this.isBefriended()){
+                            return false;
+                        }
+                        else{
+                            if((livingEntity.getHealth() <= livingEntity.getMaxHealth() / 2) || livingEntity.isFreezing() || livingEntity.isOnFire() || livingEntity.isInvulnerable() || livingEntity.isInvisible()){
+                                return false;
+                            }
+                            return true;
+                        }
+                    }
                 })));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Mob.class, 20, true, true, (livingEntity, serverLevel) -> {
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Mob.class, 5, true, true, (livingEntity, serverLevel) -> {
             return livingEntity instanceof Enemy;
+        }));
+
+        // frauds have infighting, but only with factions who are not so nice (and they don't fight themselves, that would be silly!)
+        this.targetSelector.addGoal(30, new NearestAttackableTargetGoal<>(this, Fraud.class, 32, false, false, (livingEntity, serverLevel) -> {
+            return (livingEntity instanceof Fraud fraud && fraud != this && fraud.isBadFaction);
         }));
     }
 
@@ -587,6 +871,8 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
             float f2 = (float)((projectileItems.size() - 1) % 2) * f1 / 2.0F;
             float f3 = 1.0F;
 
+            boolean fireworks = false;
+
             for(int i = 0; i < projectileItems.size(); ++i) {
                 ItemStack itemInList = projectileItems.get(i);
                 if (!itemstack.isEmpty()) {
@@ -595,9 +881,33 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
                     int j = i;
 
                     // crossbows don't exactly work without non-static methods, so this replaces a check to make a 'fake arrow'
-                    AbstractArrow replacementFakeArrow = new Arrow(user.level(), this, new ItemStack(Items.ARROW),user.getItemBySlot(EquipmentSlot.MAINHAND));
+                    Arrow replacementFakeArrow = new Arrow(user.level(), this,
+                            new ItemStack(Items.ARROW),
+                            new ItemStack(equipment.get(EquipmentSlot.MAINHAND).getItem()));
 
-                    replacementFakeArrow.setRemainingFireTicks(20);
+                    if(user.getItemInHand(InteractionHand.MAIN_HAND).is(OMItems.ENDARKENED_CROSSBOW)){
+                        replacementFakeArrow.setRemainingFireTicks(20);
+                    }
+                    else{
+                        // anything that is not the endarkened crossbow but like a crossbow
+                        ItemStack currentCrossbowOrLike = equipment.get(EquipmentSlot.MAINHAND);
+                        if(currentCrossbowOrLike.has(DataComponents.ENCHANTMENTS)){
+                            ItemEnchantments enchantments = currentCrossbowOrLike.get(DataComponents.ENCHANTMENTS);
+                            int flameLevel = enchantments.getLevel(
+                                    OPUtil.getEnchantmentHolderFromKeyStatic(serverLevel,Enchantments.FLAME));
+                            if(flameLevel > 0){
+                                replacementFakeArrow.setRemainingFireTicks(10 * flameLevel);
+                            }
+                        }
+                        if(currentCrossbowOrLike.has(DataComponents.CHARGED_PROJECTILES)){
+                            ChargedProjectiles chargedProjectiles = currentCrossbowOrLike.get(DataComponents.CHARGED_PROJECTILES);
+                            if(chargedProjectiles != null){
+                                if(chargedProjectiles.contains(Items.FIREWORK_ROCKET)){
+                                    fireworks = true;
+                                }
+                            }
+                        }
+                    }
                     replacementFakeArrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
 
                     double d0 = user.getX() - this.getX();
@@ -607,13 +917,35 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
 
                     itemstack = new ItemStack(Items.ARROW);
 
-                    Projectile.spawnProjectile(
-                            replacementFakeArrow,
-                            serverLevel,
-                            itemstack,
-                            projectileToShoot -> projectileToShoot.shoot(d0, d1 + d3 - projectileToShoot.getY(), d2,
-                                    2.25f, 0.2f)
-                    );
+                    if(fireworks){
+                        ItemStack fireworkItem = new ItemStack(Items.FIREWORK_ROCKET);
+                        fireworkItem.set(DataComponents.FIREWORKS,
+                                new Fireworks(Mth.nextInt(serverLevel.getRandom(),
+                                2,3),
+                                        List.of(
+                                                new FireworkExplosion(FireworkExplosion.Shape.SMALL_BALL,
+                                                        IntList.of(OPUtil.ULTIMATE_SHARED_DURABILITY,OPUtil.ULTRA_SHARED_DURABILITY),
+                                                        IntList.of(OPUtil.ULTIMATE_COLOR,OPUtil.ULTRA_COLOR),
+                                                        true,false)
+                                        )));
+                        FireworkRocketEntity rocket =
+                                new FireworkRocketEntity(serverLevel,
+                                        fireworkItem, this,
+                                        this.getX(), this.getEyeY() - 0.15F, this.getZ(),
+                                        true);
+                        rocket.addDeltaMovement(this.getDeltaMovement().vectorTo(getForward().add(-0.45D,0D,0D)));
+                        rocket.setDeltaMovement(rocket.getDeltaMovement().x,0.01D,rocket.getDeltaMovement().z);
+                        serverLevel.addFreshEntity(rocket);
+                    }
+                    else{
+                        Projectile.spawnProjectile(
+                                replacementFakeArrow,
+                                serverLevel,
+                                itemstack,
+                                projectileToShoot -> projectileToShoot.shoot(d0, d1 + d3 - projectileToShoot.getY(), d2,
+                                        2.25f, 0.2f)
+                        );
+                    }
 
                     if (weapon.isEmpty()) {
                         break;
@@ -685,6 +1017,8 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
         super.addAdditionalSaveData(output);
         output.putBoolean("unhappy",this.isUnhappy);
         output.putBoolean("charging_crossbow",this.chargingCrossbow);
+        output.putBoolean("befriended",this.isBefriended);
+        output.putBoolean("bad_faction",this.isBadFaction);
 
         // save items to disk
         ValueOutput.TypedOutputList<ItemStackWithSlot> typedoutputlist = output.list("Items", ItemStackWithSlot.CODEC);
@@ -701,6 +1035,8 @@ public class Fraud extends PathfinderMob implements EquipmentUser, Targeting, Ra
         super.readAdditionalSaveData(input);
         this.isUnhappy = input.getBooleanOr("unhappy",false);
         this.chargingCrossbow = input.getBooleanOr("charging_crossbow",false);
+        this.setBefriended(input.getBooleanOr("befriended",false));
+        this.isBadFaction = input.getBooleanOr("bad_faction",false);
         this.reassignWeaponGoals();
         // get saved items from disk
         Iterator itemIterators = input.listOrEmpty("Items", ItemStackWithSlot.CODEC).iterator();

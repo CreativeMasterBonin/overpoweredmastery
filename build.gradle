@@ -9,7 +9,7 @@ tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
 }
 
-version = minecraft_version + "-" + mod_version
+version = "neoforge-" + minecraft_version + "-" + mod_version
 group = mod_group_id
 
 sourceSets.main.resources {
@@ -120,6 +120,8 @@ dependencies {
     runtimeOnly("curse.maven:yacl-667299:7437853") // needed for friends and foes/variants and ventures
     runtimeOnly("curse.maven:resourceful-lib-570073:7312675") // needed for friends and foes/variants and ventures
     runtimeOnly("maven.modrinth:uEfK2CXF:xZmaYads") // just enough resources (for JEI)
+    runtimeOnly("maven.modrinth:P0Mu4wcQ:PrKMd0fs") // artifacts
+    runtimeOnly("maven.modrinth:vvuO3ImH:MPGhs9Rw") // curios
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
