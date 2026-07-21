@@ -18,6 +18,10 @@ public class OMBlockTag extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        tag(OMTags.SUPPORTS_DELICATE_TOUCH)
+                .add(Blocks.BUDDING_AMETHYST)
+                .add(Blocks.REINFORCED_DEEPSLATE)
+        ;
         tag(OMTags.FRAUD_WANTS_TO_GO_TO)
                 .addTag(BlockTags.BEDS)
                 .addTag(BlockTags.ANVIL)

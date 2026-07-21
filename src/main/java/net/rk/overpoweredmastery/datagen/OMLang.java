@@ -1,10 +1,12 @@
 package net.rk.overpoweredmastery.datagen;
 
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.rk.overpoweredmastery.OverpoweredMastery;
 import net.rk.overpoweredmastery.block.OMBlocks;
+import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import net.rk.overpoweredmastery.item.OMItems;
 
 public class OMLang extends LanguageProvider {
@@ -14,6 +16,14 @@ public class OMLang extends LanguageProvider {
 
     public void addItemDesc(Item item, String description){
         add(item.getDescriptionId() + ".desc",description);
+    }
+
+    public void addEntityWithSpawnEgg(){
+
+    }
+
+    public void spawnEgg(Item item, EntityType<?> entityType){
+        add(item,entityType.getDescription().getString() + " Spawn Egg");
     }
 
     @Override
@@ -27,6 +37,19 @@ public class OMLang extends LanguageProvider {
         add("key_mapping.overpoweredmastery.show_description","Show Description");
         // keymapping categories
         add("key.category.overpoweredmastery.general_keys","Overpowered Mastery");
+
+        // technical entities
+        // projectile entities
+        add(OMEntityTypes.CHICKEN_WUB_ENERGY_BALL.get(),"Energy Ball (Plucking)");
+        add(OMEntityTypes.GREEN_WUB_ENERGY_BALL.get(),"Energy Ball (Shooting)");
+        add(OMEntityTypes.NETHER_WUB_ENERGY_BALL.get(),"Energy Ball (Melting)");
+        add(OMEntityTypes.PURPLE_WUB_ENERGY_BALL.get(),"Energy Ball (Darkening)");
+        add(OMEntityTypes.RED_WUB_ENERGY_BALL.get(),"Energy Ball (Blasting)");
+        add(OMEntityTypes.TRIAL_WUB_ENERGY_BALL.get(),"Energy Ball (Testing)");
+        // standard entities
+        add(OMEntityTypes.FRAUD.get(),"Fraud");
+        // spawn eggs
+        add(OMItems.FRAUD_SPAWN_EGG.asItem(),"Fraud Spawn Egg");
 
         // blocks
         add(OMBlocks.MOVING_PROBABLE_BLOCK.get(),"Moving Probable Block");
@@ -195,8 +218,11 @@ public class OMLang extends LanguageProvider {
         add("enchantment.overpoweredmastery.bypass_denial.desc","Damage that bypasses is denied!");
         add("enchantment.overpoweredmastery.evocation_master","Evocation Master");
         add("enchantment.overpoweredmastery.evocation_master.desc","Attacks create Evoker Fangs under foes");
+        add("enchantment.overpoweredmastery.delicate_touch","Delicate Touch");
+        add("enchantment.overpoweredmastery.delicate_touch.desc","Certain kinds of unobtainable blocks drop");
 
 
+        add("item.overpoweredmastery.delicate_touched_item.warning","Place using offhand and tool you mined it with");
         add("item.catalyst_template.overpoweredmastery.can_make","Can make %s");
         add("item.catalyst_template.overpoweredmastery.makes_type.ultra_tools","Ultra Tools");
         add("item.catalyst_template.overpoweredmastery.makes_type.ultimate_tools","Ultimate Tools");

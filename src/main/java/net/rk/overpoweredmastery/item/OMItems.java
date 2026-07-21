@@ -7,6 +7,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -28,6 +29,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.rk.overpoweredmastery.OverpoweredMastery;
 import net.rk.overpoweredmastery.block.OMBlocks;
 import net.rk.overpoweredmastery.datagen.OMTags;
+import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import net.rk.overpoweredmastery.item.custom.*;
 import net.rk.overpoweredmastery.util.OPUtil;
 
@@ -671,6 +673,13 @@ public class OMItems{
                     .setId(makeResourceKey("ultra_block"))
                     .component(DataComponents.TOOLTIP_STYLE,
                             makeTooltipReference("om_ultra")).rarity(OMRarity.ULTRA.getValue())));
+
+    // spawn eggs
+    public static final DeferredItem<Item> FRAUD_SPAWN_EGG = ITEMS.registerItem("fraud_spawn_egg",
+            properties -> new SpawnEggItem(properties
+                    .setId(makeResourceKey("fraud_spawn_egg"))
+                    .component(DataComponents.ENTITY_DATA,
+                    TypedEntityData.of(OMEntityTypes.FRAUD.get(),new CompoundTag()))));
 
     public static Tool customTool(TagKey<Block> incorrectDrops, TagKey<Block> mineBlocks,float mineSpeed, float defaultMineSpeed, int usesUsedPerBlock, boolean destroyBlocksInCreative, float attackDamage, float attackSpeed, int disableBlockingForSeconds) {
         HolderGetter<Block> holderGetter = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);

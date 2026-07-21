@@ -1,22 +1,34 @@
 package net.rk.overpoweredmastery.item.custom;
 
+import com.mojang.logging.LogUtils;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.PacketUtils;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -25,12 +37,19 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.InfestedBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.rk.overpoweredmastery.datagen.OMEnchantments;
 import net.rk.overpoweredmastery.datagen.OMTags;
 import net.rk.overpoweredmastery.datamap.OMDatamaps;
 import net.rk.overpoweredmastery.datamap.Smeltable;
+import net.rk.overpoweredmastery.item.OMItems;
+import net.rk.overpoweredmastery.util.OPServerUtil;
 import net.rk.overpoweredmastery.util.OPUtil;
+
+import java.util.List;
 
 public class UltimatePickaxe extends Item {
     public UltimatePickaxe(Properties properties) {
@@ -44,6 +63,7 @@ public class UltimatePickaxe extends Item {
                 enchantment.is(Enchantments.MENDING) ||
                 enchantment.is(Enchantments.EFFICIENCY) ||
                 enchantment.is(Enchantments.FIRE_ASPECT) ||
+                enchantment.is(OMEnchantments.DELICATE_TOUCH) ||
                 enchantment.is(Enchantments.UNBREAKING);
     }
 
@@ -67,6 +87,9 @@ public class UltimatePickaxe extends Item {
         BlockPos blockPos = context.getClickedPos();
         Player player = context.getPlayer();
         ItemStack handItem = context.getItemInHand();
+        handItem = player.getMainHandItem();
+        ItemStack offhandItem = player.getOffhandItem();
+
         BlockState lookingAtBlockState = level.getBlockState(blockPos);
         Block lookingAtBlock = lookingAtBlockState.getBlock();
 
@@ -81,6 +104,12 @@ public class UltimatePickaxe extends Item {
         Block hostOfInfested = Blocks.STONE;
 
         if(level.isClientSide()){
+            // the block may be supported by the delicate touch enchantment
+            if(lookingAtBlockState.is(OMTags.SUPPORTS_DELICATE_TOUCH)){
+                return InteractionResult.SUCCESS;
+            }
+
+            // normal client-side behaviors
             if(itemCanDestroyBlock){
                 if(smeltable != null && fireAspectLevel > 0){
                     if(smeltable.smeltInto() == Blocks.WATER && level.environmentAttributes().getValue(EnvironmentAttributes.WATER_EVAPORATES,blockPos)){
@@ -109,6 +138,72 @@ public class UltimatePickaxe extends Item {
             }
         }
         else{
+            // if delicate touch is applied, do server-side logic to remove then drop a data-applied BlockItem
+            if(level instanceof ServerLevel serverLevel){
+                int delicateTouchLevel = handItem.getEnchantmentLevel(OPUtil.getEnchantmentHolderFromKeyStatic(serverLevel,OMEnchantments.DELICATE_TOUCH));
+                // broken logic does not place blockitem properly, so it is scrapped
+                /*if(offhandItem != null && delicateTouchLevel > 0){
+                    if(!offhandItem.isEmpty()){
+                        if(offhandItem.is(OMTags.SUPPORTS_DELICATE_TOUCH_ITEM)){
+                            if(offhandItem.getItem() instanceof BlockItem blockItem){
+                                boolean itemHasData = blockItem.components().has(DataComponents.BLOCK_ENTITY_DATA);
+
+
+                                blockItem.useOn(context);
+                                if(itemHasData){
+                                    DataComponentMap map = DataComponentMap.builder()
+                                            .set(DataComponents.BLOCK_ENTITY_DATA,blockItem.components()
+                                                    .get(DataComponents.BLOCK_ENTITY_DATA)).build();
+                                    serverLevel.getBlockEntity(blockPos)
+                                            .setComponents(map);
+                                    serverLevel.blockEntityChanged(blockPos);
+                                }
+                            }
+                            return InteractionResult.SUCCESS_SERVER;
+                        }
+                    }
+                }*/
+
+                if(lookingAtBlockState.is(OMTags.SUPPORTS_DELICATE_TOUCH) && delicateTouchLevel > 0){
+                    if(lookingAtBlock.asItem() != null && lookingAtBlock.asItem() != Items.AIR){
+                        ItemStack stackToDrop = new ItemStack(lookingAtBlock.asItem());
+
+                        // statically make a data-applied stack of the block
+                        if(serverLevel.getBlockEntity(blockPos) != null){
+                            stackToDrop = OPServerUtil.serverSideCheckGetAndApplyData(serverLevel,blockPos,player);
+                        }
+                        /*
+                        List.of(Component.translatable("item.overpoweredmastery.delicate_touched_item.warning")
+                                            .withStyle(ChatFormatting.YELLOW).withStyle(ChatFormatting.ITALIC))
+                         */
+
+                        if(stackToDrop.getItem() == OMItems.PLACEHOLDER_ITEM.asItem()){
+                            return InteractionResult.FAIL;
+                        }
+
+                        // if we made it past the fail check then make a new ItemEntity with effects
+
+                        serverLevel.playSound(null,blockPos,SoundEvents.EVOKER_CAST_SPELL,
+                                SoundSource.BLOCKS,0.75f,OPUtil.nextFloatBetweenInclusive(0.95f,1.1f));
+
+                        serverLevel.addFreshEntity(new ItemEntity(serverLevel,
+                                blockPos.getX() + 0.5D,blockPos.getY() + 0.15D,blockPos.getZ() + 0.5D,
+                                stackToDrop.copy()));
+
+                        serverLevel.setBlock(blockPos,Blocks.AIR.defaultBlockState(),3);
+
+                        serverLevel.sendParticles(ParticleTypes.POOF,
+                                blockPos.getX() + 0.5D,blockPos.getY() + 0.15D,blockPos.getZ() + 0.5D,11,
+                                0D,0.1D,0D,
+                                0.02D);
+
+                        handItem.hurtAndBreak(1,player,context.getHand());
+                        return InteractionResult.SUCCESS_SERVER;
+                    }
+                }
+            }
+
+            // standard logic
             if(itemCanDestroyBlock){
                 if(smeltable != null && fireAspectLevel > 0){
                     Block smeltingResult = smeltable.smeltInto();

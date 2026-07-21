@@ -20,6 +20,7 @@ public class OMTags{
     public static final TagKey<Item> ULTRA_TOOLS = omItemTag("ultra_tools");
     public static final TagKey<Item> ULTIMATE_MATERIALS = omItemTag("ultimate_materials");
     public static final TagKey<Item> ULTRA_MATERIALS = omItemTag("ultra_materials");
+    public static final TagKey<Item> SUPPORTS_DELICATE_TOUCH_ITEM = omItemTag("supports_delicate_touch");
     public static final TagKey<Block> BANNED_PROBABLE_REWARD_BLOCKS = omBlockTag("banned_probable_reward_blocks");
     public static final TagKey<Block> PROBABLE_CANNOT_REPLACE = omBlockTag("probable_cannot_replace");
     public static final TagKey<Block> CORRECT_FOR_SPEAR = omBlockTag("correct_for_spear");
@@ -30,6 +31,7 @@ public class OMTags{
     public static final TagKey<Block> UNSAFE_FOR_SELECTION = omBlockTag("unsafe_for_selection");
     public static final TagKey<Block> CAN_DROP_STRANGE_STONE = omBlockTag("can_drop_strange_stone");
     public static final TagKey<Block> FRAUD_WANTS_TO_GO_TO = omBlockTag("fraud_wants_to_go_to");
+    public static final TagKey<Block> SUPPORTS_DELICATE_TOUCH = omBlockTag("supports_delicate_touch");
     public static final TagKey<Enchantment> SPEAR_SUPPORTED = omEnchantmentTag("spear_supported");
     public static final TagKey<Enchantment> SPAWNS_EXTRAS_OR_LANDS_MULTIPLE_HITS = omEnchantmentTag("spawns_extras_or_lands_multiple_hits");
     public static final TagKey<Enchantment> ULTRA_SWORD_SUPPORTED = omEnchantmentTag("ultra_sword_supported");

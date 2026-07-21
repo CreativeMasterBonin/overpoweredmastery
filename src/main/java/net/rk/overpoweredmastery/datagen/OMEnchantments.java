@@ -1,19 +1,20 @@
 package net.rk.overpoweredmastery.datagen;
 
 import net.minecraft.advancements.criterion.DamageSourcePredicate;
+import net.minecraft.advancements.criterion.DataComponentMatchers;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.TagPredicate;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.Vec3i;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageType;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -25,12 +26,14 @@ import net.minecraft.world.item.enchantment.LevelBasedValue;
 import net.minecraft.world.item.enchantment.effects.AddValue;
 import net.minecraft.world.item.enchantment.effects.ChangeItemDamage;
 import net.minecraft.world.item.enchantment.effects.EnchantmentAttributeEffect;
-import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.storage.loot.predicates.AllOfCondition;
 import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
-import net.neoforged.neoforge.common.Tags;
 import net.rk.overpoweredmastery.OverpoweredMastery;
+import net.rk.overpoweredmastery.enchantment.DelicateTouchEffect;
 import net.rk.overpoweredmastery.enchantment.EvocationMasterEffect;
 
 import java.util.Optional;
@@ -39,6 +42,7 @@ public class OMEnchantments{
     public static final ResourceKey<Enchantment> INSTAREPAIR = key("instarepair");
     public static final ResourceKey<Enchantment> BYPASS_DENIAL = key("bypass_denial");
     public static final ResourceKey<Enchantment> EVOCATION_MASTER = key("evocation_master");
+    public static final ResourceKey<Enchantment> DELICATE_TOUCH = key("delicate_touch");
 
 
     public static final Identifier INSTAREPAIR_ARMOR_TOUGHNESS_MODIFIER = Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"instarepair_modifier");
@@ -50,8 +54,29 @@ public class OMEnchantments{
         HolderGetter<DamageType> holdergetter = context.lookup(Registries.DAMAGE_TYPE);
         HolderGetter<Enchantment> holdergetter1 = context.lookup(Registries.ENCHANTMENT);
         HolderGetter<Item> holdergetter2 = context.lookup(Registries.ITEM);
-        //HolderGetter<Block> holdergetter3 = context.lookup(Registries.BLOCK);
+        HolderGetter<Block> holdergetter3 = context.lookup(Registries.BLOCK);
         //HolderGetter<EntityType<?>> holdergetter4 = context.lookup(Registries.ENTITY_TYPE);
+
+        registerEnchantment(context,
+                DELICATE_TOUCH,
+                Enchantment.enchantment(Enchantment.definition(
+                        holdergetter2.getOrThrow(OMTags.ULTIMATE_TOOLS),
+                        1,
+                        1,
+                        Enchantment.dynamicCost(30,10),
+                        Enchantment.dynamicCost(35,15),
+                        40,
+                        EquipmentSlotGroup.HAND
+                )).exclusiveWith(holdergetter1.getOrThrow(EnchantmentTags.MINING_EXCLUSIVE))
+                        .withEffect(EnchantmentEffectComponents.HIT_BLOCK,
+                                new DelicateTouchEffect(Vec3i.ZERO,
+                                ItemPredicate.Builder.item()
+                                        .withComponents(DataComponentMatchers.Builder
+                                                .components().any(DataComponents.TOOL).build()).build(),
+                                BlockPredicate.anyOf(
+                                        BlockPredicate.matchesTag(OMTags.SUPPORTS_DELICATE_TOUCH)
+                                ),Optional.of(GameEvent.BLOCK_CHANGE)))
+        );
 
         registerEnchantment(
                 context,

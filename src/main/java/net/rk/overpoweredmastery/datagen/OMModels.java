@@ -159,6 +159,9 @@ public class OMModels extends ModelProvider {
         itemModels.generateFlatItem(OMItems.ULTIMATE_MACE.asItem(),ModelTemplates.FLAT_HANDHELD_MACE_ITEM);
         itemModels.generateFlatItem(OMItems.ULTIMATE_PICKAXE.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModels.generateFlatItem(OMItems.ULTRA_CATALYST_TEMPLATE.asItem(),ModelTemplates.FLAT_ITEM);
+
+        // 1.0.5
+        itemModels.generateFlatItem(OMItems.FRAUD_SPAWN_EGG.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
     }
 
     public static Identifier obtainItemModelLocation(DeferredItem<Item> item){

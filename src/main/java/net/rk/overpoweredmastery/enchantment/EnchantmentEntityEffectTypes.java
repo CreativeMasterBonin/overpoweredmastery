@@ -13,4 +13,7 @@ public class EnchantmentEntityEffectTypes{
 
     public static final DeferredHolder<MapCodec<? extends EnchantmentEntityEffect>,MapCodec<EvocationMasterEffect>> EVOCATION_MASTER_EFFECT =
             ENCHANTMENT_ENTITY_EFFECTS.register("evocation_master_effect", () -> EvocationMasterEffect.CODEC);
+
+    public static final DeferredHolder<MapCodec<? extends EnchantmentEntityEffect>,MapCodec<DelicateTouchEffect>> DELICATE_TOUCH_EFFECT =
+            ENCHANTMENT_ENTITY_EFFECTS.register("delicate_touch_effect", () -> DelicateTouchEffect.CODEC);
 }

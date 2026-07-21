@@ -245,6 +245,9 @@ public class OverpoweredMastery {
         if(event.getTabKey() == CreativeModeTabs.COMBAT){
 
         }
+        if(event.getTabKey() == CreativeModeTabs.SPAWN_EGGS){
+            event.accept(OMItems.FRAUD_SPAWN_EGG.asItem());
+        }
         if(event.getTabKey() == ALL_TAB.getKey()){
             // machines and devices
             //event.accept(OMItems.MULTI_ASSEMBLER);

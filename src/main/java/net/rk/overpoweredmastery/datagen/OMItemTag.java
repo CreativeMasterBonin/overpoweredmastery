@@ -4,6 +4,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ItemTagsProvider;
 import net.rk.overpoweredmastery.OverpoweredMastery;
@@ -19,6 +20,10 @@ public class OMItemTag extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        tag(OMTags.SUPPORTS_DELICATE_TOUCH_ITEM)
+                .add(Items.REINFORCED_DEEPSLATE)
+                .add(Items.BUDDING_AMETHYST)
+        ;
         tag(OMTags.ULTIMATE_TOOLS)
                 .add(OMItems.ULTIMATE_SWORD.asItem())
                 .add(OMItems.ULTIMATE_PICKAXE.asItem())

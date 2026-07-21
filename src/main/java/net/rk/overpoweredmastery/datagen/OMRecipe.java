@@ -418,6 +418,13 @@ public class OMRecipe extends RecipeProvider {
                 .requires(OMBlocks.ULTRA_BLOCK.asItem())
                 .unlockedBy("has_thingy",has(OMBlocks.ULTRA_BLOCK.asItem()))
                 .save(this.output,"ultra_ingots_from_block");
+        shapeless(RecipeCategory.MISC,OMItems.ULTRA_INGOT.asItem(),1)
+                .requires(Items.BUDDING_AMETHYST)
+                .requires(Items.HEAVY_CORE)
+                .requires(Items.DRAGON_EGG)
+                .requires(OMItems.ULTIMATE_BLOCK)
+                .unlockedBy("has_thingy",has(OMItems.ULTIMATE_BLOCK))
+                .save(this.output,"ultra_ingot");
 
 
         // smithing general
