@@ -163,6 +163,7 @@ public class OMModels extends ModelProvider {
         // 1.0.5
         itemModels.generateFlatItem(OMItems.FRAUD_SPAWN_EGG.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModels.generateFlatItem(OMItems.ULTIMATE_SHOVEL.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(OMItems.RESINVEIN_STAFF.asItem(),ModelTemplates.FLAT_HANDHELD_ITEM);
     }
 
     public static Identifier obtainItemModelLocation(DeferredItem<Item> item){

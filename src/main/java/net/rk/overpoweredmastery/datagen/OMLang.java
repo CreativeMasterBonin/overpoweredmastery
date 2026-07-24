@@ -46,6 +46,7 @@ public class OMLang extends LanguageProvider {
         add(OMEntityTypes.PURPLE_WUB_ENERGY_BALL.get(),"Energy Ball (Darkening)");
         add(OMEntityTypes.RED_WUB_ENERGY_BALL.get(),"Energy Ball (Blasting)");
         add(OMEntityTypes.TRIAL_WUB_ENERGY_BALL.get(),"Energy Ball (Testing)");
+        add(OMEntityTypes.WEEPING_WUB_ENERGY_BALL.get(),"Energy Ball (Mourning)");
         // standard entities
         add(OMEntityTypes.FRAUD.get(),"Fraud");
         // spawn eggs
@@ -68,6 +69,7 @@ public class OMLang extends LanguageProvider {
         add(OMItems.NETHER_WUBS.asItem(),"Music Disc Melter (Nether Stage)");
         add(OMItems.TRIAL_WUBS.asItem(),"Music Disc Tester (Trial Stage)");
         add(OMItems.OXIDIZED_TRIAl_WUBS.asItem(),"Music Disc Oxidizer (Oxidized Stage)");
+        add(OMItems.WEEPING_WUBS.asItem(),"Music Disc Mourner (Weeping Stage)");
         // block items
         add(OMItems.MOVING_PROBABLE_BLOCK_ITEM.asItem(),"Moving Probable Block");
         add(OMItems.MULTI_ASSEMBLER.asItem(),"Multi-Assembler");
@@ -94,6 +96,7 @@ public class OMLang extends LanguageProvider {
         // staffs
         add(OMItems.PRIMITIVE_STAFF.asItem(),"Primitive Staff");
         add(OMItems.ENDERMARINE_STAFF.asItem(),"Endermarine Staff");
+        add(OMItems.RESINVEIN_STAFF.asItem(),"Resinvein Staff");
         add(OMItems.ULTIMATE_STAFF.asItem(),"Ultimate Staff");
 
 
@@ -108,6 +111,7 @@ public class OMLang extends LanguageProvider {
         addItemDesc(OMItems.NETHER_WUBS.asItem(),"Bring the heat and drop the beat on the pigs!");
         addItemDesc(OMItems.TRIAL_WUBS.asItem(),"Test your enemies with the power of music!");
         addItemDesc(OMItems.OXIDIZED_TRIAl_WUBS.asItem(),"Now oxidized, the power of music is slow, but hits hard!");
+        addItemDesc(OMItems.WEEPING_WUBS.asItem(),"Slow, but effective against Ghasts, but for others, a rather large explosion awaits!");
         addItemDesc(OMItems.PENULTIMATE_SWORD_DARK.asItem(),"Has a void-like appearance. It takes away the darkest of effects... yet introduces a hint of trouble");
         add("item.overpoweredmastery.penultimate_sword_dark.desc.detail","Animals and players are especially treated to ill effects...");
         addItemDesc(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),"Has a light-like appearance. It is strong, and provides amazing abilities");
@@ -128,6 +132,8 @@ public class OMLang extends LanguageProvider {
         addItemDesc(OMItems.PENULTIMATE_SHOVEL_CATALYST.asItem(),"Used to craft the Penultimate Shovels.");
         addItemDesc(OMItems.PENULTIMATE_HOE_CATALYST.asItem(),"Used to craft the Penultimate Hoes.");
         addItemDesc(OMItems.ULTRA_INGOT.asItem(),"A step towards overpoweredness...");
+        addItemDesc(OMItems.ENDERMARINE_STAFF.asItem(),"Left-click to find a valid block to teleport to, then shift-left-click to teleport to that location");
+        add("item.overpoweredmastery.staff.max_teleport_distance","Max Teleport Distance: %s");
         add("item.overpoweredmastery.ultra.desc","Completely overpowered...");
         add("item.overpoweredmastery.ultra.desc.detail","Combines effects of the ingredients used to craft it, including all tier abilities");
 

@@ -48,16 +48,6 @@ public class NetherWubs extends AbstractWubs{
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        if(level instanceof ServerLevel serverLevel){
-            return ItemUtils.startUsingInstantly(level,player,hand);
-        }
-        else {
-            return InteractionResult.SUCCESS;
-        }
-    }
-
-    @Override
     public Predicate<ItemStack> getAllSupportedProjectiles() {
         return stack -> stack.getItem() instanceof Item;
     }

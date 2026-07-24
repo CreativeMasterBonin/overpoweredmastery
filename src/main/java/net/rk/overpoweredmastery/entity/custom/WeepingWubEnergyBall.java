@@ -94,6 +94,7 @@ public class WeepingWubEnergyBall extends AbstractHurtingProjectile {
             else if(serverLevel.getBlockState(posHit).is(Blocks.SOUL_SOIL) || serverLevel.getBlockState(posHit).is(Blocks.SOUL_SAND)){
                 if(serverLevel.getBlockState(posHit.below()).isAir()){
                     FallingBlockEntity fallingBlock = new FallingBlockEntity(serverLevel,posHit.getX(), posHit.getY(),posHit.getZ(),serverLevel.getBlockState(posHit));
+                    serverLevel.setBlock(posHit,Blocks.AIR.defaultBlockState(),3); // prevent duping from offset positioned entity
                     serverLevel.addFreshEntity(fallingBlock);
                 }
                 else{
@@ -104,6 +105,7 @@ public class WeepingWubEnergyBall extends AbstractHurtingProjectile {
                 }
             }
         }
+        this.discard();
     }
 
     @Override
@@ -120,5 +122,6 @@ public class WeepingWubEnergyBall extends AbstractHurtingProjectile {
                         true,Level.ExplosionInteraction.MOB);
             }
         }
+        this.discard();
     }
 }

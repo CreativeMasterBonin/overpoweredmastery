@@ -45,11 +45,10 @@ public class OxidizedTrialWubs extends AbstractWubs{
             if(level instanceof ServerLevel serverLevel){
                 if(remainingUseDuration % 20 == 0 && !((Player)livingEntity).isSecondaryUseActive()){
                     if(remainingUseDuration < 3201){
-                        if(livingEntity.hasEffect(MobEffects.HEALTH_BOOST)){
-                            livingEntity.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST,20,10,true,false,false));
-                        }
-                        if(!livingEntity.hasEffect(MobEffects.NIGHT_VISION)){
-                            livingEntity.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION,20,1,true,false,false));
+                        if(!livingEntity.hasEffect(MobEffects.ABSORPTION)){
+                            livingEntity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION,
+                                    320,8,
+                                    true,false,false));
                         }
                     }
                     if(remainingUseDuration < 3107 && remainingUseDuration > 1869){

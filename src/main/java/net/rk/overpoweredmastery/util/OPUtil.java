@@ -14,6 +14,7 @@ public class OPUtil {
     public static final int ULTRA_SHARED_DURABILITY = 99999;
     public static final int PRIMITIVE_STAFF_DURABILITY = 250;
     public static final int ENDERMARINE_STAFF_DURABILITY = 325;
+    public static final int RESINVEIN_STAFF_DURABILITY = 475;
 
     public static final String MAKES_ULTRA_TOOLS = "item.catalyst_template.overpoweredmastery.makes_type.ultra_tools";
     public static final String MAKES_ULTIMATE_TOOLS = "item.catalyst_template.overpoweredmastery.makes_type.ultimate_tools";

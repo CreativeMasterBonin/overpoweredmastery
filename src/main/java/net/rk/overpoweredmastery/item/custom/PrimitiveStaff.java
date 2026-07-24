@@ -36,7 +36,7 @@ public class PrimitiveStaff extends AbstractStaff{
         if(remainDuration < 120){
             if(remainDuration % 20 == 0){
                 action(level,livingEntity,itemStack,remainDuration,0);
-                itemStack.hurtAndBreak(1,livingEntity,livingEntity.getUsedItemHand());
+                itemStack.hurtAndBreak(3,livingEntity,livingEntity.getUsedItemHand());
             }
         }
     }

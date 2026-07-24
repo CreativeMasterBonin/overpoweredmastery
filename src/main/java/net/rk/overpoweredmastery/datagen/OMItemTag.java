@@ -18,6 +18,12 @@ public class OMItemTag extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        tag(OMTags.STAFFS)
+                .add(OMItems.PRIMITIVE_STAFF.asItem())
+                .add(OMItems.ENDERMARINE_STAFF.asItem())
+                .add(OMItems.RESINVEIN_STAFF.asItem())
+                .add(OMItems.ULTIMATE_STAFF.asItem())
+        ;
         tag(OMTags.FRAUD_WANTS)
                 .addTag(ItemTags.SWORDS)
                 .addTag(ItemTags.AXES)

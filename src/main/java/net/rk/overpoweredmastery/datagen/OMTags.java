@@ -22,6 +22,7 @@ public class OMTags{
     public static final TagKey<Item> ULTRA_MATERIALS = omItemTag("ultra_materials");
     public static final TagKey<Item> SUPPORTS_DELICATE_TOUCH_ITEM = omItemTag("supports_delicate_touch");
     public static final TagKey<Item> FRAUD_WANTS = omItemTag("fraud_wants");
+    public static final TagKey<Item> STAFFS = omItemTag("staffs");
     public static final TagKey<Block> BANNED_PROBABLE_REWARD_BLOCKS = omBlockTag("banned_probable_reward_blocks");
     public static final TagKey<Block> PROBABLE_CANNOT_REPLACE = omBlockTag("probable_cannot_replace");
     public static final TagKey<Block> CORRECT_FOR_SPEAR = omBlockTag("correct_for_spear");

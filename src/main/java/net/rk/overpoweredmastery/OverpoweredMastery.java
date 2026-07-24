@@ -7,8 +7,6 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Weapon;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
@@ -16,7 +14,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.enchantment.*;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.capabilities.BlockCapability;
@@ -52,7 +49,6 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import org.w3c.dom.Attr;
 
 import java.util.function.Supplier;
 
@@ -307,6 +303,7 @@ public class OverpoweredMastery {
             // staffs
             event.accept(OMItems.PRIMITIVE_STAFF);
             event.accept(OMItems.ENDERMARINE_STAFF);
+            event.accept(OMItems.RESINVEIN_STAFF);
             // tier order weapons
             // starter
             event.accept(OMItems.BONE_SWORD);

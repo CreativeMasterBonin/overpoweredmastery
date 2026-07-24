@@ -328,6 +328,17 @@ public class OMItems{
                             false
                     )));
 
+    public static final DeferredItem<Item> RESINVEIN_STAFF = ITEMS.registerItem("resinvein_staff",
+            ResinveinStaff::new,
+            () -> new Item.Properties().setId(makeResourceKey("resinvein_staff"))
+                    .component(DataComponents.BREAK_SOUND, Holder.direct(SoundEvents.SCULK_CATALYST_BREAK))
+                    .component(DataComponents.TOOL,new Tool(
+                            List.of(),
+                            0.1f,
+                            1,
+                            false
+                    )));
+
     // ore items
     // blue
     public static final DeferredItem<Item> INERT_BLUE_ESSENCE_ORE = ITEMS.registerItem("inert_blue_essence_ore",

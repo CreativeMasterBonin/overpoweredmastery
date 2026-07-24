@@ -1,5 +1,6 @@
 package net.rk.overpoweredmastery.item.custom;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -60,7 +61,8 @@ public abstract class AbstractStaff extends ProjectileWeaponItem {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
-        tooltipAdder.accept(Component.translatable("item.overpoweredmastery.staff.desc"));
+        tooltipAdder.accept(Component.translatable("item.overpoweredmastery.staff.desc")
+                .withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
     }
 
     @Override
@@ -85,7 +87,12 @@ public abstract class AbstractStaff extends ProjectileWeaponItem {
 
     @Override
     public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
-        return enchantment.is(OMEnchantments.INSTAREPAIR) || enchantment.is(Enchantments.UNBREAKING) || enchantment.is(Enchantments.MENDING) || enchantment.is(Tags.Enchantments.INCREASE_ENTITY_DROPS);
+        return enchantment.is(OMEnchantments.INSTAREPAIR)
+                || enchantment.is(Enchantments.UNBREAKING)
+                || enchantment.is(Enchantments.MENDING)
+                || enchantment.is(Tags.Enchantments.INCREASE_ENTITY_DROPS)
+                || enchantment.is(Enchantments.FIRE_ASPECT)
+                || enchantment.is(Enchantments.FLAME);
     }
 
     @Override

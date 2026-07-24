@@ -357,6 +357,114 @@ public class OMRecipe extends RecipeProvider {
                 .unlockedBy("has_thingy",has(Items.PRISMARINE_BRICKS))
                 .save(this.output,"endermarine_staff");
 
+        shaped(RecipeCategory.COMBAT,OMItems.RESINVEIN_STAFF)
+                .define('s', OMItems.ENDERMARINE_STAFF)
+                .define('a', Items.CHISELED_RESIN_BRICKS)
+                .define('c', Items.SCULK_CATALYST)
+                .define('f', Items.LIGHTNING_ROD)
+                .pattern(" af")
+                .pattern("aca")
+                .pattern("sa ")
+                .unlockedBy("has_thingy",has(Items.CHISELED_RESIN_BRICKS))
+                .save(this.output,"resinvein_staff");
+
+        // temp recipes - ULTIMATE STAFF
+        shapeless(RecipeCategory.MISC,OMItems.ULTIMATE_STAFF,1)
+                .requires(OMTags.INERT_ESSENCES)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(OMItems.RESINVEIN_STAFF)
+                .unlockedBy("has_thingy",has(OMItems.ULTIMATE_INGOT))
+                .save(this.output,"ultimate_staff_temporary");
+        // temp recipes - ULTRA INGOT DUPING
+        copySmithingTemplateCustomWithCustomName(
+                OMItems.ULTRA_INGOT.asItem(),
+                OMItems.ULTIMATE_INGOT.asItem(),
+                Items.CRYING_OBSIDIAN,
+                "ultra_ingot_dupe_temporary");
+
+        // temp recipes - ULTIMATE PICKAXE CRAFT
+        shapeless(RecipeCategory.MISC,OMItems.ULTIMATE_PICKAXE,1)
+                .requires(OMTags.INERT_ESSENCES)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(ItemTags.STONE_CRAFTING_MATERIALS)
+                .requires(OMItems.PENULTIMATE_PICKAXE_CATALYST)
+                .unlockedBy("has_thingy",has(OMItems.ULTIMATE_INGOT))
+                .save(this.output,"ultimate_pickaxe_temporary");
+
+        // temp recipes - ULTIMATE SHOVEL CRAFT
+        shapeless(RecipeCategory.MISC,OMItems.ULTIMATE_SHOVEL,1)
+                .requires(OMTags.INERT_ESSENCES)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(ItemTags.DIRT)
+                .requires(OMItems.PENULTIMATE_SHOVEL_CATALYST)
+                .unlockedBy("has_thingy",has(OMItems.ULTIMATE_INGOT))
+                .save(this.output,"ultimate_shovel_temporary");
+
+        // temp recipes - ULTIMATE HOE CRAFT
+        shapeless(RecipeCategory.MISC,OMItems.ULTIMATE_HOE,1)
+                .requires(OMTags.INERT_ESSENCES)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(Tags.Items.SEEDS)
+                .requires(OMItems.PENULTIMATE_HOE_CATALYST)
+                .unlockedBy("has_thingy",has(OMItems.ULTIMATE_INGOT))
+                .save(this.output,"ultimate_hoe_temporary");
+
+        // temp recipes - ULTIMATE BOW CRAFT
+        shapeless(RecipeCategory.MISC,OMItems.ULTIMATE_BOW,1)
+                .requires(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(OMItems.ESSENCE_ELECTRONIC_CORE)
+                .requires(Items.ARROW)
+                .requires(Items.BOW)
+                .unlockedBy("has_thingy",has(OMItems.ULTIMATE_INGOT))
+                .save(this.output,"ultimate_bow_temporary");
+
+        // temp recipes - ULTIMATE MACE CRAFT
+        shapeless(RecipeCategory.MISC,OMItems.ULTIMATE_MACE,1)
+                .requires(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(OMItems.ESSENCE_ELECTRONIC_CORE)
+                .requires(Items.END_CRYSTAL)
+                .requires(Items.MACE)
+                .unlockedBy("has_thingy",has(OMItems.ULTIMATE_INGOT))
+                .save(this.output,"ultimate_mace_temporary");
+
+        // temp recipes - ULTIMATE FISHING ROD CRAFT
+        shapeless(RecipeCategory.MISC,OMItems.ULTIMATE_FISHING_ROD,1)
+                .requires(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(OMItems.ESSENCE_ELECTRONIC_CORE)
+                .requires(ItemTags.FISHES)
+                .requires(Items.FISHING_ROD)
+                .unlockedBy("has_thingy",has(OMItems.ULTIMATE_INGOT))
+                .save(this.output,"ultimate_fishing_rod_temporary");
+
+        // temp recipes - ULTIMATE LONG SPEAR CRAFT
+        shapeless(RecipeCategory.MISC,OMItems.ULTIMATE_LONG_SPEAR,1)
+                .requires(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(OMItems.NETHERITE_SPEAR) // long spear
+                .unlockedBy("has_thingy",has(OMItems.ULTIMATE_INGOT))
+                .save(this.output,"ultimate_long_spear_temporary");
+
+        // temp recipes - ULTIMATE SPEAR CRAFT
+        shapeless(RecipeCategory.MISC,OMItems.ULTIMATE_SPEAR,1)
+                .requires(OMItems.INFUSED_CONCENTRATED_MULTI_ESSENCE)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(OMItems.ULTIMATE_INGOT)
+                .requires(Items.NETHERITE_SPEAR) // vanilla spear
+                .unlockedBy("has_thingy",has(OMItems.ULTIMATE_INGOT))
+                .save(this.output,"ultimate_spear_temporary");
+
+
+
+
+
+
+
         oreSmelting(List.of(Items.STONE_SLAB),RecipeCategory.MISC,
                 OMItems.STRANGE_STONE,
                 1.0f,320,
@@ -485,6 +593,18 @@ public class OMRecipe extends RecipeProvider {
                 .pattern("SSS")
                 .unlockedBy(getHasName(template), this.has(template))
                 .save(this.output);
+    }
+
+    public void copySmithingTemplateCustomWithCustomName(ItemLike template, ItemLike baseItem, ItemLike surroundingItem, String customName) {
+        this.shaped(RecipeCategory.MISC, template, 2)
+                .define('S', surroundingItem)
+                .define('B', baseItem)
+                .define('T', template)
+                .pattern("STS")
+                .pattern("SBS")
+                .pattern("SSS")
+                .unlockedBy(getHasName(template), this.has(template))
+                .save(this.output,customName);
     }
 
     public void multiAssembler(Ingredient firstEssence,

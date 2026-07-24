@@ -42,11 +42,6 @@ public class GreenWubs extends AbstractWubs {
     }
 
     @Override
-    public ItemUseAnimation getUseAnimation(ItemStack stack) {
-        return ItemUseAnimation.NONE;
-    }
-
-    @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
         livingEntity.setData(OverpoweredMastery.USING_WUB_ITEM,false);
         return stack;
