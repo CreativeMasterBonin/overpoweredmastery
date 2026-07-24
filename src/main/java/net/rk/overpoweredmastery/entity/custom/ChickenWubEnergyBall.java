@@ -62,7 +62,7 @@ public class ChickenWubEnergyBall extends AbstractHurtingProjectile {
         boolean isMovingY = getDeltaMovement().y > 0 || getDeltaMovement().y < 0;
         boolean isMovingZ = getDeltaMovement().z > 0 || getDeltaMovement().z < 0;
         // this energy ball doesn't last forever!
-        if(count >= 70){
+        if(count >= Config.CHICKEN_WUB_ENERGY_BALL_LIFETIME.getAsInt()){
             this.discard();
         }
         if(isMovingX || isMovingY || isMovingZ){

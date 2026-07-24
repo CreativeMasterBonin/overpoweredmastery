@@ -109,6 +109,7 @@ public class OverpoweredMasteryClient{
         event.registerEntityRenderer(OMEntityTypes.CHICKEN_WUB_ENERGY_BALL.get(),ChickenWubEnergyBallRenderer::new);
         event.registerEntityRenderer(OMEntityTypes.NETHER_WUB_ENERGY_BALL.get(),NetherWubEnergyBallRenderer::new);
         event.registerEntityRenderer(OMEntityTypes.TRIAL_WUB_ENERGY_BALL.get(),TrialWubEnergyBallRenderer::new);
+        event.registerEntityRenderer(OMEntityTypes.WEEPING_WUB_ENERGY_BALL.get(),WeepingWubEnergyBallRenderer::new);
         event.registerEntityRenderer(OMEntityTypes.FRAUD.get(),FraudRenderer::new);
     }
 

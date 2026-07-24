@@ -18,6 +18,11 @@ public class OMBlockTag extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        tag(OMTags.CAN_EXTRUDE)
+                .addTag(BlockTags.DIRT)
+                .addTag(Tags.Blocks.GRAVELS)
+                .addTag(Tags.Blocks.SANDS)
+        ;
         tag(OMTags.SUPPORTS_DELICATE_TOUCH)
                 .add(Blocks.BUDDING_AMETHYST)
                 .add(Blocks.REINFORCED_DEEPSLATE)

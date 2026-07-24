@@ -23,6 +23,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.rk.overpoweredmastery.Config;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import org.jetbrains.annotations.Nullable;
 
@@ -68,7 +69,7 @@ public class GreenWubEnergyBall extends AbstractHurtingProjectile {
         boolean isMovingY = getDeltaMovement().y > 0 || getDeltaMovement().y < 0;
         boolean isMovingZ = getDeltaMovement().z > 0 || getDeltaMovement().z < 0;
         // this energy ball doesn't last forever!
-        if(count >= 150){
+        if(count >= Config.GREEN_WUB_ENERGY_BALL_LIFETIME.getAsInt()){
             this.discard();
         }
         if(isMovingX || isMovingY || isMovingZ){

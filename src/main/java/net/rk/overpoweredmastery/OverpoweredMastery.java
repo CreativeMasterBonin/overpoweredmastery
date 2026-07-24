@@ -97,10 +97,6 @@ public class OverpoweredMastery {
             "using_wub_item", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL.fieldOf("using_wub_item")).build()
     );
 
-    public static final Supplier<AttachmentType<Boolean>> USING_CROSSBOW_UNPERSISTENT = ATTACHMENT_TYPES.register(
-            "using_crossbow_unpersistent", () -> AttachmentType.builder(() -> false).build()
-    );
-
     public static final DeferredHolder<CreativeModeTab,CreativeModeTab> ALL_TAB = CREATIVE_MODE_TABS.register("overpoweredmastery_creative_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.overpoweredmastery"))
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
@@ -335,6 +331,7 @@ public class OverpoweredMastery {
             event.accept(OMItems.ULTIMATE_SWORD);
             event.accept(OMItems.ULTIMATE_SPEAR);
             event.accept(OMItems.ULTIMATE_PICKAXE);
+            event.accept(OMItems.ULTIMATE_SHOVEL);
             event.accept(OMItems.ULTIMATE_HOE);
             event.accept(OMItems.ULTIMATE_BOW);
             event.accept(OMItems.ULTIMATE_FISHING_ROD);
@@ -351,6 +348,7 @@ public class OverpoweredMastery {
             event.accept(OMItems.PURPLE_WUBS);
             event.accept(OMItems.TRIAL_WUBS);
             event.accept(OMItems.OXIDIZED_TRIAl_WUBS);
+            event.accept(OMItems.WEEPING_WUBS);
             // misc
             event.accept(OMItems.MOVING_PROBABLE_BLOCK_ITEM);
         }

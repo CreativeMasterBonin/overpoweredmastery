@@ -86,6 +86,8 @@ public class OMSmeltables extends DataMapProvider {
         smeltables.add(Blocks.MAGENTA_TERRACOTTA.builtInRegistryHolder(),new Smeltable(Blocks.MAGENTA_GLAZED_TERRACOTTA),false);
         smeltables.add(Blocks.PINK_TERRACOTTA.builtInRegistryHolder(),new Smeltable(Blocks.PINK_GLAZED_TERRACOTTA),false);
 
+        smeltables.add(BlockTags.FLOWERS,new Smeltable(Blocks.SHORT_DRY_GRASS),false);
+
         smeltables.build();
     }
 

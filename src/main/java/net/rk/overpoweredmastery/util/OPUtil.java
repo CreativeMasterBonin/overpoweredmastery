@@ -32,6 +32,11 @@ public class OPUtil {
         return random.nextDouble(max - min + 1) + min;
     }
 
+    public static int nextIntBetweenInclusive(int min, int max) {
+        Random random = new Random();
+        return random.nextInt(max - min + 1) + min;
+    }
+
     /*
     TEMPLATE - for desc key logic usage
 

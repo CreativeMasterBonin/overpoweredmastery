@@ -31,6 +31,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.EventHooks;
+import net.rk.overpoweredmastery.Config;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import net.rk.overpoweredmastery.util.OPUtil;
 import org.jetbrains.annotations.Nullable;
@@ -100,7 +101,7 @@ public class TrialWubEnergyBall extends AbstractHurtingProjectile {
         boolean isMovingY = getDeltaMovement().y > 0 || getDeltaMovement().y < 0;
         boolean isMovingZ = getDeltaMovement().z > 0 || getDeltaMovement().z < 0;
         // this energy ball doesn't last forever!
-        if(count >= 120){
+        if(count >= Config.TRIAL_WUB_ENERGY_BALL_LIFETIME.getAsInt()){
             this.discard();
         }
         if(isMovingX || isMovingY || isMovingZ){

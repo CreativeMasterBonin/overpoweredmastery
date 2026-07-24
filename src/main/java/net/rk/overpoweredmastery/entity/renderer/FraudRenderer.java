@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
+import net.rk.overpoweredmastery.OverpoweredMastery;
 import net.rk.overpoweredmastery.entity.custom.Fraud;
 import net.rk.overpoweredmastery.entity.renderer.renderstate.FraudRenderState;
 
@@ -28,15 +29,19 @@ public class FraudRenderer extends HumanoidMobRenderer<Fraud, FraudRenderState, 
     @Override
     public void extractRenderState(Fraud fraud, FraudRenderState fraudRenderState, float partialTick) {
         super.extractRenderState(fraud, fraudRenderState, partialTick);
-        fraudRenderState.isUnhappy = fraud.isUnhappy;
+        fraudRenderState.isUnhappy = fraud.getEntityData().get(Fraud.UNHAPPY_DATA);
+        fraudRenderState.skinVariant = fraud.getEntityData().get(Fraud.SKIN_DATA);
     }
 
     @Override
     public void submit(FraudRenderState fraudRenderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
         poseStack.pushPose();
         if(fraudRenderState.isUnhappy){
-            float shake = 0.3f * Mth.sin(0.45f * fraudRenderState.ageInTicks);
+            float shake = 0.3f * Mth.sin(0.45f * fraudRenderState.ageInTicks) + 0.4f;
             poseStack.rotateAround(Axis.YP.rotation(shake),0f,0f,0f);
+        }
+        if(fraudRenderState.hasRedOverlay){
+
         }
         poseStack.popPose();
         super.submit(fraudRenderState, poseStack, nodeCollector, cameraRenderState);
@@ -49,7 +54,40 @@ public class FraudRenderer extends HumanoidMobRenderer<Fraud, FraudRenderState, 
 
     @Override
     public Identifier getTextureLocation(FraudRenderState fraudRenderState) {
-        return Identifier.withDefaultNamespace("textures/entity/player/wide/steve.png");
+        switch(fraudRenderState.skinVariant){
+            case 1: {
+                if(fraudRenderState.isUnhappy){
+                    return Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"textures/entity/fraud/gray_angry.png");
+                }
+                else{
+                    return Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"textures/entity/fraud/gray.png");
+                }
+            }
+            case 2: {
+                if(fraudRenderState.isUnhappy){
+                    return Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"textures/entity/fraud/green_angry.png");
+                }
+                else{
+                    return Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"textures/entity/fraud/green.png");
+                }
+            }
+            case 3: {
+                if(fraudRenderState.isUnhappy){
+                    return Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"textures/entity/fraud/yellow.png");
+                }
+                else{
+                    return Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"textures/entity/fraud/yellow.png");
+                }
+            }
+            default: {
+                if(fraudRenderState.isUnhappy){
+                    return Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"textures/entity/fraud/brown_angry.png");
+                }
+                else{
+                    return Identifier.fromNamespaceAndPath(OverpoweredMastery.MODID,"textures/entity/fraud/brown.png");
+                }
+            }
+        }
     }
 
     @Override

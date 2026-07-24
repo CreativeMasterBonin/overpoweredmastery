@@ -24,6 +24,7 @@ import net.minecraft.world.item.enchantment.Enchantable;
 import net.minecraft.world.item.enchantment.Repairable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.rk.overpoweredmastery.OverpoweredMastery;
@@ -89,7 +90,12 @@ public class OMItems{
     public static final DeferredItem<Item> OXIDIZED_TRIAl_WUBS = ITEMS.registerItem("oxidized_trial_wubs",
             OxidizedTrialWubs::new,() -> new Item.Properties().setId(makeResourceKey("oxidized_trial_wubs"))
                     .component(DataComponents.TOOLTIP_STYLE,
-                            makeTooltipReference("orange_wub")));
+                            makeTooltipReference("green_wub")));
+
+    public static final DeferredItem<Item> WEEPING_WUBS = ITEMS.registerItem("weeping_wubs",
+            WeepingWubs::new,() -> new Item.Properties().setId(makeResourceKey("weeping_wubs"))
+                    .component(DataComponents.TOOLTIP_STYLE,
+                            makeTooltipReference("red_wub")));
 
 
     public static final DeferredItem<Item> MOVING_PROBABLE_BLOCK_ITEM = ITEMS.registerItem("moving_probable_block",
@@ -477,6 +483,13 @@ public class OMItems{
             UltimatePickaxe::new,
             () -> new Item.Properties().setId(makeResourceKey("ultimate_pickaxe"))
                     .pickaxe(ULTIMATE,2.0f,-1.3f)
+                    .rarity(OMRarity.ULTIMATE.getValue())
+                    .component(DataComponents.TOOLTIP_STYLE,
+                            makeTooltipReference("om_ultimate")));
+
+    public static final DeferredItem<Item> ULTIMATE_SHOVEL = ITEMS.registerItem("ultimate_shovel",
+            properties -> new UltimateShovel(ULTIMATE,2.0f,-1.0f,properties),
+            () -> new Item.Properties().setId(makeResourceKey("ultimate_shovel"))
                     .rarity(OMRarity.ULTIMATE.getValue())
                     .component(DataComponents.TOOLTIP_STYLE,
                             makeTooltipReference("om_ultimate")));

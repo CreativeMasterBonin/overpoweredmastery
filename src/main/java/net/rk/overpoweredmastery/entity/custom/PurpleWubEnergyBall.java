@@ -18,6 +18,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
+import net.rk.overpoweredmastery.Config;
 import net.rk.overpoweredmastery.entity.OMEntityTypes;
 import org.jetbrains.annotations.Nullable;
 
@@ -91,7 +92,7 @@ public class PurpleWubEnergyBall extends AbstractHurtingProjectile {
         boolean isMovingY = getDeltaMovement().y > 0 || getDeltaMovement().y < 0;
         boolean isMovingZ = getDeltaMovement().z > 0 || getDeltaMovement().z < 0;
         // this energy ball doesn't last forever!
-        if(count >= 100){
+        if(count >= Config.PURPLE_WUB_ENERGY_BALL_LIFETIME.getAsInt()){
             this.discard();
         }
         if(isMovingX || isMovingY || isMovingZ){
@@ -132,28 +133,11 @@ public class PurpleWubEnergyBall extends AbstractHurtingProjectile {
                     },
                     pos -> {
                         if(pos.equals(hitPos)){
-                            //serverLevel.getGameRules().getRule(GameRules.RULE_MOBGRIEFING).get()
-
-                            // only do this one if mobs can grief
-
-                            if(serverLevel.getBlockState(pos).is(Tags.Blocks.STONES)){
-                                if(serverLevel.getRandom().nextIntBetweenInclusive(1,10) >= 7){
-                                    serverLevel.setBlock(pos,Blocks.AIR.defaultBlockState(),3);
-                                }
+                            if(serverLevel.getBlockState(pos).is(Blocks.OBSIDIAN)){
+                                serverLevel.explode(null,pos.getX(),pos.getY(),pos.getZ(),20, Level.ExplosionInteraction.TNT);
                             }
-                            else if(serverLevel.getBlockState(pos).is(Tags.Blocks.SANDS) || serverLevel.getBlockState(pos).is(Tags.Blocks.SANDSTONE_BLOCKS)){
-                                serverLevel.setBlock(pos,Blocks.AIR.defaultBlockState(),3);
-                            }
-                            else if(serverLevel.getBlockState(pos).is(Tags.Blocks.ORES)){
-                                serverLevel.destroyBlock(pos,true,getOwner());
-                                serverLevel.setBlock(pos,Blocks.COAL_BLOCK.defaultBlockState(),3);
-                            }
-                            else if (serverLevel.getBlockState(pos).is(Blocks.COAL_BLOCK)) {
-                                serverLevel.destroyBlock(pos,true,getOwner());
-                                serverLevel.setBlock(pos,Blocks.COAL_BLOCK.defaultBlockState(),3);
-                            }
-                            else if(serverLevel.getBlockState(pos).is(Blocks.OBSIDIAN)){
-                                serverLevel.explode(null,pos.getX(),pos.getY(),pos.getZ(),16, Level.ExplosionInteraction.BLOCK);
+                            else{
+                                serverLevel.explode(null,pos.getX(),pos.getY(),pos.getZ(),11, Level.ExplosionInteraction.TNT);
                             }
                             return BlockPos.TraversalNodeStatus.ACCEPT;
                         }

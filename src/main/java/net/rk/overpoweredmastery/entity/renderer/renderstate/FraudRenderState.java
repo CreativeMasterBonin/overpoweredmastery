@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class FraudRenderState extends HumanoidRenderState {
     public boolean isUnhappy;
+    public int skinVariant;
 
     public ItemStack getUseItemStackForArm(HumanoidArm arm) {
         return this.getMainHandItemStack();

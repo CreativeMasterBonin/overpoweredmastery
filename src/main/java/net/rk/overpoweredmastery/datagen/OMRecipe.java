@@ -130,6 +130,18 @@ public class OMRecipe extends RecipeProvider {
                 .unlockedBy("has_thingy",has(Items.MUSIC_DISC_CREATOR))
                 .save(this.output,"oxidized_trial_wubs");
 
+        shaped(RecipeCategory.COMBAT, OMItems.WEEPING_WUBS,1)
+                .define('c', Items.GHAST_TEAR)
+                .define('g', Items.CROSSBOW)
+                .define('d', Items.MUSIC_DISC_TEARS)
+                .define('n', Items.DRIED_GHAST)
+                .define('j', Items.JUKEBOX)
+                .pattern("gcc")
+                .pattern("ndn")
+                .pattern("cjn")
+                .unlockedBy("has_thingy",has(Items.MUSIC_DISC_TEARS))
+                .save(this.output,"weeping_wubs");
+
         shapeless(RecipeCategory.MISC,OMItems.MOVING_PROBABLE_BLOCK_ITEM,1)
                 .requires(Ingredient.of(Items.LAPIS_BLOCK))
                 .requires(ItemTags.TRIM_MATERIALS)

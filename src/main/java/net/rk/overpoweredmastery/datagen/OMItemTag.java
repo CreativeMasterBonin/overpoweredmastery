@@ -3,12 +3,10 @@ package net.rk.overpoweredmastery.datagen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ItemTagsProvider;
 import net.rk.overpoweredmastery.OverpoweredMastery;
-import net.rk.overpoweredmastery.block.OMBlocks;
 import net.rk.overpoweredmastery.item.OMItems;
 
 import java.util.concurrent.CompletableFuture;
@@ -20,6 +18,24 @@ public class OMItemTag extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        tag(OMTags.FRAUD_WANTS)
+                .addTag(ItemTags.SWORDS)
+                .addTag(ItemTags.AXES)
+                .addTag(Tags.Items.BUCKETS_MILK)
+                .addTag(ItemTags.PARROT_POISONOUS_FOOD)
+                .add(Items.POTION)
+                .addTag(ItemTags.BOW_ENCHANTABLE)
+                .addTag(ItemTags.CROSSBOW_ENCHANTABLE)
+                .addTag(ItemTags.MACE_ENCHANTABLE)
+                .addTag(ItemTags.TRIDENT_ENCHANTABLE)
+                .addTag(ItemTags.HEAD_ARMOR)
+                .addTag(ItemTags.CHEST_ARMOR)
+                .addTag(ItemTags.LEG_ARMOR)
+                .addTag(ItemTags.FOOT_ARMOR)
+                .addTag(Tags.Items.SEEDS)
+                .addTag(OMTags.MUSIC_DISC_WUBS)
+                .addTag(Tags.Items.FOODS)
+        ;
         tag(OMTags.SUPPORTS_DELICATE_TOUCH_ITEM)
                 .add(Items.REINFORCED_DEEPSLATE)
                 .add(Items.BUDDING_AMETHYST)
@@ -27,6 +43,7 @@ public class OMItemTag extends ItemTagsProvider {
         tag(OMTags.ULTIMATE_TOOLS)
                 .add(OMItems.ULTIMATE_SWORD.asItem())
                 .add(OMItems.ULTIMATE_PICKAXE.asItem())
+                .add(OMItems.ULTIMATE_SHOVEL.asItem())
                 .add(OMItems.ULTIMATE_HOE.asItem())
                 .add(OMItems.ULTIMATE_BOW.asItem())
                 .add(OMItems.ULTIMATE_FISHING_ROD.asItem())
@@ -45,6 +62,7 @@ public class OMItemTag extends ItemTagsProvider {
                 .add(OMItems.NETHER_WUBS.asItem())
                 .add(OMItems.TRIAL_WUBS.asItem())
                 .add(OMItems.OXIDIZED_TRIAl_WUBS.asItem())
+                .add(OMItems.WEEPING_WUBS.asItem())
         ;
         tag(OMTags.SPEARS)
                 .add(OMItems.TEST_SPEAR.asItem())
@@ -57,6 +75,9 @@ public class OMItemTag extends ItemTagsProvider {
         ;
         tag(ItemTags.SPEARS)
                 .addTag(OMTags.SPEARS)
+        ;
+        tag(ItemTags.SHOVELS)
+                .add(OMItems.ULTIMATE_SHOVEL.asItem())
         ;
         tag(ItemTags.PICKAXES)
                 .add(OMItems.ULTIMATE_PICKAXE.asItem(),OMItems.ULTRA_PICKAXE.asItem())

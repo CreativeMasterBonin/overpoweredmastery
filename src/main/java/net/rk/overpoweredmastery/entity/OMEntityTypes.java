@@ -59,6 +59,13 @@ public class OMEntityTypes{
                     .noLootTable()
                     .fireImmune());
 
+    public static final DeferredHolder<EntityType<?>,EntityType<WeepingWubEnergyBall>> WEEPING_WUB_ENERGY_BALL = register("weeping_wub_energy_ball",
+            () -> EntityType.Builder.<WeepingWubEnergyBall>of(WeepingWubEnergyBall::new,MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(16)
+                    .noLootTable()
+                    .fireImmune());
+
     public static final DeferredHolder<EntityType<?>,EntityType<Fraud>> FRAUD = register("fraud",
             () -> EntityType.Builder.<Fraud>of(Fraud::new,MobCategory.MISC)
                     .sized(0.6F, 1.95F)

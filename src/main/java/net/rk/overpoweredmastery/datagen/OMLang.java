@@ -77,9 +77,12 @@ public class OMLang extends LanguageProvider {
         add(OMItems.PENULTIMATE_SWORD_LIGHT.asItem(),"Penultimate Sword (Light Phase)");
         add(OMItems.ULTRA_SWORD.asItem(),"Ultra Sword");
         add(OMItems.ULTIMATE_SWORD.asItem(),"Ultimate Sword");
+        // axes
         // pickaxes
         add(OMItems.ULTIMATE_PICKAXE.asItem(),"Ultimate Pickaxe");
         add(OMItems.ULTRA_PICKAXE.asItem(),"Ultra Pickaxe");
+        // shovels
+        add(OMItems.ULTIMATE_SHOVEL.asItem(),"Ultimate Shovel");
         // hoes
         add(OMItems.ULTIMATE_HOE.asItem(),"Ultimate Hoe");
         // bows
@@ -248,6 +251,19 @@ public class OMLang extends LanguageProvider {
         add("overpoweredmastery.configuration.phase_block_existence_time.tooltip", "The time in ticks selection blocks can last for (standing in time not affected)");
         add("overpoweredmastery.configuration.strange_stone_drop_percentage", "Strange Stone Drop Percentage");
         add("overpoweredmastery.configuration.strange_stone_drop_percentage.tooltip", "The percentage chance that a strange stone will drop from blocks tagged 'can_drop_strange_stone'");
+
+        add("overpoweredmastery.configuration.red_wub_energy_ball_lifetime","Red Wub Energy Ball - Lifetime");
+        add("overpoweredmastery.configuration.red_wub_energy_ball_lifetime.tooltip", "The lifetime of the projectile");
+        add("overpoweredmastery.configuration.chicken_wub_energy_ball_lifetime","Chicken Wub Energy Ball - Lifetime");
+        add("overpoweredmastery.configuration.chicken_wub_energy_ball_lifetime.tooltip", "The lifetime of the projectile");
+        add("overpoweredmastery.configuration.green_wub_energy_ball_lifetime","Green Wub Energy Ball - Lifetime");
+        add("overpoweredmastery.configuration.green_wub_energy_ball_lifetime.tooltip", "The lifetime of the projectile");
+        add("overpoweredmastery.configuration.weeping_wub_energy_ball_lifetime","Weeping Wub Energy Ball - Lifetime");
+        add("overpoweredmastery.configuration.weeping_wub_energy_ball_lifetime.tooltip", "The lifetime of the projectile");
+        add("overpoweredmastery.configuration.trial_wub_energy_ball_lifetime","Trial Wub Energy Ball - Lifetime");
+        add("overpoweredmastery.configuration.trial_wub_energy_ball_lifetime.tooltip", "The lifetime of the projectile");
+        add("overpoweredmastery.configuration.purple_wub_energy_ball_lifetime","Purple Wub Energy Ball - Lifetime");
+        add("overpoweredmastery.configuration.purple_wub_energy_ball_lifetime.tooltip", "The lifetime of the projectile");
 
 
         add("overpoweredmastery.configuration.section.overpoweredmastery.common.toml", "Server & Client");
